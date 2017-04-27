@@ -14,6 +14,7 @@ function [config, store, obs] = ceco1representation(config, setting, data)
 if nargin==0, censeCoder('do', 1, 'mask', {}); return; else store=[]; obs=[]; end
                                                                                  
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
+addpath(genpath('util'));
 
 sr = 44100;
 l_frame = 4096;

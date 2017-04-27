@@ -14,7 +14,8 @@ function [config, store, obs] = ceco3metrics(config, setting, data)
 if nargin==0, censeCoder('do', 3, 'mask', {}); return; else store=[]; obs=[]; end
                                                                                  
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\libsvm-3.22'));
-addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'))
+addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
+addpath(genpath('util'));
 
 %% TODO: Update classification part with stft averaging support ?
 % 25/04/17: merged 'metric' and 'dataset' factors
@@ -69,7 +70,7 @@ switch setting.dataset
         obs.csii = csii{1};
     case 'urbansound8k' % Classification
         %% Feature extraction
-        load labels;
+        if ispc; load('util\labels.mat'); else load('util/labels.mat'); end
         load_data = expLoad(config, [], 1);        
         x_desc = cell(length(load_data.x_mel), 1);
         for ind_fold = 1:length(load_data.x_mel)

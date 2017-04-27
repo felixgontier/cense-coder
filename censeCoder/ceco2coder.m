@@ -13,6 +13,8 @@ function [config, store, obs] = ceco2coder(config, setting, data)
 % Set behavior for debug mode                                                    
 if nargin==0, censeCoder('do', 2, 'mask', {}); return; else store=[]; obs=[]; end
            
+addpath(genpath('util'));
+
 %% TODO: add support of global dict
 sr = 44100;
 l_frame = 4096;

@@ -16,6 +16,7 @@ if nargin==0, censeCoder('do', 4, 'mask', {}); return; else store=[]; obs=[]; en
 %% TODO: Swap steps 3 and 4 for a cleaner structure as decoding requires step 2 output
 
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
+addpath(genpath('util'));
 
 load_data = expLoad(config, [], 2);
 
