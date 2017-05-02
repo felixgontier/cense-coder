@@ -17,11 +17,12 @@ addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
 addpath(genpath('util'));
 
 sr = 44100;
-l_frame = 4096;
+l_frame = 2048;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings
-    n_avg = ceil(n_fps/setting.fps); % Number of consecutive frames to average into one
+    n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
+    disp(['Chosen FPS is ' num2str(setting.fps) ', actual one is ' num2str(n_fps/n_avg) '.']);
 end
 
 %% Wave files paths

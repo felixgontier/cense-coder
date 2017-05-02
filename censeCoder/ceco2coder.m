@@ -17,7 +17,7 @@ addpath(genpath('util'));
 
 %% TODO: add support of global dict
 sr = 44100;
-l_frame = 4096;
+l_frame = 2048;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = setting.fps; % Number of frames per second with custom settings

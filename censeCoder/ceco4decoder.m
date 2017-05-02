@@ -21,11 +21,11 @@ addpath(genpath('util'));
 load_data = expLoad(config, [], 2);
 
 sr = 44100;
-l_frame = 4096;
+l_frame = 2048;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings
-    n_avg = ceil(n_fps/setting.fps); % Number of consecutive frames to average into one
+    n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
 end
 
 
@@ -79,5 +79,5 @@ for ind_fold = 1:length(load_data.x_mel_max)
         x{ind_fold}{ind_file} = invpowspec(x_spec, sr, l_frame/sr, l_hop/sr);
     end
 end
-
-sound(x{1}{1}, sr);
+audiowrite(['..\..\decoded_samples\Sample_' num2str(setting.fps) '_' num2str(setting.mel) '_' num2str(setting.quant) '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
+% sound(x{1}{1}, sr);
