@@ -15,9 +15,22 @@ if nargin==0, censeCoder('do', 2, 'mask', {}); return; else store=[]; obs=[]; en
            
 addpath(genpath('util'));
 
-%% TODO: add support of global dict
+if ~setting.quant
+    warning('Skipping ''coding'' step: no quantification is applied.');
+    store.x_huff = [];
+    store.dict = [];
+    store.huff_len = [];
+%     store.x_mel_max = data.x_mel_max;
+%     store.n_frames = data.n_frames;
+%     if setting.fps; store.n_frames_avg = data.n_frames_avg; end
+
+    % Observations
+    obs.code_len = [];
+    obs.bitrate = [];
+    return;
+end
 sr = 44100;
-l_frame = 2048;
+l_frame = 1024;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = setting.fps; % Number of frames per second with custom settings

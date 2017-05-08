@@ -17,7 +17,7 @@ addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
 addpath(genpath('util'));
 
 sr = 44100;
-l_frame = 2048;
+l_frame = 1024;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings

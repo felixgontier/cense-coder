@@ -24,13 +24,41 @@ switch setting.dataset
         % Load step 1 results data
         load_data = expLoad(config, [], 1);
         sr = 44100;
-        l_frame = 2048;
+        l_frame = 1024;
         l_hop = 0.5*l_frame;
         if setting.fps % 0 means none
             n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings
             n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
         end
 
+        if ispc; datapath = [config.inputPath 'rush\rush_clean_spec_' num2str(l_frame) '.mat']; else datapath = [config.inputPath 'rush/rush_clean_spec_' num2str(l_frame) '.mat']; end
+        if exist(datapath)
+            load(datapath);
+        else
+            if ispc; datapath = [config.inputPath 'rush\']; else datapath = [config.inputPath 'rush/']; end
+            rush_dir = dir(datapath);
+            rush_names = {rush_dir.name};
+            ind_wav = 0; % Real number of .wav files
+            for ind_file = 1:numel(rush_names)
+                if length(rush_names{ind_file}) > 4 && strcmp(rush_names{ind_file}(end-3:end), '.wav')
+                    ind_wav = ind_wav+1;
+                    file_path{1}{ind_wav} = [datapath rush_names{ind_file}];
+                end
+            end
+            for ind_file = 1:length(file_path{1})
+                [x, Fs_temp] = audioread(file_path{1}{ind_file});
+                x = resample(x(:, 1), sr, Fs_temp);
+                x = x./max(abs(x));
+                x(x==0) = eps;
+                if length(x)<l_frame; x=[x;zeros(l_frame-length(x),1)]; end
+                %x = x(1:end-mod(end, l_frame*l_hop),1); % Rounding of x size
+                x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)];
+                %% Magnitude spectrogram via STFT
+                x_spec{ind_file} = powspec(x, sr, l_frame/sr, l_hop/sr, 0);
+            end
+            save([datapath 'rush_clean_spec_' num2str(l_frame) '.mat'], 'x_spec'); % Save for future use
+        end
+        
         for ind_file = 1:length(load_data.x_mel{1})
             disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(load_data.x_mel{1})) '...']);
             % Prep the data for I3 computation
@@ -46,33 +74,6 @@ switch setting.dataset
                 y_spec{ind_file} = y_spec{ind_file}(:, 1:load_data.n_frames{1}{ind_file}); % Truncate to obtain same size as before averaging
             end
             y_spec{ind_file}(y_spec{ind_file} == 0) = eps;
-            if ispc; datapath = [config.inputPath 'rush\rush_clean_spec_' num2str(l_frame) '.mat']; else datapath = [config.inputPath 'rush/rush_clean_spec_' num2str(l_frame) '.mat']; end
-            if exist(datapath)
-                load(datapath);
-            else
-                if ispc; datapath = [config.inputPath 'rush\']; else datapath = [config.inputPath 'rush/']; end
-                rush_dir = dir(datapath);
-                rush_names = {rush_dir.name};
-                ind_wav = 0; % Real number of .wav files
-                for ind_file = 1:numel(rush_names)
-                    if length(rush_names{ind_file}) > 4 && strcmp(rush_names{ind_file}(end-3:end), '.wav')
-                        ind_wav = ind_wav+1;
-                        file_path{1}{ind_wav} = [datapath rush_names{ind_file}];
-                    end
-                end
-                for ind_file = 1:length(file_path{1})
-                    [x, Fs_temp] = audioread(file_path{1}{ind_file});
-                    x = resample(x(:, 1), sr, Fs_temp);
-                    x = x./max(abs(x));
-                    x(x==0) = eps;
-                    if length(x)<l_frame; x=[x;zeros(l_frame-length(x),1)]; end
-                    %x = x(1:end-mod(end, l_frame*l_hop),1); % Rounding of x size
-                    x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)];
-                    %% Magnitude spectrogram via STFT
-                    x_spec{ind_file} = powspec(x, sr, l_frame/sr, l_hop/sr, 0);
-                end
-                save(['rush_clean_spec_' num2str(l_frame) '.mat'], 'x_spec'); % Save for future use
-            end
             
             msc{ind_file} = ((abs(sum(sqrt(x_spec{ind_file}).*sqrt(y_spec{ind_file}), 2))).^2)./(sum(x_spec{ind_file}, 2).*sum(y_spec{ind_file}, 2));
             msc_mat(ind_file) = mean(msc{ind_file});

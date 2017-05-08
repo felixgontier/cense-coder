@@ -21,7 +21,7 @@ addpath(genpath('util'));
 load_data = expLoad(config, [], 2);
 
 sr = 44100;
-l_frame = 2048;
+l_frame = 1024;
 l_hop = 0.5*l_frame;
 if setting.fps % 0 means none
     n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings
@@ -50,7 +50,7 @@ end
 %% File reconstruction
 mel_p = 0;
 for ind_fold = 1:length(load_data.x_mel_max)
-    for ind_file = 1:length(load_data.x_mel_max{ind_fold})
+    for ind_file = 1:1%length(load_data.x_mel_max{ind_fold})
         %% Fold/File separation
         if setting.fps
             x_mel = x_mel_mat(:, mel_p+1:mel_p+load_data.n_frames_avg{ind_fold}{ind_file});
@@ -76,8 +76,24 @@ for ind_fold = 1:length(load_data.x_mel_max)
         x_spec(x_spec == 0) = eps;
         
         %% Signal/Phase reconstruction
+        % White noise scaling
         x{ind_fold}{ind_file} = invpowspec(x_spec, sr, l_frame/sr, l_hop/sr);
+        
+        % Griffin and Lim algo
+%         n_iter = 20;
+%         n_win = size(x_spec, 2);
+%         win = hanning(l_frame);
+%         x_temp = randn(l_frame+(n_win-1)*l_hop, 1); % Random values initialisation
+%         iter = 1;
+%         while iter < n_iter+1
+%             disp(['Iteration ' num2str(iter) ' of ' num2str(n_iter) '...']);
+%             iter = iter+1;
+%             x_stft = specgram(x_temp, l_frame, sr, win, l_hop);
+%             b = (sqrt(x_spec)/32768).*x_stft./abs(x_stft); % As described in G&L paper
+%             % b = (sqrt(x_spec)/32768).*exp(1i*angle(x_stft)); % Also works
+%             x_temp = istft(b, l_hop, l_frame, sr);
+%         end
+%         x{ind_fold}{ind_file} = x_temp;
     end
 end
 audiowrite(['..\..\decoded_samples\Sample_' num2str(setting.fps) '_' num2str(setting.mel) '_' num2str(setting.quant) '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
-% sound(x{1}{1}, sr);
