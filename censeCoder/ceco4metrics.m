@@ -1,4 +1,4 @@
-function [config, store, obs] = ceco3metrics(config, setting, data)              
+function [config, store, obs] = ceco4metrics(config, setting, data)              
 % ceco3metrics METRICS step of the expLanes experiment censeCoder                
 %    [config, store, obs] = ceco3metrics(config, setting, data)                  
 %      - config : expLanes configuration state                                   
@@ -11,7 +11,7 @@ function [config, store, obs] = ceco3metrics(config, setting, data)
 % Date: 20-Apr-2017                                                              
                                                                                  
 % Set behavior for debug mode                                                    
-if nargin==0, censeCoder('do', 3, 'mask', {}); return; else store=[]; obs=[]; end
+if nargin==0, censeCoder('do', 4, 'mask', {}); return; else store=[]; obs=[]; end
                                                                                  
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\libsvm-3.22'));
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
@@ -21,8 +21,8 @@ addpath(genpath('util'));
 % 25/04/17: merged 'metric' and 'dataset' factors
 switch setting.dataset
     case 'speech' % Intelligibility I3 metric
-        % Load step 1 results data
-        load_data = expLoad(config, [], 1);
+%         % Load step 1 results data
+%         load_data = expLoad(config, [], 1);
         sr = 44100;
         l_frame = 1024;
         l_hop = 0.5*l_frame;
@@ -51,31 +51,36 @@ switch setting.dataset
                 x = x./max(abs(x));
                 x(x==0) = eps;
                 if length(x)<l_frame; x=[x;zeros(l_frame-length(x),1)]; end
-                %x = x(1:end-mod(end, l_frame*l_hop),1); % Rounding of x size
                 x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)];
                 %% Magnitude spectrogram via STFT
-                x_spec{ind_file} = powspec(x, sr, l_frame/sr, l_hop/sr, 0);
+%                 x_spec{ind_file} = powspec(x, sr, l_frame/sr, l_hop/sr, 0);
+                x_spec{ind_file} = specgram(x, l_frame, sr, l_frame, l_frame-l_hop);
             end
             save([datapath 'rush_clean_spec_' num2str(l_frame) '.mat'], 'x_spec'); % Save for future use
         end
         
-        for ind_file = 1:length(load_data.x_mel{1})
-            disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(load_data.x_mel{1})) '...']);
+%         for ind_file = 1:length(load_data.x_mel{1})
+%             disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(load_data.x_mel{1})) '...']);
+%             % Prep the data for I3 computation
+%             if setting.quant ~= 0
+%                 y_mel{ind_file} = exp(double(load_data.x_mel{1}{ind_file}).*load_data.x_mel_max{1}{ind_file}./(2^(setting.quant-1)-1)); % Datatype size minus 1 for the delta-comp
+%             else
+%                 y_mel{ind_file} = exp(load_data.x_mel{1}{ind_file});
+%             end
+%             %y_mel{ind_file}(y_mel{ind_file} == 0) = eps;
+%             y_spec{ind_file} = invaudspec(y_mel{ind_file}, sr, l_frame, 'mel', 0, sr/2, 1, 1);
+%             if setting.fps
+%                 y_spec{ind_file} = reshape(repmat(y_spec{ind_file}, n_avg, 1), size(y_spec{ind_file}, 1), []); % Replicate STFT
+%                 y_spec{ind_file} = y_spec{ind_file}(:, 1:load_data.n_frames{1}{ind_file}); % Truncate to obtain same size as before averaging
+%             end
+%             y_spec{ind_file}(y_spec{ind_file} == 0) = eps;
+        for ind_file = 1:length(data.x_rec{1})
+            disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(data.x_rec{1})) '...']);
             % Prep the data for I3 computation
-            if setting.quant ~= 0
-                y_mel{ind_file} = exp(double(load_data.x_mel{1}{ind_file}).*load_data.x_mel_max{1}{ind_file}./(2^(setting.quant-1)-1)); % Datatype size minus 1 for the delta-comp
-            else
-                y_mel{ind_file} = exp(load_data.x_mel{1}{ind_file});
-            end
-            %y_mel{ind_file}(y_mel{ind_file} == 0) = eps;
-            y_spec{ind_file} = invaudspec(y_mel{ind_file}, sr, l_frame, 'mel', 0, sr/2, 1, 1);
-            if setting.fps
-                y_spec{ind_file} = reshape(repmat(y_spec{ind_file}, n_avg, 1), size(y_spec{ind_file}, 1), []); % Replicate STFT
-                y_spec{ind_file} = y_spec{ind_file}(:, 1:load_data.n_frames{1}{ind_file}); % Truncate to obtain same size as before averaging
-            end
-            y_spec{ind_file}(y_spec{ind_file} == 0) = eps;
-            
-            msc{ind_file} = ((abs(sum(sqrt(x_spec{ind_file}).*sqrt(y_spec{ind_file}), 2))).^2)./(sum(x_spec{ind_file}, 2).*sum(y_spec{ind_file}, 2));
+            y_spec = specgram(data.x_rec{1}{ind_file}, l_frame, sr, l_frame, l_frame-l_hop);
+
+%             msc{ind_file} = ((abs(sum(sqrt(x_spec{ind_file}).*sqrt(y_spec{ind_file}), 2))).^2)./(sum(x_spec{ind_file}, 2).*sum(y_spec{ind_file}, 2));
+            msc{ind_file} = ((abs(sum(x_spec{ind_file}.*conj(y_spec{ind_file}), 2))).^2)./(sum(abs(x_spec{ind_file}).^2, 2).*sum(abs(y_spec{ind_file}).^2, 2));
             msc_mat(ind_file) = mean(msc{ind_file});
             
             % Rounded-exponential (ro-ex) filter
@@ -83,8 +88,10 @@ switch setting.dataset
             w = sroexfilter(f); % filter amplitude coefficients
             
             for ind_frame = 1:size(y_spec{ind_file}, 2)
-                snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2))))./...
-                    (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2)))));
+%                 snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2))))./...
+%                     (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2)))));
+                snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(abs(y_spec{ind_file}(:, ind_frame)).^2, 1, size(w, 2))))./...
+                    (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(abs(y_spec{ind_file}(:, ind_frame)).^2, 1, size(w, 2)))));
             end
             t_csii = (snr_csii+15)/30; % normalisation
             csii{ind_file} = mean(mean(t_csii, 2));

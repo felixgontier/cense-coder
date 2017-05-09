@@ -66,7 +66,6 @@ for ind_fold = 1:length(file_path)
         x(x==0) = eps;
         if length(x)<l_frame; x=[x;zeros(l_frame-length(x),1)]; end
         % Rounding of x size
-        %x = x(1:end-mod(end, l_frame*l_hop),1); % Inf
         x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)]; % Sup
         %% Magnitude spectrogram via STFT
         x_spec = powspec(x, sr, l_frame/sr, l_hop/sr, 0);

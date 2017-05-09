@@ -1,60 +1,34 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%          Inverse Short-Time Fourier Transform        %
-%               with MATLAB Implementation             %
-%                                                      %
-% Author: M.Sc. Eng. Hristo Zhivomirov       12/26/13  %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function x = istft(x_stft, l_hop, wintype)
 
-function [x, t] = istft(stft, h, nfft, fs)
-
-% function: [x, t] = istft(stft, h, nfft, fs)
-% stft - STFT matrix (only unique points, time across columns, freq across rows)
-% h - hop size
-% nfft - number of FFT points
-% fs - sampling frequency, Hz
-% x - signal in the time domain
-% t - time vector, s
-
-% estimate the length of the signal
-coln = size(stft, 2);
-xlen = nfft + (coln-1)*h;
-x = zeros(1, xlen);
-
-% form a periodic hamming window
-win = hanning(nfft, 'periodic');
-
-% perform IFFT and weighted-OLA
-if rem(nfft, 2)                     % odd nfft excludes Nyquist point
-    for b = 0:h:(h*(coln-1))
-        % extract FFT points
-        X = stft(:, 1 + b/h);
-        X = [X; conj(X(end:-1:2))];
-        
-        % IFFT
-        xprim = real(ifft(X));
-        
-        % weighted-OLA
-        x((b+1):(b+nfft)) = x((b+1):(b+nfft)) + (xprim.*win)';
-    end
-else                                % even nfft includes Nyquist point
-    for b = 0:h:(h*(coln-1))
-        % extract FFT points
-        X = stft(:, 1+b/h);
-        X = [X; conj(X(end-1:-1:2))];
-        
-        % IFFT
-        xprim = real(ifft(X));
-        
-        % weighted-OLA
-        x((b+1):(b+nfft)) = x((b+1):(b+nfft)) + (xprim.*win)';
-    end
+if nargin < 3
+    wintype = 'hamming'; % Default window: hamming
 end
 
-W0 = sum(win.^2);                   % find W0
-x = x.*h/W0;                        % scale the weighted-OLA
+n_win = size(x_stft, 2);
+l_win = (size(x_stft, 1)-1)*2;
+x_stft = [x_stft; flipud(x_stft(2:end-1, :))];
+%% Window generation
+switch wintype % Other windows to implement
+    case 'hamming'
+        w = hamming(l_win, 'periodic');
+    case 'hanning'
+        w = hanning(l_win, 'periodic');
+    case 'rect'
+        w = ones(l_win, 1);
+end
 
-% calculate the time vector
-actxlen = length(x);                % find actual length of the signal
-t = (0:actxlen-1)/fs;               % generate time vector
+%% Inverse STFT
+x = zeros(l_win+(n_win-1)*l_hop, 1);
+w_norm = zeros(size(x));
+for indwin = 1:n_win
+    indt = (indwin-1)*l_hop; % Start time of the current window
+    x_temp = x_stft(:, indwin);
+    x_temp = real(ifft(x_temp));
+    x(indt+1:indt+l_win) = x(indt+1:indt+l_win) + x_temp.*w;
+    w_norm(indt+1:indt+l_win) = w_norm(indt+1:indt+l_win)+w.^2;
+end
+x = x./w_norm;
+x(x>1|x<-1|isnan(x)) = 0; % Hanning window border issues (dividing by small numbers)
 
 end
+
