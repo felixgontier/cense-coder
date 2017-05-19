@@ -1,9 +1,11 @@
-fps = 1:4 = = [2 4 6 8 10 20 0]
-mel = 1:4 =  = [10 20 30 40]
+fps = 1:4 = 10/1 = [2 4 6 8 10 20 0]
+mel = 1:4 = 10/1 = [10 20 30 40]
 quant = 1:4 =  = [0 4 5 6 7 8]
 dictgen = 2,3 =  = {'local', 'global'}
 htreealg = 2 =  = {'min', 'max'}
 textframe = 2 =  = [1 2 3 4 5 6 7 8 9 10]
 dataset = 1,2,4 =  = {'speech', 'urbansound8k'}
 classmethod = 4 = 7/2 = {'SVM', 'RF', 'DT', 'KNN'}
-phaserec = 3 =  = {'WNS', 'GL'}
+phaserec = 3 = 10/1 = {'WNS', 'GL'}
+desc = 1:4 = = {'mel', 'tob'}
+intelind = 4 = 7/1 = {'CSII', 'fwSNRseg'}

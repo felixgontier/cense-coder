@@ -17,19 +17,11 @@ addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\libsvm-3.22'));
 addpath(genpath('C:\Program Files\MATLAB\R2015b\toolbox\rastamat'));
 addpath(genpath('util'));
 
-%% TODO: Update classification part with stft averaging support ?
-% 25/04/17: merged 'metric' and 'dataset' factors
 switch setting.dataset
     case 'speech' % Intelligibility I3 metric
-%         % Load step 1 results data
-%         load_data = expLoad(config, [], 1);
         sr = 44100;
         l_frame = 1024;
         l_hop = 0.5*l_frame;
-        if setting.fps % 0 means none
-            n_fps = (sr+l_hop-l_frame)/l_hop; % Number of frames per second with base settings
-            n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
-        end
 
         if ispc; datapath = [config.inputPath 'rush\rush_clean_spec_' num2str(l_frame) '.mat']; else datapath = [config.inputPath 'rush/rush_clean_spec_' num2str(l_frame) '.mat']; end
         if exist(datapath)
@@ -53,74 +45,85 @@ switch setting.dataset
                 if length(x)<l_frame; x=[x;zeros(l_frame-length(x),1)]; end
                 x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)];
                 %% Magnitude spectrogram via STFT
-%                 x_spec{ind_file} = powspec(x, sr, l_frame/sr, l_hop/sr, 0);
                 x_spec{ind_file} = specgram(x, l_frame, sr, l_frame, l_frame-l_hop);
             end
             save([datapath 'rush_clean_spec_' num2str(l_frame) '.mat'], 'x_spec'); % Save for future use
         end
         
-%         for ind_file = 1:length(load_data.x_mel{1})
-%             disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(load_data.x_mel{1})) '...']);
-%             % Prep the data for I3 computation
-%             if setting.quant ~= 0
-%                 y_mel{ind_file} = exp(double(load_data.x_mel{1}{ind_file}).*load_data.x_mel_max{1}{ind_file}./(2^(setting.quant-1)-1)); % Datatype size minus 1 for the delta-comp
-%             else
-%                 y_mel{ind_file} = exp(load_data.x_mel{1}{ind_file});
-%             end
-%             %y_mel{ind_file}(y_mel{ind_file} == 0) = eps;
-%             y_spec{ind_file} = invaudspec(y_mel{ind_file}, sr, l_frame, 'mel', 0, sr/2, 1, 1);
-%             if setting.fps
-%                 y_spec{ind_file} = reshape(repmat(y_spec{ind_file}, n_avg, 1), size(y_spec{ind_file}, 1), []); % Replicate STFT
-%                 y_spec{ind_file} = y_spec{ind_file}(:, 1:load_data.n_frames{1}{ind_file}); % Truncate to obtain same size as before averaging
-%             end
-%             y_spec{ind_file}(y_spec{ind_file} == 0) = eps;
+        f = (0:sr/2/(l_frame/2):sr/2)'/1000; % fft frequency vector in kHz
+        % Rounded-exponential (ro-ex) filter
+        w = sroexfilter(f); % filter amplitude coefficients
         for ind_file = 1:length(data.x_rec{1})
             disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(data.x_rec{1})) '...']);
-            % Prep the data for I3 computation
+            % Prep the data for CSII computation
             y_spec = specgram(data.x_rec{1}{ind_file}, l_frame, sr, l_frame, l_frame-l_hop);
 
-%             msc{ind_file} = ((abs(sum(sqrt(x_spec{ind_file}).*sqrt(y_spec{ind_file}), 2))).^2)./(sum(x_spec{ind_file}, 2).*sum(y_spec{ind_file}, 2));
-            msc{ind_file} = ((abs(sum(x_spec{ind_file}.*conj(y_spec{ind_file}), 2))).^2)./(sum(abs(x_spec{ind_file}).^2, 2).*sum(abs(y_spec{ind_file}).^2, 2));
-            msc_mat(ind_file) = mean(msc{ind_file});
-            
-            % Rounded-exponential (ro-ex) filter
-            f = (0:sr/2/(l_frame/2):sr/2)'/1000; % fft frequency vector in kHz
-            w = sroexfilter(f); % filter amplitude coefficients
-            
-            for ind_frame = 1:size(y_spec{ind_file}, 2)
-%                 snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2))))./...
-%                     (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(y_spec{ind_file}(:, ind_frame), 1, size(w, 2)))));
-                snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(abs(y_spec{ind_file}(:, ind_frame)).^2, 1, size(w, 2))))./...
-                    (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(abs(y_spec{ind_file}(:, ind_frame)).^2, 1, size(w, 2)))));
-            end
-            t_csii = (snr_csii+15)/30; % normalisation
-            csii{ind_file} = mean(mean(t_csii, 2));
-            
+            if strcmp(setting.intelind, 'CSII')
+                msc{ind_file} = ((abs(sum(x_spec{ind_file}.*conj(y_spec), 2))).^2)./(sum((abs(x_spec{ind_file})).^2, 2).*sum((abs(y_spec)).^2, 2));
+                msc_mat(ind_file) = mean(msc{ind_file});
+                for ind_frame = 1:size(y_spec, 2)
+                    snr_csii(ind_frame, :) = 10*log10((sum(w.*repmat(msc{ind_file}, 1, size(w, 2)).*repmat(abs(y_spec(:, ind_frame)).^2, 1, size(w, 2))))./...
+                        (sum(w.*(1-repmat(msc{ind_file}, 1, size(w, 2))).*repmat(abs(y_spec(:, ind_frame)).^2, 1, size(w, 2)))));
+                end
+                t_csii = (snr_csii+15)/30; % normalisation
+                csii(ind_file) = mean(mean(t_csii, 2));
+
+%                 P = sum(msc{ind_file}.*(abs(y_spec)).^2, 2);
+%                 N = sum((1-msc{ind_file}).*(abs(y_spec)).^2, 2);
+%                 snr_csii = 10*log10((sum(w.*repmat(P, [1 size(w, 2)])))./(sum(w.*repmat(N, [1 size(w, 2)]))));
+%                 t_csii = (snr_csii+15)/30; % normalisation
+%                 csii{ind_file} = mean(t_csii);
+            elseif strcmp(setting.intelind, 'fwSNRseg')
+                X = [];
+                Y = [];
+                for ind_band = 1:size(w, 2)
+                    X(ind_band, :) = sum(repmat(w(:, ind_band), 1, size(x_spec{ind_file}, 2)).*abs(x_spec{ind_file}), 1);
+                    Y(ind_band, :) = sum(repmat(w(:, ind_band), 1, size(y_spec, 2)).*abs(y_spec), 1);
+                end
+                fwSNRseg(ind_file) = (10/size(y_spec, 2))*sum(sum(log10((X.^2)./((X-Y).^2)), 1)/size(w, 2), 2);
+            end            
         end
-        obs.msc_mat = msc_mat;
-        obs.msc = msc;
-        
-        obs.csii = csii{1};
+        if strcmp(setting.intelind, 'CSII')
+            obs.msc_mat = msc_mat;
+            obs.msc = msc;
+            obs.csii = csii;
+        elseif strcmp(setting.intelind, 'fwSNRseg')
+            obs.fwSNRseg = fwSNRseg;
+        end
+        %obs.csii = csii{1};
     case 'urbansound8k' % Classification
         %% Feature extraction
         if ispc; load('util\labels.mat'); else load('util/labels.mat'); end
-        load_data = expLoad(config, [], 1);        
-        x_desc = cell(length(load_data.x_mel), 1);
-        for ind_fold = 1:length(load_data.x_mel)
-            disp(['Processing fold ' num2str(ind_fold) ' of ' num2str(length(load_data.x_mel)) '...']);
-            x_desc{ind_fold} = zeros(275, 1);
-            for ind_file = 1:length(load_data.x_mel{ind_fold})
-                if setting.quant ~= 0
-                    x_mel{ind_fold}{ind_file} = double(load_data.x_mel{ind_fold}{ind_file}).*load_data.x_mel_max{ind_fold}{ind_file}./(2^(setting.quant-1)-1); % Datatype size minus 1 for the delta-comp
-                else
-                    x_mel{ind_fold}{ind_file} = load_data.x_mel{ind_fold}{ind_file};
-                end
-                x_mel{ind_fold}{ind_file}(x_mel{ind_fold}{ind_file} == 0) = eps;
-                x_cep = spec2cep(exp(x_mel{ind_fold}{ind_file}), 25, 2);
-                if size(x_cep, 2)>1
-                    x_desc{ind_fold}(:, ind_file) = [min(x_cep')'; max(x_cep')'; median(x_cep, 2); mean(x_cep, 2); var(x_cep, 0, 2); skewness(x_cep, 1, 2); kurtosis(x_cep, 1, 2); mean(diff(x_cep, 1, 2), 2); var(diff(x_cep, 1, 2), 0, 2); mean(diff(x_cep, 2, 2), 2); var(diff(x_cep, 2, 2), 0, 2)];
-                else
-                    x_desc{ind_fold}(:, ind_file) = [x_cep; x_cep; median(x_cep, 2); mean(x_cep, 2); var(x_cep, 0, 2); skewness(x_cep, 1, 2); kurtosis(x_cep, 1, 2); mean(diff(x_cep, 1, 2), 2); var(diff(x_cep, 1, 2), 0, 2); mean(diff(x_cep, 2, 2), 2); var(diff(x_cep, 2, 2), 0, 2)];
+        load_data = expLoad(config, [], 1);
+        x_desc = cell(length(load_data.X_desc), 1);
+        for ind_fold = 1:length(load_data.X_desc)
+            disp(['Processing fold ' num2str(ind_fold) ' of ' num2str(length(load_data.X_desc)) '...']);
+%             x_desc{ind_fold} = zeros(275, 1);
+            for ind_file = 1:length(load_data.X_desc{ind_fold})
+                if strcmp(setting.desc, 'mel')
+                    if setting.quant ~= 0
+                        X_mel{ind_fold}{ind_file} = double(load_data.X_desc{ind_fold}{ind_file}).*load_data.x_mel_max{ind_fold}{ind_file}./(2^(setting.quant-1)-1); % Datatype size minus 1 for the delta-comp
+                    else
+                        X_mel{ind_fold}{ind_file} = load_data.X_desc{ind_fold}{ind_file};
+                    end
+                    X_mel{ind_fold}{ind_file}(X_mel{ind_fold}{ind_file} == 0) = eps;
+                    X_cep = spec2cep(exp(X_mel{ind_fold}{ind_file}), 25, 2);
+                    if size(X_cep, 2)>1
+                        x_desc{ind_fold}(:, ind_file) = [min(X_cep')'; max(X_cep')'; median(X_cep, 2); mean(X_cep, 2); var(X_cep, 0, 2); skewness(X_cep, 1, 2); kurtosis(X_cep, 1, 2); mean(diff(X_cep, 1, 2), 2); var(diff(X_cep, 1, 2), 0, 2); mean(diff(X_cep, 2, 2), 2); var(diff(X_cep, 2, 2), 0, 2)];
+                    else
+                        x_desc{ind_fold}(:, ind_file) = [X_cep; X_cep; median(X_cep, 2); mean(X_cep, 2); var(X_cep, 0, 2); skewness(X_cep, 1, 2); kurtosis(X_cep, 1, 2); mean(diff(X_cep, 1, 2), 2); var(diff(X_cep, 1, 2), 0, 2); mean(diff(X_cep, 2, 2), 2); var(diff(X_cep, 2, 2), 0, 2)];
+                    end
+                elseif strcmp(setting.desc, 'tob')
+                    if setting.quant ~= 0
+                        X_tob = (double(load_data.X_desc{ind_fold}{ind_file}).*load_data.q_norm{ind_fold}{ind_file}(2)./(2^(setting.quant-1)-1))+load_data.q_norm{ind_fold}{ind_file}(1);
+                    else
+                        X_tob = load_data.X_desc{ind_fold}{ind_file};
+                    end
+                    if size(X_tob, 2)>1
+                        x_desc{ind_fold}(:, ind_file) = [min(X_tob')'; max(X_tob')'; median(X_tob, 2); mean(X_tob, 2); var(X_tob, 0, 2); skewness(X_tob, 1, 2); kurtosis(X_tob, 1, 2); mean(diff(X_tob, 1, 2), 2); var(diff(X_tob, 1, 2), 0, 2); mean(diff(X_tob, 2, 2), 2); var(diff(X_tob, 2, 2), 0, 2)];
+                    else
+                        x_desc{ind_fold}(:, ind_file) = [X_tob; X_tob; median(X_tob, 2); mean(X_tob, 2); var(X_tob, 0, 2); skewness(X_tob, 1, 2); kurtosis(X_tob, 1, 2); mean(diff(X_tob, 1, 2), 2); var(diff(X_tob, 1, 2), 0, 2); mean(diff(X_tob, 2, 2), 2); var(diff(X_tob, 2, 2), 0, 2)];
+                    end
                 end
                 
                 x_class{ind_fold}(ind_file, 1) = file_class(find(strcmp(file_name, load_data.wav_name{ind_fold}{ind_file}), 1));

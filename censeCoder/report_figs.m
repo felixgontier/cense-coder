@@ -35,10 +35,10 @@ end
 fig = openfig('report/figures/csii_fps_mel_8.fig');
 figure(fig);
 xlabel('Mel bands'), ylabel('CSII indicator'), grid on;
-load('report/tables/csii_base.mat');
-hold on, plot(4, data.meanData, 'LineWidth', 2, 'color', 'black', 'marker', 'x')
-legend([fps_lgd {'baseline'}], 'Location', 'northwest');
-axis([0.5 4.5 0.3 0.65]);
+%load('report/tables/csii_base.mat');
+%hold on, plot(4, data.meanData, 'LineWidth', 2, 'color', 'black', 'marker', 'x')
+%legend([fps_lgd {'baseline'}], 'Location', 'northwest');
+%axis([0.5 4.5 0.3 0.65]);
 % print(fig, '-dpdf', 'report/figures/processed/csii_fps_mel.pdf');
 % close all;
 
