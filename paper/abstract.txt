@@ -1,0 +1,24 @@
+An efficient audio coder for large scale acoustic environnment monitoring
+
+Felix Gontier, Mathieu Lagrange, Arnaud Can, Catherine Lavandier
+
+22
+
+350 words max
+
+
+The advent of low cost acoustic sensors together with the need to better monitor and comprehend the acoustic environment of urban and wilderness areas give rise to the deployment of experimental sensor networks such as the sonyc (wp.nyu.edu/sonyc) and cense (cense.ifsttar.fr) projects.
+
+Together with the estimation of acoustic indicators (Laeq, ...), one important aspect of those networks is their ability to detect the presence of sound source of interest ( bird calls, sirens, explosion, ...). This detection step can be operated online (on the sensors) or offline (on the data servers).
+
+The former is efficient in terms of data storage as only the detection events are transmitted. Though, it requires the availability of computing ressources on the sensors in order to perform the detection step, and the detection is done once and cannot be recomputed.
+
+The latter scheme has several benefits. First, the sensors can be autonomous in terms of energy, easing the deployment of the network. Second, it allows researchers to gather large amount of data that can be post processed and studied further offline. Data can be re analysed following newer classification schemes or using new indicators.
+
+But, for transmission from the sensors to the storage unit, the data needs to be encoded in an efficient way. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process in order to ensure the privacy of the citizens.
+
+The coding scheme described in this paper has the following features. It is of low bitrate: 1 kbps. It allows the computation of most of the standard acoustics indicators and the quantification induces only a reduced amount of degradation on the computation of those indicators: around 0.1 dB while the precision of class 2 sound level meters is of 1.5 to 3 dB.
+
+As far as acoustic event detection is concerned, we report equivalent performance of several state of the art classification schemes from features computed using raw audio data and encoded data. Finally, according to preliminary perceptual evaluation, the proposed coding scheme very strongly degrades the inteligibility, thus ensuring citizen privacy.
+
+In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community.
