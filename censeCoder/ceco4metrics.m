@@ -57,6 +57,7 @@ switch setting.dataset
             disp(['Processing file ' num2str(ind_file) ' of ' num2str(length(data.x_rec{1})) '...']);
             % Prep the data for CSII computation
             y_spec = specgram(data.x_rec{1}{ind_file}, l_frame, sr, l_frame, l_frame-l_hop);
+            if size(y_spec, 2) > size(x_spec{ind_file}, 2) y_spec = y_spec(:, 1:size(x_spec{ind_file}, 2)); elseif size(y_spec, 2) < size(x_spec{ind_file}, 2) x_spec{ind_file} = x_spec{ind_file}(:, 1:size(y_spec, 2)); end
 
             if strcmp(setting.intelind, 'CSII')
                 msc{ind_file} = ((abs(sum(x_spec{ind_file}.*conj(y_spec), 2))).^2)./(sum((abs(x_spec{ind_file})).^2, 2).*sum((abs(y_spec)).^2, 2));
@@ -119,10 +120,11 @@ switch setting.dataset
                     else
                         X_tob = load_data.X_desc{ind_fold}{ind_file};
                     end
-                    if size(X_tob, 2)>1
-                        x_desc{ind_fold}(:, ind_file) = [min(X_tob')'; max(X_tob')'; median(X_tob, 2); mean(X_tob, 2); var(X_tob, 0, 2); skewness(X_tob, 1, 2); kurtosis(X_tob, 1, 2); mean(diff(X_tob, 1, 2), 2); var(diff(X_tob, 1, 2), 0, 2); mean(diff(X_tob, 2, 2), 2); var(diff(X_tob, 2, 2), 0, 2)];
+                    X_cep = spec2cep((10.^(X_tob./10))*8192, 25, 2);
+                    if size(X_cep, 2)>1
+                        x_desc{ind_fold}(:, ind_file) = [min(X_cep')'; max(X_cep')'; median(X_cep, 2); mean(X_cep, 2); var(X_cep, 0, 2); skewness(X_cep, 1, 2); kurtosis(X_cep, 1, 2); mean(diff(X_cep, 1, 2), 2); var(diff(X_cep, 1, 2), 0, 2); mean(diff(X_cep, 2, 2), 2); var(diff(X_cep, 2, 2), 0, 2)];
                     else
-                        x_desc{ind_fold}(:, ind_file) = [X_tob; X_tob; median(X_tob, 2); mean(X_tob, 2); var(X_tob, 0, 2); skewness(X_tob, 1, 2); kurtosis(X_tob, 1, 2); mean(diff(X_tob, 1, 2), 2); var(diff(X_tob, 1, 2), 0, 2); mean(diff(X_tob, 2, 2), 2); var(diff(X_tob, 2, 2), 0, 2)];
+                        x_desc{ind_fold}(:, ind_file) = [X_cep; X_cep; median(X_cep, 2); mean(X_cep, 2); var(X_cep, 0, 2); skewness(X_cep, 1, 2); kurtosis(X_cep, 1, 2); mean(diff(X_cep, 1, 2), 2); var(diff(X_cep, 1, 2), 0, 2); mean(diff(X_cep, 2, 2), 2); var(diff(X_cep, 2, 2), 0, 2)];
                     end
                 end
                 

@@ -28,7 +28,7 @@ if strcmp(setting.desc, 'mel')
     end
 elseif strcmp(setting.desc, 'tob')
     l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
-    l_hop = l_frame; % No overlap
+    l_hop = 0.5*l_frame; % No overlap
     %% Filterbank calculation, can be replaced with constant matrix
     N = 2^13;
     N_filt = 2^17; % Design with a much greater precision
