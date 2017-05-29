@@ -1,6 +1,6 @@
 function x = istft(x_stft, l_frame, l_hop, wintype)
 
-if nargin < 3
+if nargin < 4
     wintype = 'hamming'; % Default window: hamming
 end
 
@@ -24,8 +24,8 @@ for indwin = 1:n_win
     indt = (indwin-1)*l_hop; % Start time of the current window
     x_temp = x_stft(:, indwin);
     x_temp = real(ifft(x_temp));
-    x(indt+1:indt+l_win) = x(indt+1:indt+l_win) + x_temp(1:l_win);%.*w;
-    w_norm(indt+1:indt+l_win) = w_norm(indt+1:indt+l_win)+w;%.^2;
+    x(indt+1:indt+l_win) = x(indt+1:indt+l_win) + x_temp(1:l_win).*w;
+    w_norm(indt+1:indt+l_win) = w_norm(indt+1:indt+l_win)+w.^2;
 end
 x = x./w_norm;
 

@@ -27,7 +27,7 @@ if strcmp(setting.desc, 'mel')
     end
 elseif strcmp(setting.desc, 'tob')
     l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
-    l_hop = l_frame; % No overlap
+    l_hop = 0.5*l_frame; % No overlap
     %% Filterbank calculation, can be replaced with constant matrix
     N = 2^13;
     N_filt = 2^17; % Design with a much greater precision
@@ -105,13 +105,12 @@ for ind_fold = 1:length(X_desc)
                 case 'GL' % Griffin and Lim algorithm
                     n_iter = 20;
                     n_win = size(X, 2);
-                    win = hanning(l_frame, 'periodic');
                     x_temp = randn(l_frame+(n_win-1)*l_hop, 1); % Random values initialisation
                     iter = 1;
                     while iter < n_iter+1
                         disp(['Iteration ' num2str(iter) ' of ' num2str(n_iter) '...']);
                         iter = iter+1;
-                        x_stft = specgram(x_temp, l_frame, sr, win, l_hop);
+                        x_stft = stft(x_temp, l_frame, l_hop, 'hanning', 0);
                         b = (sqrt(X)/32768).*x_stft./abs(x_stft); % As described in G&L paper
                         % b = (sqrt(x_spec)/32768).*exp(1i*angle(x_stft)); % Also works
                         x_temp = istft(b, l_frame, l_hop, 'hanning');
@@ -127,13 +126,42 @@ for ind_fold = 1:length(X_desc)
             X_desc{ind_fold}{ind_file} = (10.^(X_desc{ind_fold}{ind_file}./10))*N;
             %% Spectrogram reconstruction
             X = iH*X_desc{ind_fold}{ind_file};
+            %% Windowing
+            win = hamming(l_frame, 'periodic');
             Xn = stft(randn(l_frame+l_hop*(size(X, 2)-1), 1), l_frame, l_hop, 'rect', 1);
-            x{ind_fold}{ind_file} = istft(sqrt(l_frame/2+1)*sqrt(X).*exp(1i*angle(Xn)), l_frame, l_hop, 'rect');
+            X = sqrt(X).*exp(1i*angle(Xn));
+            ffsw = fft(fft([win; zeros(2^(ceil(log2(l_frame)))-l_frame, 1)]))/l_frame;
+            Xw = zeros(size(X));
+            for ind_win = 1:size(X, 2)
+                X_temp = ifft(fft([X(:, ind_win); conj(flipud(X(2:end-1, ind_win)))]*sqrt(l_frame/2+1)).*sqrt(abs(ffsw).^2));
+                Xw(:, ind_win) = X_temp(1:end/2+1)/sqrt(sum(win(1:end/2+1)));
+            end
+            Xw = abs(Xw).^2;
+            %% Signal/Phase reconstruction
+            switch setting.phaserec
+                case 'WNS' % White noise spectrogram scaling
+                    Xn = stft(randn(l_frame+l_hop*(size(Xw, 2)-1), 1), l_frame, l_hop, 'hamming', 1);
+                    x{ind_fold}{ind_file} = istft(sqrt(l_frame/2+1)*sqrt(Xw).*exp(1i*angle(Xn)), l_frame, l_hop, 'hamming');
+                case 'GL' % Griffin and Lim algorithm
+                    n_iter = 20;
+                    n_win = size(Xw, 2);
+                    x_temp = randn(l_frame+(n_win-1)*l_hop, 1); % Random values initialisation
+                    iter = 1;
+                    while iter < n_iter+1
+                        disp(['Iteration ' num2str(iter) ' of ' num2str(n_iter) '...']);
+                        iter = iter+1;
+                        x_stft = stft(x_temp, l_frame, l_hop, 'hamming', 1);
+                        b = sqrt(sum(win(1:end/2+1)))*sqrt(Xw).*x_stft./abs(x_stft); % As described in G&L paper
+                        % b = (sqrt(x_spec)/32768).*exp(1i*angle(x_stft)); % Also works
+                        x_temp = istft(b, l_frame, l_hop, 'hanning');
+                    end
+                    x{ind_fold}{ind_file} = x_temp;
+            end
         end
     end
 end
 if strcmp(setting.desc, 'mel')
-    audiowrite(['..\..\decoded_samples\Sample_fps' num2str(setting.fps) '_mel' num2str(setting.mel) '_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
+    audiowrite(['..\..\decoded_samples\Sample_mel_fps' num2str(setting.fps) '_mel' num2str(setting.mel) '_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
 elseif strcmp(setting.desc, 'tob')
     audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
 end
