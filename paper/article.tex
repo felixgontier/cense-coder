@@ -40,6 +40,8 @@
 \usepackage{amssymb}
 \usepackage{epstopdf}
 \usepackage{hyperref}
+\usepackage{color}
+
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
 
@@ -49,6 +51,9 @@
 %% \usepackage{lineno}
 
 \journal{Applied Acoustics}
+
+\newcommand{\ml}[1]{\textcolor{blue}{ Mathieu: #1}}
+
 
 \begin{document}
 
@@ -74,7 +79,8 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{An efficient audio coding scheme for large scale monitoring of soundscapes}
+
+\title{An efficient audio coding scheme for large scale acoustic monitoring}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -123,37 +129,55 @@ In order to promote reproducible research, the coder as well as the experiments 
 \section{Introduction}
 %\label{}
 
-\section{Method}
+\section{Background}
 
-\subsection{Signal Representation}
+\ml{decrit ici les besoins avec une biblio}
+
+\subsection{acoustic monitoring}
+
+db spl, tiers d'octave, etc
+
+10 refs
+
+et dire que a partir de tiers d'ocatve 125 on peut retrouver tout les autres
+
+\subsection{event detection}
+
+15 refs
+
+\section{Encoding scheme}
+
 As audio signals in the time domain offers very few, often inefficient processing possibilities to reduce data size, a common practice is to prefer the frequency domain which in many cases provides a better information representation. Therefore, we first apply a short-term Fourier transform (STFT) to the arbitrary-length signal (sampled continously in our application). The phase is then discarded, being mostly retrievable under certain conditions \cite{nawab1983}, as well as resulting negative frequency components which are redundant due to the real nature of studied signals. However, these operations do not induce a significant gain in data size compared to the raw audio. A solution is the implementation of auditory filterbanks to concentrate relevant information into a fixed number of values in the same way the human cochlea does, that is, grouping frequency coefficients around critical bands in a logarithmic scale. This technique offers an important advantage beyond the information-dimensionality ratio improvement: in the Fourier squared magnitude domain, it only amounts to a single matrix multiplication which can be reversed to some degree. In this work, we study two different filterbanks and propose a set of analysis parameters for each.\\
+
+\ml{ce n'est pas vraiment ca. On a une contrainte qui est que l'on veut coder des données utilissables pour le monitoring acoustique et la reco d'evenements qui considère des représentations spécifiques. Je te propose donc de passer en revue les deux côtés dans la section ci dessus (background) et dire que nos choix sont raisonnables.}
 
 We first use the widely known Mel scale as implemented by the \textit{rastamat} library \cite{ellis2005}. STFT analysis frames are obtained by applying a Hann window on 23.2~ms of signal with 50\% (11.6~ms) overlap to allow for phase recovery.\\
 
-Another studied auditory transformation is the calculation of third-octave bands, generally used to compute the equivalent sound level $L_{eq}$ when acoustic measurements are needed. While the related filters are usually applied in the time domain, \cite{antoni2010} presents a frequency weights matrix design procedure that complies with both ANSI S1.1-1986 and IEC 61260-1:2014 standards, while respecting the partition of unity principle over all frequency bins in the relevant range. We implement this method for third-octave bands -17 to 13, ie. 20~Hz - 20kHz range, although with a minor change: inverting the use of sines and cosines is found to be a more intuitively correct approach, as we believe was the author's original intention. The STFT is computed for 125~ms audio windows, zero-padded to maximize FFT performance after the application of a rectangular function. No overlap is used to maximize the efficiency of the process as it is not needed to match the concept of "fast" acoustical measurements (8 per second). The rectangular window choice is made to ensure energy conservation in a given analysis frame. Results are compared with Couvreur's implementation \cite{couvreur} and observe similar results and a better handling of sidemost bands: low frequencies where resolution is poor and higher frequencies where cutoff frequencies are superior than Nyquist's frequency rendering most time-domain filter designs difficult.\\
+Another studied auditory transformation is the calculation of third-octave bands, generally used to compute the equivalent sound level $L_{eq}$ when acoustic measurements are needed. While the related filters are usually applied in the time domain, \cite{antoni2010} presents a frequency weights matrix design procedure that complies with both ANSI S1.1-1986 and IEC 61260-1:2014 standards, while respecting the partition of unity principle over all frequency bins in the relevant range. We implement this method for third-octave bands -17 to 13, ie. 20~Hz - 20kHz range, although with a minor change: inverting the use of sines and cosines is found to be a more intuitively correct approach, as we believe was the author's original intention. The STFT is computed for 125~ms audio windows, zero-padded to maximize FFT performance after the application of a rectangular function. No overlap is used to maximize the efficiency of the process as it is not needed to match the concept of "fast" acoustical measurements (8 per second). The rectangular window choice is made to ensure energy conservation in a given analysis frame. Results are compared with Couvreur's implementation \cite{couvreur}. We observe similar results and a better handling of sidemost bands: low frequencies where resolution is poor and higher frequencies where cutoff frequencies are superior than Nyquist's frequency rendering most time-domain filter designs difficult. \ml{pas clair}
+
+\ml{mettre des chiffres ou une figure pour motiver ton choix dans la section dédiée et faire ici une ref}
 
 \subsection{Data Encoding}
-We finally use Huffman coding to further reduce data dimensionality. As in most entropy coding algorithms, the efficiency of this technique depends on two major factors: a reduced amount of symbols and a low data entropy. The first is generally obtained by applying a quantization process to the signal, whereas the second is directly linked with the probability density function (PDF) of these symbols, with entropy decreasing when very few symbols have a very high probability of appearance. Considering an estimated PDF for our data as shown in Figure~\ref{fig:pdf}a, immediately applying a linear quantization clearly results in most of the information being lost. We therefore spread the PDF by taking the logarithm (natural or base 10) of the signal, then apply a linear quantization with $2^{q-1}-1$ output values to obtain Figure~\ref{fig:pdf}b. Finally, we use a simple $\Delta$-encoding algorithm along the time dimension to eliminate redundancies and effectively concentrate higher probabilities on symbols around zero (Figure~\ref{fig:pdf}c). This yields a higher amount of symbols at $2^q-1$ but a nevertheless smaller entropy (in the example shown here, the former is $H_{log} = 6.24~sh$ and the latter $H_{\Delta} = 3.54~sh$). Huffman encoding is then computed for large texture frames of several minutes with a frame-specific symbol-code dictionnary, as we found using a single dictionnary generated with an entire dataset was not beneficial in terms of efficiency or computation time. Alternatively, analysis frames can be encoded and sent separately for continous transfers using one general dictionnary.\\
 
-\begin{figure}[htbp]
+\ml{en general tes phrases sont trop longues. Coupe en deux des que tu peux et pas de paranthèses !!}
+
+A Huffman coding scheme \cite{} is then used to further reduce data dimensionality. As in most entropy coding algorithms, the efficiency of this technique depends on two important factors: a reduced amount of symbols \ml{in the dictionnary ?} and a low data entropy \ml{explique ce dernier point}. The first is generally obtained by applying a quantization process to the signal, whereas the second is directly linked with the probability density function (PDF) of these symbols, with entropy decreasing when very few symbols have a very high probability of appearance. Considering an estimated PDF for our data as shown in Figure~\ref{fig:pdf}a, immediately applying a linear quantization clearly results in most of the information being lost. We therefore spread the PDF by taking the logarithm (natural or base 10) of the signal, then apply a linear quantization with $2^{q-1}-1$ output values to obtain Figure~\ref{fig:pdf}b. Finally, we use a $\Delta$-encoding algorithm \cite{} along the time dimension to reduce redundancies and effectively concentrate higher probabilities on symbols around zero (Figure~\ref{fig:pdf}c). This yields a higher amount of symbols at $2^q-1$ but a nevertheless smaller entropy. In the example shown here, the former is $H_{log} = 6.24~sh$ and the latter $H_{\Delta} = 3.54~sh$. Huffman encoding is then computed for texture frames of several minutes with a frame-specific symbol-code dictionnary. Indeed, we found that using a single dictionnary generated with an entire dataset was not beneficial in terms of efficiency or computation time. Alternatively, analysis frames can be encoded and sent separately for continous transfers using one general dictionnary.
+
+\ml{a discuter. Pourquoi ne pas avoir un dic fixe, ce doit etre couteux de faire huffman a chaque fois ?}
+
+\ml{ici encore, il faut mettre des chiffres pour motiver ce choix. plutot faire des refs a la subsection dediée}
+
+\begin{figure*}[htbp]
 	\centering
 		\includegraphics[width=0.8\textwidth]{pdf.eps}
 	\caption{Example of estimated probability density functions of the data throughout the encoding step. (left) Unchanged output of the representation step, concentrated towards very low values. (middle) PSD "flattening" effect induced by logarithm application. Here values are mapped to the range $[0, 2^7-1]$ and rounded to perform quantization. (right) Output of the $\Delta$ compression, with desirable probabilities as the input to a Huffman algorithm.}
 	\label{fig:pdf}
-\end{figure}
+\end{figure*}
 6.24 before
 3.54 after
 
-\subsection{Decoding and Signal Retrieval}
+The decoding process is quite straightforward, as both Huffman and $\Delta$ compression are lossless and directly reversible.
 
-The decoding process is quite straightforward, as both Huffman and $\Delta$ compression are lossless and directly reversible. Recovering a linearly-scaled spectrogram can be achieved by scaling the transpose of the forward transformation matrix, although a loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin\& Lim algorithm \cite{griffin1984}, and the signal is retrieved using overlap-add. When using overlap while computing third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=0.8\textwidth]{freq.png}
-	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
-	\label{fig:freq}
-\end{figure}
 
 The entire coder process is summarized in Figure~\ref{fig:scheme}.
 
@@ -164,14 +188,36 @@ The entire coder process is summarized in Figure~\ref{fig:scheme}.
 	\label{fig:scheme}
 \end{figure*}
 
-\subsection{Evaluation}
+\section{Evaluation}
 A set of metrics is computed to assess the efficiency of the proposed coder scheme and determine the impact of the algorithm's parameters, which are as follow: the desired word size prior to Huffman encoding, set by quantization for both signal representation choices, and only for Mel bands the number of coefficients between 10 and 40. We also study the effect of time averaging analysis frames: to force a fixed amount of frames per second lesser than the average speech rate in phonemes per second is a possible way to alter intelligibility at the cost of temporal information resolution.\\
+
+\subsection{efficiency}
+
+detaille les resulats pour l'efficacité de codage
+
+
+\subsection{recognition}
+
 
 The UrbanSound8k dataset\cite{salamon2014} features about 9 hours of urban environmental sounds recordings separated in 8732 wave files ranging from 1 to 4 seconds each. The recordings are labeled in 10 classes (air conditioner, car horn, children playing, dog bark, drilling, enginge idling, gun shot, jackhammer, siren, street music), and distributed in 10 independant folds. A method and baseline results are also provided for the classification task. It is used in all the following experiments with the exception of intelligibility computation for which a small dataset of high-quality voice recordings is preferred. Audio files are resampled 44.1 samples per second, normalized and reduced to a single channel.\\
 
 We first evaluate the global loss of information by implementing the four classification models proposed in \cite{salamon2014}: a support vector machine with a radial basis function kernel, a random forest classifier with 500 trees, a decision tree and a k-nearest neighbors classifier with $k = 5$. Values for the SVM parameter $C$ and RBF kernel variance $\sigma^2$ are found with a grid search. We apply a discrete cosine transform to the critical band signal representation to obtain cepstra (known as Mel Frequency Cepstrum Coefficients or MFCC in the first case) of which we conserve the 25 first coefficients, and summarize along time with the mean, variance, skewness, kurtosis, minimum, maximum, median, derivative mean and variance, second order derivative mean and variance. The feature vector is thus comprised of 275 values to reproduce available results and compare with our own. Models are trained for each setup using the 10-fold method, that is, every combination of testing one fold on models trained with the other nine.\\
 
+\subsection{Inintelligibility}
+
 Intelligibility in decoded and reconstructed audio is also one of the main concerns of this study. We conduct preliminary perceptive tests to ensure that a clean speech recording is made unintelligible, implying the same results in usually noisier urban soundscapes. We also provide the computation of two objective metrics: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-eighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions.\\
+
+	\ml{j'ai mis le paragraphe en dessous pour des raisons de clarté car cela ne fait pas parti du codeur. A reformuler}
+
+ Recovering a linearly-scaled spectrogram can be achieved by scaling the transpose of the forward transformation matrix, although a loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin\& Lim algorithm \cite{griffin1984}, and the signal is retrieved using overlap-add. When using overlap while computing third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{freq.png}
+	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
+	\label{fig:freq}
+\end{figure}
+
 
 The coder's output bitrate as well as additional measurement error is computed for both data representations, it is expressed in dB and compared to the IEC 61672-1:2013 standard on sound level meter tolerance. This is to verify that the quantization step yields a maximum absolute error inferior to the precision of the recording device. To provide relevant statistics, these quantities are estimated for a total of 53 10-minutes texture frames.\\
 
