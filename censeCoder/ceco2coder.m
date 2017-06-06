@@ -37,7 +37,7 @@ if strcmp(setting.desc, 'mel')
     end
 elseif strcmp(setting.desc, 'tob')
     l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
-    l_hop = 0.5*l_frame; % No overlap
+    l_hop = setting.tobhop*l_frame;
     n_fps = 1+(sr-l_frame)/l_hop;
 end
 
@@ -53,7 +53,7 @@ end
 l_frame = ceil(60*setting.textframe*n_fps); % length of a texture frame in windows
 n_frames = ceil(size(X_desc_mat, 2)/l_frame);
 for ind_frame = 1:n_frames
-    disp(['Processing frame ' num2str(ind_frame) ' of ' num2str(n_frames) '...']);
+    disp(['Encoding: Processing frame ' num2str(ind_frame) ' of ' num2str(n_frames) '...']);
     %% Frames
     X_frame = X_desc_mat(:, (ind_frame-1)*l_frame+1:min(ind_frame*l_frame, end))'; % Transpose to group by features rather than time windows when reshaping to vector
     X_frame = X_frame(:); % Vector reformatting
@@ -85,7 +85,9 @@ for ind_frame = 1:n_frames
     end
     X_huff{ind_frame} = bin2dec(reshape(num2str([X_huff{ind_frame}(1:end-mod(end, 8)); X_huff{ind_frame}(end-mod(end, 8)+1:end); zeros(8-mod(length(X_huff{ind_frame}), 8), 1)]), 8, [])');
 end
-bitrate = sum(code_len)/length(X_huff)/setting.textframe/60;
+% bitrate = sum(code_len)/length(X_huff)/setting.textframe/60;
+bitrate = code_len/setting.textframe/60;
+if strcmp(setting.dataset, 'urbansound8k'); bitrate = bitrate(1:end-1); end % Last frame is incomplete and adds a bias
 
 %% Outputs
 % Store

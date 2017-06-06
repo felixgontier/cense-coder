@@ -8,6 +8,8 @@ function config = cecoReport(config)
                                                             
 if nargin==0, censeCoder('report', 'r'); return; end%censeCoder('report', 'rhv'); return; end      
 
+% {fps, mel, quant, dictgen, htreealg, textframe, dataset, classmethod, phaserec, desc, intelind, tobhop}
+
 %% KNN
 % config = expExpose(config, 'p', 'mask', {0, 0, 6, 1, 2, 10, 2, 4, 2}, 'obs', 'cv_acc', 'save', 'knn_fps_mel_8', 'step', 4, 'expand', 1, 'color', {'b', 'g', 'r', 'black'}); % KNN accuracy as f(mel,fps)
 % config = expExpose(config, 't', 'mask', {7, 4, 1, 1, 2, 10, 2, 4, 2}, 'obs', 'cv_acc', 'save', 'knn_base', 'step', 4); % Baseline KNN accuracy

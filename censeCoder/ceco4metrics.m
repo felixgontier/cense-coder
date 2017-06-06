@@ -68,12 +68,6 @@ switch setting.dataset
                 end
                 t_csii = (snr_csii+15)/30; % normalisation
                 csii(ind_file) = mean(mean(t_csii, 2));
-
-%                 P = sum(msc{ind_file}.*(abs(y_spec)).^2, 2);
-%                 N = sum((1-msc{ind_file}).*(abs(y_spec)).^2, 2);
-%                 snr_csii = 10*log10((sum(w.*repmat(P, [1 size(w, 2)])))./(sum(w.*repmat(N, [1 size(w, 2)]))));
-%                 t_csii = (snr_csii+15)/30; % normalisation
-%                 csii{ind_file} = mean(t_csii);
             elseif strcmp(setting.intelind, 'fwSNRseg')
                 X = [];
                 Y = [];
@@ -82,7 +76,7 @@ switch setting.dataset
                     Y(ind_band, :) = sum(repmat(w(:, ind_band), 1, size(y_spec, 2)).*abs(y_spec), 1);
                 end
                 fwSNRseg(ind_file) = (10/size(y_spec, 2))*sum(sum(log10((X.^2)./((X-Y).^2)), 1)/size(w, 2), 2);
-            end            
+            end
         end
         if strcmp(setting.intelind, 'CSII')
             obs.msc_mat = msc_mat;
@@ -98,12 +92,12 @@ switch setting.dataset
         load_data = expLoad(config, [], 1);
         x_desc = cell(length(load_data.X_desc), 1);
         for ind_fold = 1:length(load_data.X_desc)
-            disp(['Processing fold ' num2str(ind_fold) ' of ' num2str(length(load_data.X_desc)) '...']);
+            disp(['Feature extraction: Processing fold ' num2str(ind_fold) ' of ' num2str(length(load_data.X_desc)) '...']);
 %             x_desc{ind_fold} = zeros(275, 1);
             for ind_file = 1:length(load_data.X_desc{ind_fold})
                 if strcmp(setting.desc, 'mel')
                     if setting.quant ~= 0
-                        X_mel{ind_fold}{ind_file} = double(load_data.X_desc{ind_fold}{ind_file}).*load_data.x_mel_max{ind_fold}{ind_file}./(2^(setting.quant-1)-1); % Datatype size minus 1 for the delta-comp
+                        X_mel{ind_fold}{ind_file} = double(load_data.X_desc{ind_fold}{ind_file}).*load_data.q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1); % Datatype size minus 1 for the delta-comp
                     else
                         X_mel{ind_fold}{ind_file} = load_data.X_desc{ind_fold}{ind_file};
                     end
@@ -136,7 +130,7 @@ switch setting.dataset
         %% Classification
         class_acc = zeros(length(x_desc), 1);
         for ind_cv = 1:length(x_desc) % Cross-validation
-            disp(['Fold configuration ' num2str(ind_cv) ' of '  num2str(length(x_desc)) '.']);
+            disp(['Classification: Fold configuration ' num2str(ind_cv) ' of '  num2str(length(x_desc)) '.']);
             % Data separation
             x_train = [];
             y_train = [];
@@ -152,7 +146,9 @@ switch setting.dataset
             % minmax mapping to 0-1
             x_test = (x_test-repmat(min(x_train), size(x_test, 1), 1))./(repmat(max(x_train), size(x_test, 1), 1)-repmat(min(x_train), size(x_test, 1), 1));
             x_train = (x_train-repmat(min(x_train), size(x_train, 1), 1))./(repmat(max(x_train), size(x_train, 1), 1)-repmat(min(x_train), size(x_train, 1), 1));
-
+            x_train(isnan(x_train)|isinf(x_train)) = 0;
+            x_test(isnan(x_test)|isinf(x_test)) = 0;
+            
             % Classification
             switch setting.classmethod
                 case 'SVM'

@@ -28,7 +28,7 @@ if strcmp(setting.desc, 'mel')
     end
 elseif strcmp(setting.desc, 'tob')
     l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
-    l_hop = 0.5*l_frame; % No overlap
+    l_hop = setting.tobhop*l_frame;
     %% Filterbank calculation, can be replaced with constant matrix
     N = 2^13;
     N_filt = 2^17; % Design with a much greater precision
@@ -119,6 +119,9 @@ for ind_fold = 1:length(file_path)
             n_frames{ind_fold}{ind_file} = size(X, 2); % Number of STFT windows before averaging, needed for reconstruction
             Xi{ind_fold}{ind_file} = H*(abs(X).^2);
             Xi{ind_fold}{ind_file} = 10*log10(Xi{ind_fold}{ind_file}/N);
+            if ~isempty(find(isnan(Xi{ind_fold}{ind_file}), 1)) || ~isempty(find(isnan(Xi{ind_fold}{ind_file}), 1))
+                disp(['NaN or Inf found at file ' num2str(ind_file) ' in fold ' num2str(ind_fold) '.']);
+            end
             %% Quantization
             if setting.quant ~= 0
                 q_norm{ind_fold}{ind_file} = zeros(2, 1);

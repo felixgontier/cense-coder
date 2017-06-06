@@ -27,7 +27,7 @@ if strcmp(setting.desc, 'mel')
     end
 elseif strcmp(setting.desc, 'tob')
     l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
-    l_hop = 0.5*l_frame; % No overlap
+    l_hop = setting.tobhop*l_frame;
     %% Filterbank calculation, can be replaced with constant matrix
     N = 2^13;
     N_filt = 2^17; % Design with a much greater precision
@@ -41,14 +41,15 @@ end
 
 if setting.quant
     X_desc_mat = [];
-    for indframe = 1:numel(data.X_huff)
+    for ind_frame = 1:numel(data.X_huff)
+        disp(['Decoding: Processing frame ' num2str(ind_frame) ' of ' num2str(numel(data.X_huff)) '...']);
         %% Matlab needs binary vectors
-        X_huff = str2num(reshape(dec2bin(data.X_huff{indframe})', [], 1));
-        X_huff = X_huff(1:data.huff_len(indframe));
+        X_huff = str2num(reshape(dec2bin(data.X_huff{ind_frame})', [], 1));
+        X_huff = X_huff(1:data.huff_len(ind_frame));
         %% Huffman decoding
         switch setting.dictgen
             case 'local'
-                X_delta = huffmandeco(X_huff, data.dict{indframe});
+                X_delta = huffmandeco(X_huff, data.dict{ind_frame});
             case 'global'
                 X_delta = huffmandeco(X_huff, data.dict);
         end
@@ -163,7 +164,7 @@ end
 if strcmp(setting.desc, 'mel')
     audiowrite(['..\..\decoded_samples\Sample_mel_fps' num2str(setting.fps) '_mel' num2str(setting.mel) '_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
 elseif strcmp(setting.desc, 'tob')
-    audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
+    audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
 end
 %% Outputs
 % Store
