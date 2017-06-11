@@ -33,11 +33,11 @@ for ind_wm = 1:length(wm)
         phi = .5*(p./P+1);
         % We found that inverting cos and sin seemed better
         for ind_l = 1:l
-            phi = cos(pi/2*phi);
+            phi = sin(pi/2*phi).^2;
         end
-        G(ind_wm, k_i(ind_wm)+p(1):k_i(ind_wm)+p(end)) = cos(pi/2*phi);
+        G(ind_wm, k_i(ind_wm)+p(1):k_i(ind_wm)+p(end)) = sin(pi/2*phi);
         if ind_wm>1
-            G(ind_wm-1, k_i(ind_wm)+p(1):k_i(ind_wm)+p(end)) = sin(pi/2*phi);
+            G(ind_wm-1, k_i(ind_wm)+p(1):k_i(ind_wm)+p(end)) = cos(pi/2*phi);
         end
     end
 end
