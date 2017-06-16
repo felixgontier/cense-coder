@@ -30,8 +30,10 @@ sr = 44100;
 if strcmp(setting.desc, 'mel')
     l_frame = 1024;
     l_hop = 0.5*l_frame;
+    n_fps = 1+(sr-l_frame)/l_hop; % Number of frames per second with base settings
     if setting.fps % 0 means none
-        n_fps = setting.fps; % Number of frames per second with custom settings
+        n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
+        n_fps = n_fps/n_avg; % Number of frames per second with custom settings
     else
         n_fps = 1+(sr-l_frame)/l_hop; % Number of frames per second with base settings
     end
@@ -86,7 +88,7 @@ for ind_frame = 1:n_frames
     X_huff{ind_frame} = bin2dec(reshape(num2str([X_huff{ind_frame}(1:end-mod(end, 8)); X_huff{ind_frame}(end-mod(end, 8)+1:end); zeros(8-mod(length(X_huff{ind_frame}), 8), 1)]), 8, [])');
 end
 % bitrate = sum(code_len)/length(X_huff)/setting.textframe/60;
-bitrate = code_len/setting.textframe/60;
+bitrate = code_len*n_fps/l_frame;
 if strcmp(setting.dataset, 'urbansound8k'); bitrate = bitrate(1:end-1); end % Last frame is incomplete and adds a bias
 
 %% Outputs

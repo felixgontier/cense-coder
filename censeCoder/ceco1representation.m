@@ -99,15 +99,28 @@ for ind_fold = 1:length(file_path)
             end
             %% FFT bins to MEL bins
             Xm{ind_fold}{ind_file} = audspec(X, sr, setting.mel, 'mel', 0, sr/2, 1, 1);
-            Xm{ind_fold}{ind_file} = log(Xm{ind_fold}{ind_file});
+            Xm{ind_fold}{ind_file} = 10*log10(Xm{ind_fold}{ind_file});
             %% Quantization
-            if setting.quant ~= 0
+%             if setting.quant ~= 0
+%                 Xm_clean = Xm{ind_fold}{ind_file};
+%                 q_norm{ind_fold}{ind_file} = max(max(Xm{ind_fold}{ind_file})); % Needed for reconstruction
+%                 Xm{ind_fold}{ind_file} = int16((2^(setting.quant-1)-1)*Xm{ind_fold}{ind_file}./q_norm{ind_fold}{ind_file}); % Datatype size minus 1 for the delta-comp
+%                 Xm{ind_fold}{ind_file}(Xm{ind_fold}{ind_file}<0) = 0; % Low values elimination
+%                 % q_loss(end+1) = 10*log10(mean(mean(abs(exp(double(Xm{ind_fold}{ind_file}).*q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1))-exp(Xm_clean)))));
+%                 q_loss(end+1) = mean(mean(abs(10*log10(exp(double(Xm{ind_fold}{ind_file}).*q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1)))-10*log10(exp(Xm_clean)))));
+%                 if isnan(q_loss(end)) || isinf(q_loss(end))
+%                     disp(['NaN or Inf found at file ' num2str(ind_file) ' in fold ' num2str(ind_fold) '.']);
+%                     q_loss = q_loss(1:end-1);
+%                 end
+%             end
+            if setting.quant ~= 0                
+                q_norm{ind_fold}{ind_file} = zeros(2, 1);
                 Xm_clean = Xm{ind_fold}{ind_file};
-                q_norm{ind_fold}{ind_file} = max(max(Xm{ind_fold}{ind_file})); % Needed for reconstruction
-                Xm{ind_fold}{ind_file} = int16((2^(setting.quant-1)-1)*Xm{ind_fold}{ind_file}./q_norm{ind_fold}{ind_file}); % Datatype size minus 1 for the delta-comp
-                Xm{ind_fold}{ind_file}(Xm{ind_fold}{ind_file}<0) = 0; % Low values elimination
-                % q_loss(end+1) = 10*log10(mean(mean(abs(exp(double(Xm{ind_fold}{ind_file}).*q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1))-exp(Xm_clean)))));
-                q_loss(end+1) = mean(mean(abs(10*log10(exp(double(Xm{ind_fold}{ind_file}).*q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1)))-10*log10(exp(Xm_clean)))));
+                q_norm{ind_fold}{ind_file}(1) = min(min(Xm{ind_fold}{ind_file}));
+                Xm{ind_fold}{ind_file} = Xm{ind_fold}{ind_file}-q_norm{ind_fold}{ind_file}(1); % Everything has to be positive
+                q_norm{ind_fold}{ind_file}(2) = max(max(Xm{ind_fold}{ind_file}));
+                Xm{ind_fold}{ind_file} = int16((2^(setting.quant-1)-1)*Xm{ind_fold}{ind_file}./q_norm{ind_fold}{ind_file}(2)); % Normalisation + Quantization
+                q_loss(end+1) = mean(mean(abs(((double(Xm{ind_fold}{ind_file}).*q_norm{ind_fold}{ind_file}(2)./(2^(setting.quant-1)-1))+q_norm{ind_fold}{ind_file}(1))-Xm_clean)));
                 if isnan(q_loss(end)) || isinf(q_loss(end))
                     disp(['NaN or Inf found at file ' num2str(ind_file) ' in fold ' num2str(ind_fold) '.']);
                     q_loss = q_loss(1:end-1);

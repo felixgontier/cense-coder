@@ -97,12 +97,12 @@ switch setting.dataset
             for ind_file = 1:length(load_data.X_desc{ind_fold})
                 if strcmp(setting.desc, 'mel')
                     if setting.quant ~= 0
-                        X_mel{ind_fold}{ind_file} = double(load_data.X_desc{ind_fold}{ind_file}).*load_data.q_norm{ind_fold}{ind_file}./(2^(setting.quant-1)-1); % Datatype size minus 1 for the delta-comp
+                        X_mel{ind_fold}{ind_file} = (double(load_data.X_desc{ind_fold}{ind_file}).*load_data.q_norm{ind_fold}{ind_file}(2)./(2^(setting.quant-1)-1))+load_data.q_norm{ind_fold}{ind_file}(1);
                     else
                         X_mel{ind_fold}{ind_file} = load_data.X_desc{ind_fold}{ind_file};
                     end
                     X_mel{ind_fold}{ind_file}(X_mel{ind_fold}{ind_file} == 0) = eps;
-                    X_cep = spec2cep(exp(X_mel{ind_fold}{ind_file}), 25, 2);
+                    X_cep = spec2cep(10.^(X_mel{ind_fold}{ind_file}/10), 25, 2);
                     if size(X_cep, 2)>1
                         x_desc{ind_fold}(:, ind_file) = [min(X_cep')'; max(X_cep')'; median(X_cep, 2); mean(X_cep, 2); var(X_cep, 0, 2); skewness(X_cep, 1, 2); kurtosis(X_cep, 1, 2); mean(diff(X_cep, 1, 2), 2); var(diff(X_cep, 1, 2), 0, 2); mean(diff(X_cep, 2, 2), 2); var(diff(X_cep, 2, 2), 0, 2)];
                     else

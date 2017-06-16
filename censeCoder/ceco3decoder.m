@@ -85,9 +85,9 @@ for ind_fold = 1:length(X_desc)
         if strcmp(setting.desc, 'mel')
             %% Normalisation
             if setting.quant ~= 0
-                X_desc{ind_fold}{ind_file} = data.q_norm{ind_fold}{ind_file}*double(X_desc{ind_fold}{ind_file})/(2^(setting.quant-1)-1);
+                X_desc{ind_fold}{ind_file} = (double(X_desc{ind_fold}{ind_file}).*data.q_norm{ind_fold}{ind_file}(2)./(2^(setting.quant-1)-1))+data.q_norm{ind_fold}{ind_file}(1);
             end
-            X_desc{ind_fold}{ind_file} = exp(X_desc{ind_fold}{ind_file});
+            X_desc{ind_fold}{ind_file} = 10.^(X_desc{ind_fold}{ind_file}/10);
 
             %% Reconstruction of the linearly-scaled spectrogram
             X = invaudspec(X_desc{ind_fold}{ind_file}, sr, l_frame, 'mel', 0, sr/2, 1, 1);
