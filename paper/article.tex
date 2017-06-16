@@ -82,7 +82,7 @@
 %% \fntext[label3]{}
 
 
-\title{An effective sensor grid approach for large scale acoustic monitoring}
+\title{A sensor grid approach for large scale acoustic monitoring}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -312,13 +312,14 @@ First, we observe the impact of quantization on classification accuracy. The mod
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=\columnwidth]{class_mel_q.eps}
-	\caption{Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation.}
+	\caption{Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation. \ml{cette figure pose probleme, car la baseline n'a pas de word size, je mettrai un tick "no quant". Pourquoi les lignes continues jqa la baseline ?}}
 	\label{fig:class_mel_q}
 \end{figure}
 
 The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the higher performing systems at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to some extent most often does notinduces a strong drop of performance. The performance of the decision tree classifier is a good example of this behavior, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is small, all other models perform best with 30 or 40 mel bands as a representation. Time decimation is also possible, as in most cases the original data can be averaged \ml{consistently ?} and yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 8 or 10 depending on the method. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition performance. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\fg{Highlight best/ok values once per class. method, not per fps}\\
 
 \begin{table*}[h]
+	\ml{percentage}
 \centering
 \caption{Classification accuracy for varying representation resolutions}
 \label{T1}
@@ -403,7 +404,7 @@ To further analyze both representations advantages, the confusion matrix is a re
 
 \subsection{Inintelligibility}
 
-Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test \ml{comment tu as fait le test ?} for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test \ml{soit on fait un test avec 5-10 personnes soit on en parle pas} for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
 
 The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
 
