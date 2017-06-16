@@ -93,19 +93,7 @@
 
 \begin{abstract}
 %% Text of abstract
-The advent of low cost acoustic sensors together with the need to better monitor and comprehend the acoustic environment of urban and wilderness areas give rise to the deployment of experimental sensor networks such as the sonyc (wp.nyu.edu/sonyc) and cense (cense.ifsttar.fr) projects.
 
-Together with the estimation of acoustic indicators (LAeq, ...), one important aspect of those networks is their ability to detect the presence of sound sources of interest ( bird calls, sirens, explosion, ...) in order to better assess soundscapes. This detection step can be operated online (on the sensors) or offline (on the data servers).
-
-The former is efficient in terms of data storage as only the detection events are transmitted. Though, it requires the availability of computing resources on the sensors in order to perform the detection step, and the detection is done once and cannot be recomputed.
-
-The latter scheme has several benefits. First, the sensor is much simpler and can thus be autonomous in terms of energy, easing the deployment of the network. Second, it allows researchers to gather large amount of data that can be post processed and studied further offline. Data can be re analysed following newer classification schemes or using new indicators.
-
-But, for transmission from the sensors to the storage unit, the data needs to be encoded in an efficient way. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process, in order to ensure the privacy of the citizens.
-
-The coding scheme described in this paper has the following features. It is of low bitrate but still allows the computation of most of the standard acoustics indicators with high precision. As far as acoustic event detection is concerned, we report equivalent performance of several state of the art classification schemes from features computed using raw audio data and encoded data. Finally, according to preliminary perceptual evaluation, the proposed coding scheme very strongly degrades the intelligibility, thus ensuring citizen privacy.
-
-In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community.
 
 
 
@@ -129,36 +117,33 @@ In order to promote reproducible research, the coder as well as the experiments 
 \section{Introduction}
 %\label{}
 
-As such, there is a strong need for the development of the so-called "sensor grid" approach  \cite{lim2005sensor,tham2005sensorgrid} for the monitoring of the acoustic environment, be it from urban, rural or wilderness areas.
+The advent of low cost acoustic sensors together with the need to better monitor and comprehend the acoustic environment of urban and wilderness areas give rise to the deployment of experimental sensor networks such as the sonyc (wp.nyu.edu/sonyc) and cense (cense.ifsttar.fr) projects.
 
-The sensor grid approach put the focus on a) a distributed system of data acquisition with a large set of sensors, b) the production and storage of a large dataset, and c) its availability for intensive and open data analysis computation.
+To do so, considering the so-called "sensor grid" approach  \cite{lim2005sensor,tham2005sensorgrid} has several advantages. The sensor grid approach put the focus on a) a distributed system of data acquisition with a large set of sensors, b) the production and storage of a large dataset, and c) its availability for intensive and open data analysis computation.
 
-requirements
+In our application setting, the requirements are the following. First,  the number of sensor nodes shall be extended as needed without having to change the hardware and software architecture, \textit{i.e.} the approach shall be scalable. Second, the nodes shall be energy efficient in order ot ease the deployment of the sensors grid to the desired topology, ideally autonomous. Third, the data transfer used to transmit the data from the sensor to the storage and processing servers shall be designed with care in order to ensure the privacy of the citizen. Lastly, the data stored shall be as rich as possible while retaining a low bitrate for efficient transmission and storage
 
-scalability:
-power managment:
-security and privacy:
-data richness:
+The data of interest is first acoustic indicators (LAeq, ...) and second the presence of sound sources of interest (bird calls, sirens, explosion, ...). The latter allow us to better assess soundscapes in terms of pleasantness and other perceptual indicators \cite{lavandier2006contribution, aumond2017modeling}. This detection step can respectively be operated online (on the sensors) or offline (on the data servers).
 
-low consumption computation (processing and transmission) of the sensor node
+The former is efficient in terms of data storage as only the detection events are transmitted and is thus currently considered in several approaches \cite{defreville2006automatic, mydlarz2017implementation, mydlarz2015design}. Though, it requires the availability of computing resources on the sensors in order to perform the detection step which as of today's efficiency of hardware d not allow them to be autonomous using power sources like decent size solar panels. Furthermore, the detection is done once and cannot be recomputed during posterior analyses.
 
-low bitrate of the transmitted data for efficient transmission and storage
+The latter scheme has several benefits. First, the sensor is much simpler and can thus be autonomous in terms of energy, easing the deployment of the network. Second, it allows researchers to gather large amount of data that can be post processed and studied further offline. Data can be re analysed following newer classification schemes or using new indicators.
 
-proposed approach
+However, transmitting the raw audio through the network has several disavantages, in terms of required bandwidth, storage capabilities and privacy.Thus, for transmission from the sensors to the storage unit, the data needs to be encoded in an efficient way. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process, in order to ensure the privacy of the citizens.
 
+We thus propose in this paper a audio coding scheme specifically tailored for use in a sensor grid which has the following features. It is of low bitrate but still allows the computation of most of the standard acoustics indicators with high precision. As far as acoustic event detection is concerned, we report equivalent performance of several state of the art classification schemes from features computed using raw audio data and encoded data. Finally, according to preliminary perceptual evaluation, the proposed coding scheme very strongly degrades the intelligibility, thus ensuring citizen privacy.
 
-
-
+In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community. The remaining of the paper is organized as follows: Section \ref{sec:background} reviews the types of data that needs to be estimated using the transmitted data and Section \ref{sec:coder} describes the proposed encoding schemeSection. the experimental protocol designed to validate the proposed approach is described in Section \ref{sec:protocol} and results are discussed in Section \ref{sec:results}.
 
 \begin{figure}[t]
 \includegraphics[width=\columnwidth]{figures/censeCoder}
 \vspace{-0.15in}
-\caption{}
+\caption{Alternative implementations of the sensor grid approach for the monitoring of the acoustic environnment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows indicate bandwidth and thickness of boxes indicates the level of computation or storage required.}
 \label{fig:codingScheme}
 \end{figure}
 
 
-\section{Background}
+\section{Background} \label{sec:background}
 
 
 The present work is constrained to allow both acoustic monitoring and sound event recognition in urban soundscapes. Here we briefly review state-of-the-art methods in both subjects in order to better motivate our choices.
@@ -178,7 +163,7 @@ Eventhough the above discussed indicators provide more richness than $L_{eq}$, r
 The recognition of sources of interest from audio streams has been the subject of extensive research in the past on speech \cite{anusuya2009}, music \cite{tzanetakis2002}, and lately more complex scenes in which the current work falls. Studied classification methods are diverse, ranging from time-dependant modeling with HMMs \cite{ntalampiras2014} to "bag-of-frames" approaches \cite{aucouturier2007, foggia2015}. Common architectures include learning-based classifiers such as support vector machines (SVM) \cite{kumar2016}, gaussian mixture models (GMM) \cite{radhakrishnan2005} or neural networks \cite{salamon2017, piczak2015}. However, the selection of relevant features is still an open debate. The most used are certainly spectral \cite{khunarsal2013} or cepstral \cite{couvreur2004} representations of the signal. Among them, mel spectrograms and their cepstral-domain derivation, the mel-frequency cepstrum coefficients (MFCC), are the most recurrent. These representations effectively try to model the human cochlear response to sounds by grouping frequency components around critical bands in a logarithmic scale, thus bearing important physical significance. They may also be exploited together with features computed in other domains to better model signal properties. For instance, \cite{cai2006} adds spectral features related to harmonicity and salient frequencies, and \cite{chu2009} uses a matching pursuit (MP) algorithm to deduce time-domaid features. Another promising solution is feature engineering via unsupervised learning, which \cite{salamon2015-2} implements with a k-means clustering technique. Alternative data representations such as the scattering transform \cite{bauge2013} show good results in environmental sound classification tasks \cite{salamon2015}.\\
 A more detailed review of used methods is available in \cite{chachada2013}.
 
-\section{Encoding scheme}
+\section{Encoding scheme} \label{sec:coder}
 
 The technical constraints of size inherent to the studied setup make it impossible to transmit raw audio recordings. Following the considerations briefly exposed in the previous section, we conclude that third-octave bands are a reasonable choice. As mentionned, they provide advantages in both acoustic monitoring quality and reduced data volume per measurement period. The physical content is also close to that of mel spectrograms, being just another filterbank transform with logarithmic frequency scaling.\\
 
@@ -230,7 +215,8 @@ The decoding process is quite straightforward, as both Huffman and $\Delta$ comp
 	\label{fig:scheme}
 \end{figure*}
 
-\section{Evaluation}
+\section{Validation protocol} \label{sec:protocol}
+
 A set of metrics is computed to assess the efficiency of the proposed coder scheme and determine the impact of the algorithm's parameters, which are as follow: the desired word size prior to Huffman encoding, set by quantization for both signal representation choices, and only for Mel bands the number of coefficients between 10 and 40. We also study the effect of time averaging analysis frames: to force a fixed amount of frames per second lesser than the average speech rate in phonemes per second is a possible way to alter intelligibility at the cost of temporal information resolution.
 
 \subsection{Efficiency}
@@ -262,7 +248,7 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 
 
 
-\section{Results}
+\section{Results} \label{sec:results}
 
 \section{Conclusion}
 
@@ -283,6 +269,12 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
 \section{References}
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\ml{USE BIBTEX !!}
+
 \begin{thebibliography}{09}
 
 
