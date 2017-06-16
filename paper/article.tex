@@ -38,9 +38,11 @@
 
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{hyperref}
 \usepackage{color}
+\usepackage{multirow}
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -221,13 +223,13 @@ A set of metrics is computed to assess the efficiency of the proposed coder sche
 
 \subsection{Efficiency}
 
-The coder's output bitrate as well as additional measurement error is computed for both data representations : third-octave and Mel. It is expressed in dB and compared to the IEC 61672-1:2013 standard on sound level meter tolerance. This is to verify that the quantization step yields a maximum absolute error inferior to the precision of the target recording device. To provide relevant statistics, these quantities are estimated for a total of 53 10-minutes texture frames \ml{describe dataset, etc}.
+The coder's output bitrate as well as additional measurement error is computed for both data representations : third-octave and Mel. It is expressed in dB and compared to the IEC 61672-1:2013 standard on sound level meter tolerance. This is to verify that the quantization step yields a maximum absolute error inferior to the precision of the target recording device. To provide relevant statistics, these quantities are estimated for a total of 53 10-minutes texture frames. They are obtained from the UrbanSound8k dataset presented in the next section.
 
 \subsection{Event recognition}
 
-In order to ensure that the proposed scheme allows the recognition of events using state of the art methods, we consider the UrbanSound8k dataset\cite{salamon2014}. It features about 9 hours of urban environmental sounds recordings separated in 8732 wave files ranging from 1 to 4 seconds each. The recordings are labeled in 10 classes (air conditioner, car horn, children playing, dog bark, drilling, enginge idling, gun shot, jackhammer, siren, street music), and distributed in 10 independant folds. A method and baseline results are also provided for the classification task. It is used in all the following experiments with the exception of intelligibility computation for which a small dataset of high-quality voice recordings is preferred. Audio files are resampled 44.1 samples per second, normalized and reduced to a single channel.\\
+In order to ensure that the proposed scheme allows the recognition of events using state of the art methods, we consider the UrbanSound8k dataset\cite{salamon2014}. It features about 9 hours of urban environmental sounds recordings separated in 8732 wave files ranging from 1 to 4 seconds each. The recordings are labeled in 10 classes (air conditioner, car horn, children playing, dog bark, drilling, enginge idling, gun shot, jackhammer, siren, street music), and distributed in 10 independant folds. A method and baseline results are also provided for the classification task. It is used in all the following experiments with the exception of intelligibility computation for which a small dataset of high-quality voice recordings is preferred. Audio files are resampled 44.1~kHz, normalized and reduced to a single channel.\\
 
-We first evaluate the global loss of information by implementing the four classification models proposed in \cite{salamon2014}: a support vector machine with a radial basis function kernel, a random forest classifier with 500 trees, a decision tree and a k-nearest neighbors classifier with $k = 5$. Values for the SVM parameter $C$ and RBF kernel variance $\sigma^2$ are found with a grid search. We apply a discrete cosine transform to the critical band signal representation to obtain cepstra (known as Mel Frequency Cepstrum Coefficients or MFCC in the first case) of which we conserve the 25 first coefficients, and summarize along time with the mean, variance, skewness, kurtosis, minimum, maximum, median, derivative mean and variance, second order derivative mean and variance. The feature vector is thus comprised of 275 values to reproduce available results and compare with our own. Models are trained for each setup using a 10-fold cross validation method \ml{provided by the authors of \cite{salamon2014} ?}, that is, every combination of testing one fold on models trained with the other nine.
+We evaluate the global loss of information by implementing the four classification models proposed in \cite{salamon2014}: a support vector machine with a radial basis function kernel, a random forest classifier with 500 trees, a decision tree and a k-nearest neighbors classifier with $k = 5$. Values for the SVM parameter $C$ and RBF kernel variance $\sigma^2$ are found with a grid search. We apply a discrete cosine transform to the critical band signal representation to obtain cepstra (known as Mel Frequency Cepstrum Coefficients or MFCC in the first case) of which we conserve the 25 first coefficients, and summarize along time with the mean, variance, skewness, kurtosis, minimum, maximum, median, derivative mean and variance, second order derivative mean and variance. The feature vector is thus comprised of 275 values to reproduce available results and compare with our own. Models are trained for each setup using a 10-fold cross validation method provided by the authors of \cite{salamon2014}, that is, every combination of testing one fold on models trained with the other nine.
 
 \subsection{Inintelligibility}
 
@@ -237,7 +239,7 @@ Intelligibility in decoded and reconstructed audio is also oan concerns of this 
 
 We thus provide the computation of two objective metrics: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-weighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study.\\
 
-These metrics require a recovery of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin\& Lim algorithm \cite{griffin1984}, and the signal is retrieved using concatenation or overlap-add. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
+These metrics require a recovery of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin \& Lim algorithm \cite{griffin1984}, and the signal is retrieved using concatenation or overlap-add. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
 
 \begin{figure}[htbp]
 	\centering
@@ -250,6 +252,178 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 
 \section{Results} \label{sec:results}
 
+\subsection{Coder efficiency}
+
+The main indicator of performance is the bitrate obtained at the output of the coder. The three varying factors studied are the data word size $q$, the number of bands and the effect of reducing time-resolution by averaging analysis frames. Figure~\ref{fig:bitrate_q} shows estimations of the output bitrate for different values of $q$. To match third-octave bands computation principle where a 125~ms analysis is mandatory, we averaged mel frames over time. Because we use the most common parameters, namely 23.2~ms window with 50\% overlap, the closest achievable rate considering simple averaging is 7.74 frames per second. Third-octave representation on 31 bands yielded an overall higher size than their mel equivalent, here estimated for 30 bands. It however compares with the 40-mel bands representation which is the most used in litterature. This occurence is likely due to the distribution observed by the data prior to Huffman encoding.
+
+\ml{pourquoi parler d'overlap ici, alors que le codeur ne doit en utiliser ?}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{bitrate_qall.eps}
+	\caption{Coder output bitrate as a function of quantization for third-octave and mel bands with 8 frames per second.}
+	\label{fig:bitrate_q}
+\end{figure}
+
+A second set of parameters influences directly the time-frequency resolution of the analysis. By choosing a frame rate and number of bands, one can effectively control the size of periodically transmitted data. We evaluate the bitrate for 10 to 40 mel bands and a frame rate from 2 to 10 per second, with fixed $q = 8$. Results are exposed in Figure~\ref{fig:bitrate_mel_avg}. As expected, the bitrate for a given word size $q$ can be modeled as a linear function of the representation dimensions for one second of analysis. Small variations are induced by data distributions on a per-frame level and their effect on the Huffman algorithm.
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{bitrate_mel_avg.eps}
+	\caption{Impact of representation resolution on the encoded data bitrate.}
+	\label{fig:bitrate_mel_avg}
+\end{figure}
+
+This experiment aims at assessing potential tradeoffs between bitrate and information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
+
+We also examine the additionnal error caused by the encoding steps after obtaining the desired data representation. The only lossy operation applied is quantization, which is defined by an output word size $q$ in bits. However, it corresponds to the word size \textit{after} $\Delta$-compression, meaning that the data is in fact quantized on $2^{q-1}$ values. Since these measurements are already expressed in dB, the error $\varepsilon$ is:
+\begin{equation*}
+	\varepsilon = |x_q-x|
+\end{equation*}
+where $x_q$ and $x$ are the quantized and clean representations repectively. $x_q$ is given by:
+\begin{equation*}
+x_q(n) = \frac{\Delta_x}{2^{q-1}-1}\textrm{round}\left(\frac{(2^{q-1}-1)x(n)}{\Delta_x}\right), x\in \left[0, \Delta_x\right]
+\end{equation*}
+Figure~\ref{fig:error_q} shows an estimation of $\varepsilon$ as a function of $q$ for third-octave and mel bands. In both cases, the mean and standard deviation seem to decrease by a factor of 2 as $q$ increases. To explain this phenomenon, let us model $x$ as a uniform distribution such as $x\sim \textit{U}\{0, \Delta_x\}$. While this is not exact it matches our objective when using a logarithm to flatten given PDFs. The error $\varepsilon$ will follow a uniform distribution $U\sim \{0, \frac{\Delta_x}{2\times (2^{q-1}-1)}\}$. Therefore, the mean and standard deviation are:
+\[
+\begin{cases}
+	\mu_\epsilon = \frac{\Delta_x}{4\times (2^{q-1}-1)}\\
+	\sigma_\epsilon = \frac{1}{12}\frac{\Delta_x}{2\times (2^{q-1}-1)}
+\end{cases}
+\]
+justifying the decaying ratio as $q$ increases. In practice, we assume that $\varepsilon = f(\Delta_x, \frac{1}{2^{q-1}-1})$ with the heterogeneity of the data's PDF inducing small variations.\\
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{error_qall.eps}
+	\caption{Measurement error induced by encoding for different quantization resolutions.}
+	\label{fig:error_q}
+\end{figure}
+
+
+As $\Delta_x$ is sampled for each analysis frame in our implementation, the error has the same statistics across all bands. We compare the observed values against those specified in the IEC 61672-1:2013 \ml{norm ? please cite} for $f = 1~kHz$ as it is where the most accurate measurements are expected. For class 1 and 2 sound level meters, the tolerance is set at about $\pm 1~dB$ and $\pm 1.5~dB$ respectively. Results for 6, 7 or 8-bit words lie within the shorter range and are therefore compliant with those standard's measurement tolerance.
+
+\subsection{Event recognition}
+
+The same set of parameters as in bitrate evaluation is used to study the impact of their tuing to the sound event recognition performance. We thus aim at finding ways to further reduce the encoded data size without strongly affecting recognition performance. Results of the four presented classification methods are provided for the sake of completeness.\\
+
+First, we observe the impact of quantization on classification accuracy. The models are trained on the most complete implemented representation, ie. 40 mel bands and no time averaging (85 frames per second). Figure~\ref{fig:class_mel_q} shows that this process yields equivalent accuracy for higher resolutions.\\
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{class_mel_q.eps}
+	\caption{Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation.}
+	\label{fig:class_mel_q}
+\end{figure}
+
+The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the higher performing systems at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to some extent most often does notinduces a strong drop of performance. The performance of the decision tree classifier is a good example of this behavior, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is small, all other models perform best with 30 or 40 mel bands as a representation. Time decimation is also possible, as in most cases the original data can be averaged \ml{consistently ?} and yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 8 or 10 depending on the method. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition performance. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\fg{Highlight best/ok values once per class. method, not per fps}\\
+
+\begin{table*}[h]
+\centering
+\caption{Classification accuracy for varying representation resolutions}
+\label{T1}
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
+\cline{3-9}
+\multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
+\multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
+ & \multicolumn{1}{|c|}{10} & 0.55$\pm$0.03 & 0.60$\pm$0.03 & \textbf{0.61$\pm$0.04} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.06} & \textbf{0.65$\pm$0.06} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{20} & \textbf{0.58$\pm$0.04} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.65$\pm$0.05} & \textbf{0.67$\pm$0.06} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.60$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.03}} & \textbf{\textcolor{red}{0.67$\pm$0.04}} & \textbf{\textcolor{red}{0.68$\pm$0.04}} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{40} & \textbf{0.60$\pm$0.03} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.04} & \textbf{0.68$\pm$0.05} \\ \cline{1-9}
+\end{tabular}
+
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
+\cline{3-9}
+\multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
+\multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
+ & \multicolumn{1}{|c|}{10} & \textbf{0.60$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.65$\pm$0.04} & \textbf{0.67$\pm$0.05} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{20} & \textbf{0.61$\pm$0.04} & \textbf{0.63$\pm$0.03} & \textbf{0.64$\pm$0.03} & \textbf{\textcolor{red}{0.64$\pm$0.03}} & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.06} & \textbf{0.69$\pm$0.06} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.62$\pm$0.03}} & \textbf{\textcolor{red}{0.63$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.03}} & \textbf{0.64$\pm$0.03} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.67$\pm$0.05}} & \textbf{\textcolor{red}{0.69$\pm$0.06}} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{40} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9}
+\end{tabular}
+
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
+\cline{3-9}
+\multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
+\multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
+ & \multicolumn{1}{|c|}{10} & \textbf{0.42$\pm$0.03} & \textbf{\textcolor{red}{0.46$\pm$0.04}} & \textbf{\textcolor{red}{0.46$\pm$0.02}} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.03}} & \textbf{\textcolor{red}{0.46$\pm$0.05}} & \textbf{\textcolor{red}{0.49$\pm$0.03}} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{20} & \textbf{\textcolor{red}{0.43$\pm$0.05}} & \textbf{0.43$\pm$0.03} & 0.43$\pm$0.02 & \textbf{0.44$\pm$0.03} & \textbf{0.45$\pm$0.03} & \textbf{0.45$\pm$0.05} & \textbf{0.47$\pm$0.05} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{30} & \textbf{0.42$\pm$0.04} & \textbf{0.43$\pm$0.02} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.05}} & \textbf{0.43$\pm$0.03} & \textbf{0.43$\pm$0.04} & \textbf{0.45$\pm$0.05} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{40} & \textbf{0.42$\pm$0.06} & 0.43$\pm$0.03 & 0.43$\pm$0.03 & \textbf{0.42$\pm$0.03} & \textbf{0.44$\pm$0.03} & \textbf{0.46$\pm$0.03} & 0.45$\pm$0.04 \\ \cline{1-9}
+\end{tabular}
+
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
+\cline{3-9}
+\multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
+\multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
+ & \multicolumn{1}{|c|}{10} & \textbf{0.43$\pm$0.02} & \textbf{0.51$\pm$0.04} & \textbf{0.53$\pm$0.04} & \textbf{0.53$\pm$0.05} & \textbf{0.53$\pm$0.04} & \textbf{0.54$\pm$0.04} & \textbf{0.56$\pm$0.03} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{20} & \textbf{0.44$\pm$0.03} & \textbf{0.52$\pm$0.04} & \textbf{0.53$\pm$0.03} & \textbf{0.54$\pm$0.04} & \textbf{0.54$\pm$0.04} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.58$\pm$0.04}} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{30} & \textbf{0.45$\pm$0.04} & \textbf{\textcolor{red}{0.54$\pm$0.05}} & \textbf{\textcolor{red}{0.55$\pm$0.05}} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.56$\pm$0.04} & \textbf{0.56$\pm$0.04} \\ \cline{2-9}
+\multicolumn{1}{|c}{}
+ & \multicolumn{1}{|c|}{40} & \textbf{\textcolor{red}{0.46$\pm$0.03}} & \textbf{0.53$\pm$0.05} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.57$\pm$0.04}} & \textbf{0.57$\pm$0.03} \\ \cline{1-9}
+\end{tabular}
+\end{table*}
+
+
+\subsection{Third-octave bands as base descriptors}
+
+We now compare the efficiency of third-octave bands at characterizing urban soundscapes to that of mel spectrograms. Following the previous discussions, the classification task is run on corresponding cepstra with a fixed 8 frames per second and 31 bands. Figure~\ref{fig:tob_mel_q} displays \fg{fig to be added} similar results to 40 bands, 8 fps mel spectrograms.\\
+
+To further analyze both representations advantages, the confusion matrix is a reliable tool. It aims at providing information regarding class-by-class accuracy and misclassification rates. We thus compute these metrics for the SVM classifier, with predictions cumulated over the ten folds in test configuration. Results are visible in Figure~\ref{fig:tob_conf} and Figure~\ref{fig:mel_conf}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{tob_conf.eps}
+	\caption{Confusion matrix of the SVM classification on third-octave bands with $q = 8$.}
+	\label{fig:tob_conf}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{mel_conf.eps}
+	\caption{Confusion matrix for the same setup with 40 mel bands.}
+	\label{fig:mel_conf}
+\end{figure}
+\fg{Ici je pensais pouvoir trouver et expliquer les differences dues au contenu des descripteurs, mais apparemment les résultats sont proches. TODO: creuser un peu plus, et conclure}
+
+\subsection{Inintelligibility}
+
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test \ml{comment tu as fait le test ?} for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
+
+The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
+
+Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion.  Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance. \ml{incrompehnsible}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{int_mel_avg.eps}
+	\caption{The two objective indicators computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
+	\label{fig:int_mel_avg}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{percint_mel_avg.eps}
+	\caption{Results of a very small perceptual intelligibility test.}
+	\label{fig:percint_mel_avg}
+\end{figure}
+
+\fg{figures a refaire}
 \section{Conclusion}
 
 \clearpage
