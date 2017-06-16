@@ -267,7 +267,10 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 \section{Results}
 
 \subsection{Coder efficiency}
+
 The main indicator of performance is the bitrate obtained at the output of the coder. The three varying factors studied are the data word size $q$, the number of bands and the effect of reducing time-resolution by averaging analysis frames. Figure~\ref{fig:bitrate_q} shows estimations of the output bitrate for different values of $q$. To match third-octave bands computation principle where a 125~ms analysis is mandatory, we averaged mel frames over time. Because we use the most common parameters, namely 23.2~ms window with 50\% overlap, the closest achievable rate considering simple averaging is 7.74 frames per second. Third-octave representation on 31 bands yielded an overall higher size than their mel equivalent, here estimated for 30 bands. It however compares with the 40-mel bands representation which is the most used in litterature. This occurence is likely due to the distribution observed by the data prior to Huffman encoding.
+
+\ml{pourquoi parler d'overlap ici, alors que le codeur ne doit en utiliser ?}
 
 \begin{figure}[htbp]
 	\centering
@@ -276,7 +279,7 @@ The main indicator of performance is the bitrate obtained at the output of the c
 	\label{fig:bitrate_q}
 \end{figure}
 
-A second set of parameters influences directly the time-frequency resolution of the analysis. By choosing a frame rate and number of bands, one can effectively control the size of periodically transmitted data. We evaluate the bitrate for 10 to 40 mel bands and a frame rate from 2 to 10 per second, with fixed $q = 8$. Results are exposed in Figure~\ref{fig:bitrate_mel_avg}. As intuitively expected, the bitrate for a given word size $q$ can be modeled as a linear function of the representation dimensions for one second of analysis. Small variations are induced by data distributions on a per-frame level and their effect on the Huffman algorithm.
+A second set of parameters influences directly the time-frequency resolution of the analysis. By choosing a frame rate and number of bands, one can effectively control the size of periodically transmitted data. We evaluate the bitrate for 10 to 40 mel bands and a frame rate from 2 to 10 per second, with fixed $q = 8$. Results are exposed in Figure~\ref{fig:bitrate_mel_avg}. As expected, the bitrate for a given word size $q$ can be modeled as a linear function of the representation dimensions for one second of analysis. Small variations are induced by data distributions on a per-frame level and their effect on the Huffman algorithm.
 
 \begin{figure}[htbp]
 	\centering
@@ -285,9 +288,9 @@ A second set of parameters influences directly the time-frequency resolution of 
 	\label{fig:bitrate_mel_avg}
 \end{figure}
 
-While this experiment may seem trivial, it aims at assessing potential tradeoffs between bitrate and information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
+This experiment aims at assessing potential tradeoffs between bitrate and information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
 
-We also examine the additionnal error caused by encoding steps after obtaining the desired data representation. The only lossy operation applied is quantization, which is defined by an output word size $q$ in bits. However, it corresponds to the word size \textit{after} $\Delta$-compression, meaning that the data is in fact quantized on $2^{q-1}$ values. Since these measurements are already expressed in dB, the error $\varepsilon$ is:
+We also examine the additionnal error caused by the encoding steps after obtaining the desired data representation. The only lossy operation applied is quantization, which is defined by an output word size $q$ in bits. However, it corresponds to the word size \textit{after} $\Delta$-compression, meaning that the data is in fact quantized on $2^{q-1}$ values. Since these measurements are already expressed in dB, the error $\varepsilon$ is:
 \begin{equation*}
 	\varepsilon = |x_q-x|
 \end{equation*}
@@ -312,11 +315,11 @@ justifying the decaying ratio as $q$ increases. In practice, we assume that $\va
 \end{figure}
 
 
-Because in our implementation $\Delta_x$ is sampled for each analysis frame, the error has the same statistics across all bands. We compare the observed values against those specified in the IEC 61672-1:2013 for $f = 1~kHz$ as it is where the most accurate measurements are expected. For class 1 and 2 sound level meters, the tolerance is set at about $\pm 1~dB$ and $\pm 1.5~dB$ respectively. Results for 6, 7 or 8-bit words lie within the shorter range and are therefore compliant with the standard's measurement tolerance.
+As $\Delta_x$ is sampled for each analysis frame in our implementation, the error has the same statistics across all bands. We compare the observed values against those specified in the IEC 61672-1:2013 \ml{norm ? please cite} for $f = 1~kHz$ as it is where the most accurate measurements are expected. For class 1 and 2 sound level meters, the tolerance is set at about $\pm 1~dB$ and $\pm 1.5~dB$ respectively. Results for 6, 7 or 8-bit words lie within the shorter range and are therefore compliant with those standard's measurement tolerance.
 
 \subsection{Event recognition}
 
-The same set of parameters as in bitrate evaluation is used to study sound event recognition. We aim at finding possibilities to further reduce the encoded data size without affecting performance in a significant way. Results of the four presented classification methods are provided for completeness.\\
+The same set of parameters as in bitrate evaluation is used to study the impact of their tuing to the sound event recognition performance. We thus aim at finding ways to further reduce the encoded data size without strongly affecting recognition performance. Results of the four presented classification methods are provided for the sake of completeness.\\
 
 First, we observe the impact of quantization on classification accuracy. The models are trained on the most complete implemented representation, ie. 40 mel bands and no time averaging (85 frames per second). Figure~\ref{fig:class_mel_q} shows that this process yields equivalent accuracy for higher resolutions.\\
 
@@ -327,16 +330,16 @@ First, we observe the impact of quantization on classification accuracy. The mod
 	\label{fig:class_mel_q}
 \end{figure}
 
-The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the most performant at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to an extent generally does not cause the classification task to fail. The decision tree is a flagrant example of this, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is insignificant, all other models perform best with 30 or 40 mel bands as a representation base. Time decimation is also possible, as in most cases the original data can be averaged consistently and yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 8 or 10 depending on the method. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\fg{Highlight best/ok values once per class. method, not per fps}\\
+The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the higher performing systems at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to some extent most often does notinduces a strong drop of performance. The performance of the decision tree classifier is a good example of this behavior, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is small, all other models perform best with 30 or 40 mel bands as a representation. Time decimation is also possible, as in most cases the original data can be averaged \ml{consistently ?} and yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 8 or 10 depending on the method. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition performance. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\fg{Highlight best/ok values once per class. method, not per fps}\\
 
 \begin{table*}[h]
 \centering
 \caption{Classification accuracy for varying representation resolutions}
 \label{T1}
-\begin{tabular}{ll|c|c|c|c|c|c|c|} 
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9} 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
  & \multicolumn{1}{|c|}{10} & 0.55$\pm$0.03 & 0.60$\pm$0.03 & \textbf{0.61$\pm$0.04} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.06} & \textbf{0.65$\pm$0.06} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
@@ -345,12 +348,12 @@ The effect of changing representation time-frequency resolution is presented in 
  & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.60$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.03}} & \textbf{\textcolor{red}{0.67$\pm$0.04}} & \textbf{\textcolor{red}{0.68$\pm$0.04}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{40} & \textbf{0.60$\pm$0.03} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.04} & \textbf{0.68$\pm$0.05} \\ \cline{1-9}
-\end{tabular} 
+\end{tabular}
 
-\begin{tabular}{ll|c|c|c|c|c|c|c|} 
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9} 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
  & \multicolumn{1}{|c|}{10} & \textbf{0.60$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.65$\pm$0.04} & \textbf{0.67$\pm$0.05} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
@@ -358,13 +361,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.62$\pm$0.03}} & \textbf{\textcolor{red}{0.63$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.03}} & \textbf{0.64$\pm$0.03} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.67$\pm$0.05}} & \textbf{\textcolor{red}{0.69$\pm$0.06}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9} 
-\end{tabular} 
+ & \multicolumn{1}{|c|}{40} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9}
+\end{tabular}
 
-\begin{tabular}{ll|c|c|c|c|c|c|c|} 
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9} 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
  & \multicolumn{1}{|c|}{10} & \textbf{0.42$\pm$0.03} & \textbf{\textcolor{red}{0.46$\pm$0.04}} & \textbf{\textcolor{red}{0.46$\pm$0.02}} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.03}} & \textbf{\textcolor{red}{0.46$\pm$0.05}} & \textbf{\textcolor{red}{0.49$\pm$0.03}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
@@ -372,13 +375,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{30} & \textbf{0.42$\pm$0.04} & \textbf{0.43$\pm$0.02} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.05}} & \textbf{0.43$\pm$0.03} & \textbf{0.43$\pm$0.04} & \textbf{0.45$\pm$0.05} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{0.42$\pm$0.06} & 0.43$\pm$0.03 & 0.43$\pm$0.03 & \textbf{0.42$\pm$0.03} & \textbf{0.44$\pm$0.03} & \textbf{0.46$\pm$0.03} & 0.45$\pm$0.04 \\ \cline{1-9} 
-\end{tabular} 
+ & \multicolumn{1}{|c|}{40} & \textbf{0.42$\pm$0.06} & 0.43$\pm$0.03 & 0.43$\pm$0.03 & \textbf{0.42$\pm$0.03} & \textbf{0.44$\pm$0.03} & \textbf{0.46$\pm$0.03} & 0.45$\pm$0.04 \\ \cline{1-9}
+\end{tabular}
 
-\begin{tabular}{ll|c|c|c|c|c|c|c|} 
+\begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9} 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
  & \multicolumn{1}{|c|}{10} & \textbf{0.43$\pm$0.02} & \textbf{0.51$\pm$0.04} & \textbf{0.53$\pm$0.04} & \textbf{0.53$\pm$0.05} & \textbf{0.53$\pm$0.04} & \textbf{0.54$\pm$0.04} & \textbf{0.56$\pm$0.03} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
@@ -386,8 +389,8 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{30} & \textbf{0.45$\pm$0.04} & \textbf{\textcolor{red}{0.54$\pm$0.05}} & \textbf{\textcolor{red}{0.55$\pm$0.05}} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.56$\pm$0.04} & \textbf{0.56$\pm$0.04} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{\textcolor{red}{0.46$\pm$0.03}} & \textbf{0.53$\pm$0.05} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.57$\pm$0.04}} & \textbf{0.57$\pm$0.03} \\ \cline{1-9} 
-\end{tabular} 
+ & \multicolumn{1}{|c|}{40} & \textbf{\textcolor{red}{0.46$\pm$0.03}} & \textbf{0.53$\pm$0.05} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.57$\pm$0.04}} & \textbf{0.57$\pm$0.03} \\ \cline{1-9}
+\end{tabular}
 \end{table*}
 
 
@@ -414,11 +417,11 @@ To further analyze both representations advantages, the confusion matrix is a re
 
 \subsection{Inintelligibility}
 
-Finally, objective intelligibility metrics are estimated for the studied parameters and compared to perceptual tests. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions. We may at first observe a resemblance between the three measurements. 
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test \ml{comment tu as fait le test ?} for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
 
-The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for this application.\\
+The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
 
-Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more accurate representation of the reality. Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance.
+Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion.  Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance. \ml{incrompehnsible}
 
 \begin{figure}[htbp]
 	\centering
