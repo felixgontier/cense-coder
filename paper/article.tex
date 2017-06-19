@@ -146,21 +146,13 @@ We thus propose in this paper a audio coding scheme specifically tailored for us
 
 In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community. The remaining of the paper is organized as follows: Section \ref{sec:background} reviews the types of data that needs to be estimated using the transmitted data and Section \ref{sec:coder} describes the proposed encoding schemeSection. the experimental protocol designed to validate the proposed approach is described in Section \ref{sec:protocol} and results are discussed in Section \ref{sec:results}.
 
-<<<<<<< HEAD
-%\begin{figure}[t]
-%\includegraphics[width=\columnwidth]{figures/censeCoder}
-%\vspace{-0.15in}
-%\caption{}
-%\label{fig:codingScheme}
-%\end{figure}
-=======
+
 \begin{figure}[t]
 \includegraphics[width=\columnwidth]{figures/censeCoder}
 \vspace{-0.15in}
 \caption{Alternative implementations of the sensor grid approach for the monitoring of the acoustic environnment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows indicate bandwidth and thickness of boxes indicates the level of computation or storage required.}
 \label{fig:codingScheme}
 \end{figure}
->>>>>>> dfbee9b97a83416dbf8d61da9371361e9895a5f9
 
 
 \section{Background} \label{sec:background}
@@ -187,7 +179,7 @@ A more detailed review of used methods is available in \cite{chachada2013}.
 
 The technical constraints of size inherent to the studied setup make it impossible to transmit raw audio recordings. Following the considerations briefly exposed in the previous section, we conclude that third-octave bands are a reasonable choice. As mentionned, they provide advantages in both acoustic monitoring quality and reduced data volume per measurement period. The physical content is also close to that of mel spectrograms, being just another filterbank transform with logarithmic frequency scaling.\\
 
-A common way to implement third-octave analysis is to first design the highest octave three filters, and use them on progressively time-decimated versions of the input signal \cite{davis1986}. In practice, however, this technique presents multiple issues. \cite{antoni2010} presents an alternative analysis method based on direct frequency weighting. The weights matrix design procedure complies with both ANSI S1.1-1986 and IEC 61260-1:2014 standards. It also respects the partition of unity principle over all frequency bins in the relevant range. Resulting filters for different parameter $l$ values are compared with Couvreur's implementation \cite{couvreur} of the time-domain filtering, as shown in Figure~\ref{fig:freq_filt}. The major difference is that gains at cutoff frequencies are fixed at the optimal -3dB by design.\\
+A common way to implement third-octave analysis is to first design the highest octave three filters, and use them on progressively time-decimated versions of the input signal \cite{davis1986}. In practice, however, this technique presents multiple issues. \cite{antoni2010} presents an alternative analysis method based on direct frequency weighting. The weights matrix design procedure complies with both ANSI S1.1-1986 \cite{citeulike:9580295} and IEC 61260-1:2014 \cite{iec-norm} standards. It also respects the partition of unity principle over all frequency bins in the relevant range. Resulting filters for different parameter $l$ values are compared with Couvreur's implementation \cite{couvreur} of the time-domain filtering, as shown in Figure~\ref{fig:freq_filt}. The major difference is that gains at cutoff frequencies are fixed at the optimal -3dB by design.\\
 
 \begin{figure}[htbp]
 	\centering
@@ -273,8 +265,6 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 \subsection{Coder efficiency}
 
 The main indicator of performance is the bitrate obtained at the output of the coder. The three varying factors studied are the data word size $q$, the number of bands and the effect of reducing time-resolution by averaging analysis frames. Figure~\ref{fig:bitrate_q} shows estimations of the output bitrate for different values of $q$. To match third-octave bands computation principle where a 125~ms analysis is mandatory, we averaged mel frames over time. Because we use the most common parameters, namely 23.2~ms window with 50\% overlap, the closest achievable rate considering simple averaging is 7.74 frames per second. Third-octave representation on 31 bands yielded an overall higher size than their mel equivalent, here estimated for 30 bands. It however compares with the 40-mel bands representation which is the most used in litterature. This occurence is likely due to the distribution observed by the data prior to Huffman encoding.
-
-\ml{pourquoi parler d'overlap ici, alors que le codeur ne doit en utiliser ?}
 
 \begin{figure}[htbp]
 	\centering
