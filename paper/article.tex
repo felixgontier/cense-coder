@@ -152,12 +152,12 @@ proposed approach
 
 
 
-\begin{figure}[t]
-\includegraphics[width=\columnwidth]{figures/censeCoder}
-\vspace{-0.15in}
-\caption{}
-\label{fig:codingScheme}
-\end{figure}
+%\begin{figure}[t]
+%\includegraphics[width=\columnwidth]{figures/censeCoder}
+%\vspace{-0.15in}
+%\caption{}
+%\label{fig:codingScheme}
+%\end{figure}
 
 
 \section{Background}
@@ -319,7 +319,7 @@ As $\Delta_x$ is sampled for each analysis frame in our implementation, the erro
 
 \subsection{Event recognition}
 
-The same set of parameters as in bitrate evaluation is used to study the impact of their tuing to the sound event recognition performance. We thus aim at finding ways to further reduce the encoded data size without strongly affecting recognition performance. Results of the four presented classification methods are provided for the sake of completeness.\\
+The same set of parameters as in bitrate evaluation is used to study the impact of their tuning to the sound event recognition performance. We thus aim at finding ways to further reduce the encoded data size without strongly affecting recognition performance. Results of the four presented classification methods are provided for the sake of completeness.\\
 
 First, we observe the impact of quantization on classification accuracy. The models are trained on the most complete implemented representation, ie. 40 mel bands and no time averaging (85 frames per second). Figure~\ref{fig:class_mel_q} shows that this process yields equivalent accuracy for higher resolutions.\\
 
@@ -330,7 +330,7 @@ First, we observe the impact of quantization on classification accuracy. The mod
 	\label{fig:class_mel_q}
 \end{figure}
 
-The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the higher performing systems at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to some extent most often does notinduces a strong drop of performance. The performance of the decision tree classifier is a good example of this behavior, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is small, all other models perform best with 30 or 40 mel bands as a representation. Time decimation is also possible, as in most cases the original data can be averaged \ml{consistently ?} and yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 8 or 10 depending on the method. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition performance. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\fg{Highlight best/ok values once per class. method, not per fps}\\
+The effect of changing representation time-frequency resolution is presented in Table~\ref{T1}. Similarly to baseline results, the random forest and SVM classifiers are the higher performing systems at $0.69\pm 0.06$ and $0.68\pm 0.04$ respectively. However, we find that given our setup, diminishing the number of analysis bands to some extent most often does not induce a strong drop of performance. The performance of the decision tree classifier is a good example of this behavior, with best performances for 10 mel bands only and a 4\% lower accuracy for 40. Even if the difference is small, all other models perform best with 30 or 40 mel bands as a representation. Time decimation is also possible, as the original representation can be averaged and consistently yield a good classification accuracy. The loss of information can be considered negligible for FPS values as low as 20 or 10 depending on the method. Even below, classification accuracy only drops by one or a few percents. This means that we can effectively divide the data size by a factor of at most 10 without affecting sound event recognition performance. It also provides us with a preliminary confirmation of the possibility for "fast"-sampled third-octave bands cepstra to match  MFCC performances.\\
 
 \begin{table*}[h]
 \centering
@@ -341,13 +341,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & 0.55$\pm$0.03 & 0.60$\pm$0.03 & \textbf{0.61$\pm$0.04} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.06} & \textbf{0.65$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} & 0.55$\pm$0.03 & 0.60$\pm$0.03 & 0.61$\pm$0.04 & 0.62$\pm$0.03 & 0.62$\pm$0.04 & \textbf{0.63$\pm$0.06} & \textbf{0.65$\pm$0.06} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & \textbf{0.58$\pm$0.04} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.65$\pm$0.05} & \textbf{0.67$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 0.58$\pm$0.04 & 0.62$\pm$0.04 & 0.63$\pm$0.04 & 0.64$\pm$0.04 & 0.63$\pm$0.04 & \textbf{0.65$\pm$0.05} & \textbf{0.67$\pm$0.06} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.60$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.04}} & \textbf{\textcolor{red}{0.65$\pm$0.03}} & \textbf{\textcolor{red}{0.67$\pm$0.04}} & \textbf{\textcolor{red}{0.68$\pm$0.04}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 0.60$\pm$0.03 & 0.64$\pm$0.04 & 0.64$\pm$0.04 & \textbf{0.65$\pm$0.04} & \textbf{0.65$\pm$0.03} & \textbf{0.67$\pm$0.04} & \textbf{\textcolor{red}{0.68$\pm$0.04}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{0.60$\pm$0.03} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.04} & \textbf{0.68$\pm$0.05} \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 0.60$\pm$0.03 & 0.63$\pm$0.04 & \textbf{0.64$\pm$0.04} & 0.64$\pm$0.04 & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.04} & \textbf{0.68$\pm$0.05} \\ \cline{1-9}
 \end{tabular}
 
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
@@ -355,13 +355,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & \textbf{0.60$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.62$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.63$\pm$0.03} & \textbf{0.65$\pm$0.04} & \textbf{0.67$\pm$0.05} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} & 0.60$\pm$0.03 & 0.62$\pm$0.03 & 0.62$\pm$0.03 & 0.63$\pm$0.03 & 0.63$\pm$0.03 & \textbf{0.65$\pm$0.04} & \textbf{0.67$\pm$0.05} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & \textbf{0.61$\pm$0.04} & \textbf{0.63$\pm$0.03} & \textbf{0.64$\pm$0.03} & \textbf{\textcolor{red}{0.64$\pm$0.03}} & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.06} & \textbf{0.69$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 0.61$\pm$0.04 & 0.63$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.04 & \textbf{0.66$\pm$0.06} & \textbf{0.69$\pm$0.06} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & \textbf{\textcolor{red}{0.62$\pm$0.03}} & \textbf{\textcolor{red}{0.63$\pm$0.03}} & \textbf{\textcolor{red}{0.64$\pm$0.03}} & \textbf{0.64$\pm$0.03} & \textbf{\textcolor{red}{0.64$\pm$0.04}} & \textbf{\textcolor{red}{0.67$\pm$0.05}} & \textbf{\textcolor{red}{0.69$\pm$0.06}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 0.62$\pm$0.03 & 0.63$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.04 & \textbf{0.67$\pm$0.05} & \textbf{\textcolor{red}{0.69$\pm$0.06}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{0.62$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.64$\pm$0.04} & \textbf{0.63$\pm$0.04} & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 0.62$\pm$0.04 & 0.63$\pm$0.04 & 0.63$\pm$0.04 & 0.64$\pm$0.04 & 0.63$\pm$0.04 & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9}
 \end{tabular}
 
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
@@ -369,13 +369,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & \textbf{0.42$\pm$0.03} & \textbf{\textcolor{red}{0.46$\pm$0.04}} & \textbf{\textcolor{red}{0.46$\pm$0.02}} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.03}} & \textbf{\textcolor{red}{0.46$\pm$0.05}} & \textbf{\textcolor{red}{0.49$\pm$0.03}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} & 0.42$\pm$0.03 & \textbf{0.46$\pm$0.04} & 0.46$\pm$0.02 & 0.44$\pm$0.03 & 0.45$\pm$0.03 & \textbf{0.46$\pm$0.05} & \textbf{\textcolor{red}{0.49$\pm$0.03}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & \textbf{\textcolor{red}{0.43$\pm$0.05}} & \textbf{0.43$\pm$0.03} & 0.43$\pm$0.02 & \textbf{0.44$\pm$0.03} & \textbf{0.45$\pm$0.03} & \textbf{0.45$\pm$0.05} & \textbf{0.47$\pm$0.05} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 0.43$\pm$0.05 & 0.43$\pm$0.03 & 0.43$\pm$0.02 & 0.44$\pm$0.03 & 0.45$\pm$0.03 & 0.45$\pm$0.05 & \textbf{0.47$\pm$0.05} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & \textbf{0.42$\pm$0.04} & \textbf{0.43$\pm$0.02} & \textbf{0.44$\pm$0.03} & \textbf{\textcolor{red}{0.45$\pm$0.05}} & \textbf{0.43$\pm$0.03} & \textbf{0.43$\pm$0.04} & \textbf{0.45$\pm$0.05} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 0.42$\pm$0.04 & 0.43$\pm$0.02 & 0.44$\pm$0.03 & 0.45$\pm$0.05 & 0.43$\pm$0.03 & 0.43$\pm$0.04 & \textbf{0.45$\pm$0.05} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{0.42$\pm$0.06} & 0.43$\pm$0.03 & 0.43$\pm$0.03 & \textbf{0.42$\pm$0.03} & \textbf{0.44$\pm$0.03} & \textbf{0.46$\pm$0.03} & 0.45$\pm$0.04 \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 0.42$\pm$0.06 & 0.43$\pm$0.03 & 0.43$\pm$0.03 & 0.42$\pm$0.03 & 0.44$\pm$0.03 & 0.46$\pm$0.03 & \textbf{0.46$\pm$0.04} \\ \cline{1-9}
 \end{tabular}
 
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
@@ -383,22 +383,32 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & \textbf{0.43$\pm$0.02} & \textbf{0.51$\pm$0.04} & \textbf{0.53$\pm$0.04} & \textbf{0.53$\pm$0.05} & \textbf{0.53$\pm$0.04} & \textbf{0.54$\pm$0.04} & \textbf{0.56$\pm$0.03} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} &0.43$\pm$0.02 & 0.51$\pm$0.04 & 0.53$\pm$0.04 & 0.53$\pm$0.05 & 0.53$\pm$0.04 & 0.54$\pm$0.04 & \textbf{0.56$\pm$0.03} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & \textbf{0.44$\pm$0.03} & \textbf{0.52$\pm$0.04} & \textbf{0.53$\pm$0.03} & \textbf{0.54$\pm$0.04} & \textbf{0.54$\pm$0.04} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.58$\pm$0.04}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 0.44$\pm$0.03 & 0.52$\pm$0.04 & 0.53$\pm$0.03 & 0.54$\pm$0.04 & \textbf{0.54$\pm$0.04} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.58$\pm$0.04}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & \textbf{0.45$\pm$0.04} & \textbf{\textcolor{red}{0.54$\pm$0.05}} & \textbf{\textcolor{red}{0.55$\pm$0.05}} & \textbf{0.55$\pm$0.04} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.56$\pm$0.04} & \textbf{0.56$\pm$0.04} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 0.45$\pm$0.04 & 0.54$\pm$0.05 & \textbf{0.55$\pm$0.05} & \textbf{0.55$\pm$0.04} & \textbf{0.55$\pm$0.04} & \textbf{0.56$\pm$0.04} & \textbf{0.56$\pm$0.04} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & \textbf{\textcolor{red}{0.46$\pm$0.03}} & \textbf{0.53$\pm$0.05} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.55$\pm$0.04}} & \textbf{0.55$\pm$0.05} & \textbf{\textcolor{red}{0.57$\pm$0.04}} & \textbf{0.57$\pm$0.03} \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 0.46$\pm$0.03 & 0.53$\pm$0.05 & \textbf{0.55$\pm$0.05} & \textbf{0.55$\pm$0.04} & \textbf{0.55$\pm$0.05} & \textbf{0.57$\pm$0.04} & \textbf{0.57$\pm$0.03} \\ \cline{1-9}
 \end{tabular}
 \end{table*}
 
 
+
 \subsection{Third-octave bands as base descriptors}
 
-We now compare the efficiency of third-octave bands at characterizing urban soundscapes to that of mel spectrograms. Following the previous discussions, the classification task is run on corresponding cepstra with a fixed 8 frames per second and 31 bands. Figure~\ref{fig:tob_mel_q} displays \fg{fig to be added} similar results to 40 bands, 8 fps mel spectrograms.\\
+We now compare the efficiency of third-octave bands at characterizing urban soundscapes to that of mel spectrograms. Following the previous discussions, the classification task is run on corresponding cepstra with a fixed 8 frames per second and 31 bands. Figure~\ref{fig:class_tob_q} displays similar results to the 40 bands, 8 fps mel spectrograms seen in Table~\ref{T1} for all classification schemes.\\
 
-To further analyze both representations advantages, the confusion matrix is a reliable tool. It aims at providing information regarding class-by-class accuracy and misclassification rates. We thus compute these metrics for the SVM classifier, with predictions cumulated over the ten folds in test configuration. Results are visible in Figure~\ref{fig:tob_conf} and Figure~\ref{fig:mel_conf}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{class_tob_q.eps}
+	\caption{Classification accuracy with third-octave bands and varying word size.}
+	\label{fig:class_tob_q}
+\end{figure}
+
+To further analyze both representations advantages, the confusion matrix is a reliable tool. It aims at providing information regarding class-by-class accuracy and misclassification rates. We thus compute these metrics for the SVM classifier, with predictions cumulated over the ten folds in test configuration. Results are visible in Figure~\ref{fig:tob_conf} and Figure~\ref{fig:mel_conf}. The analogous natures of the two descriptors is highlighted by close one-versus-one differentiation performances, with a slightly lower accuracy for third-octave bands on average. A noticeable difference is that on the log-frequency scale the bandwidth of mel filters narrows as frequency increases while third-octave are evenly distributed. The effect of this can be seen between classes 5 and 8 (resp. \textit{Drilling} and \textit{Jackhammer}). These sounds involve important low-frequency information which can generally differentiate them, leading third-octave descriptors to perform better. Conversely this improves globally class 1 (\textit{Air conditioning}) recognition as most of its defining components are situated in higher frequencies.\\
+
+Each descriptor is thus found to have similar representational capabilities despite minor construction differences.
 
 \begin{figure}[htbp]
 	\centering
@@ -407,17 +417,16 @@ To further analyze both representations advantages, the confusion matrix is a re
 	\label{fig:tob_conf}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
 		\includegraphics[width=\columnwidth]{mel_conf.eps}
 	\caption{Confusion matrix for the same setup with 40 mel bands.}
 	\label{fig:mel_conf}
 \end{figure}
-\fg{Ici je pensais pouvoir trouver et expliquer les differences dues au contenu des descripteurs, mais apparemment les résultats sont proches. TODO: creuser un peu plus, et conclure}
 
 \subsection{Inintelligibility}
 
-Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figure~\ref{fig:int_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test \ml{comment tu as fait le test ?} for the same setup. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_mel_avg} and \ref{fig:fwsnrseg_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. For this test, subjects were asked to blindly listen to recovered speech audio with different representation and coding parameters. They had to rate each extract between 0 ans 5, respectively inintelligible and perfectly comprehensible. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
 
 The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
 
@@ -425,15 +434,22 @@ Alternatively, the frequency-weighted segmental SNR considers only spectrogram m
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{int_mel_avg.eps}
-	\caption{The two objective indicators computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
-	\label{fig:int_mel_avg}
+		\includegraphics[width=\columnwidth]{csii_mel_avg.eps}
+	\caption{The Coherence SII objective indicator computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
+	\label{fig:csii_mel_avg}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\columnwidth]{fwsnrseg_mel_avg.eps}
+	\caption{Frequency-weighted segmental SNR for the same parameters.}
+	\label{fig:fwsnrseg_mel_avg}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=\columnwidth]{percint_mel_avg.eps}
-	\caption{Results of a very small perceptual intelligibility test.}
+	\caption{Results of the perceptual intelligibility test.}
 	\label{fig:percint_mel_avg}
 \end{figure}
 

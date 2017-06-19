@@ -49,7 +49,7 @@ if nargin==0, censeCoder('report', 'r'); return; end%censeCoder('report', 'rhv')
 %%% Class
 % Fixed: -
 % Varying: Quant - All
-config = expExpose(config, 'p', 'mask', {-1, -1, 0, -1, -1, -1, 2, 0, -1, 2, -1, 2}, 'obs', 'cv_acc', 'save', 'tob_class', 'step', 4, 'expand', 'quant');
+% config = expExpose(config, 'p', 'mask', {-1, -1, 0, -1, -1, -1, 2, 0, -1, 2, -1, 2}, 'obs', 'cv_acc', 'save', 'tob_class', 'step', 4, 'expand', 'quant');
 
 %%% Intel
 % Fixed: -
@@ -85,7 +85,7 @@ config = expExpose(config, 'p', 'mask', {-1, -1, 0, -1, -1, -1, 2, 0, -1, 2, -1,
 % config = expExpose(config, 'p', 'mask', {7, 4, 1, -1, -1, -1, 2, 0, -1, 1, -1, -1}, 'obs', 'cv_acc', 'save', 'mel_class_mel30_avg0_q0', 'step', 4);
 % Fixed: Quant - 8
 % Varying: Mel - All, Avg - All
-%config = expExpose(config, 't', 'mask', {0, 0, 6, 1, 2, 10, 2, 4, -1, 1, -1, -1}, 'obs', 'cv_acc', 'save', 'mel_class_melall_avgall_q8', 'step', 4, 'expand', 'fps');
+config = expExpose(config, 't', 'mask', {0, 0, 6, 1, 2, 10, 2, 1, -1, 1, -1, -1}, 'obs', 'cv_acc', 'save', 'mel_class_melall_avgall_q8', 'step', 4);
 
 %%% Intel
 % Fixed: Quant - 8

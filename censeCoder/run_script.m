@@ -25,5 +25,6 @@ clear all, close all, clc;
 % censeCoder('do', [1 2 4], 'mask', {0, 0, 6, 1, 2, 10, 2, 0, -1, 1, -1, -1});
 %%% Intel indicators - All mel settings, 8 bit
 % censeCoder('do', [1 2 3 4], 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, 0, -1});
-
-censeCoder('do', [4], 'mask', {4, 4, 6, 1, 2, 10, 2, 1, -1, 0, -1, 2});
+% censeCoder('do', [4], 'mask', {4, 4, 6, 1, 2, 10, 2, 1, -1, 0, -1, 2});
+ 
+censeCoder('do', [1 2 3], 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, -1, -1});
