@@ -239,11 +239,21 @@ We evaluate the global loss of information by implementing the four classificati
 
 \subsection{Inintelligibility}
 
-Intelligibility in decoded and reconstructed audio is also oan concerns of this study. It is indeed important that the produced scheme maintains a high level of recognition of acoustic events but, as the dat is transmitted over the network and potentially stored, the level of intelligibility of the decoded stream should be as low as possible.
+Intelligibility in decoded and reconstructed audio is also an important concern in this study. It is indeed important that the proposed scheme ensures a high level of recognition of acoustic events but, as the data is transmitted over the network and potentially stored, the level of intelligibility of the decoded stream should be as low as possible.
+
+
+Forensic phonetics \cite{baldwin1990forensic}
+
+indice biométrique faible \cite{boe2000forensic}
+
+In order to decrease the intelligibility, several approaches can be considered. First,  a speech versus non speech detector can be implemented on the sensor. If some speech is detected, the data is not transmitted. This approach is prone to failure of the detector and will lead to unavailibility of data whcih might compromise the computation of some indicators. Second, as the speech is mostly concentrated at a given frequency region, a band pass filter from 1 kHz to $~$4-5 kHz could be considered in order to remove the formant information \cite{kent1992acoustic}. However, as some frequency bands are no longer available, the computation of the acoustic indicators is no longer possible. A third approach is to wisely choose the frame rate. Since a phoneme is about 100ms to 200ms long \cite{kuwabara1996acoustic} \cite{rosen1992temporal} a frame rate lower than 4 Hz should dramatically reduce intelligibility.
+
+
+
 
 %conduct thus preliminary perceptive tests to ensure that a clean speech recording is made unintelligible, implying the same results in usually noisier urban soundscapes. We also
 
-We thus provide the computation of two objective metrics: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-weighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study.\\
+To evaluate the impact of the frame rate on intelligibility two objective metrics are considered: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-weighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study.\\
 
 These metrics require a recovery of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin \& Lim algorithm \cite{griffin1984}, and the signal is retrieved using concatenation or overlap-add. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
 
@@ -404,6 +414,7 @@ Both descriptor are thus found to have similar representational capabilities des
 
 
 \subsection{Inintelligibility}
+
 
 Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_mel_avg} and \ref{fig:fwsnrseg_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. %For this test, subjects were asked to blindly listen to recovered speech audio with different representation and coding parameters. They had to rate each extract between 0 ans 5, respectively inintelligible and perfectly comprehensible. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
 
