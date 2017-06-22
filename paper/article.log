@@ -1,15 +1,17 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.9)  22 JUN 2017 00:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.9.26)  22 JUN 2017 09:27
 entering extended mode
-**./article.tex
-(article.tex
-LaTeX2e <2015/10/01> patch level 2
-Babel <3.9n> and hyphenation patterns for 69 languages loaded.
-(elsarticle.cls
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**article
+(./article.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 33 language(s) loaded.
+(./elsarticle.cls
 Document Class: elsarticle 2009/09/17, 1.20b: Elsevier Ltd
 \@bls=\dimen102
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -24,31 +26,31 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen103
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 94.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count87
@@ -56,16 +58,16 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\pifont.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/pifont.sty
 Package: pifont 2005/04/12 PSNFSS-v9.2a Pi font support (SPQR) 
 LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upzd.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/upzd.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
 LaTeX Font Info:    Try loading font information for U+psy on input line 64.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\upsy.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
 \c@tnote=\count88
@@ -85,8 +87,8 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@enLab=\toks16
 \@sep=\skip43
 \@@sep=\skip44
- (article.spl)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
+ (./article.spl)
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip45
 \bibsep=\skip46
@@ -97,18 +99,18 @@ LaTeX Info: Redefining \cite on input line 694.
 \openout3 = `article.spl'.
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count95
@@ -123,9 +125,8 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layouthoffset=\dimen115
 \Gm@layoutvoffset=\dimen116
 \Gm@dimlist=\toks17
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fleqn.clo"
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fleqn.clo
 File: fleqn.clo 2015/03/31 v1.1i Standard LaTeX option (flush left equations)
 \mathindent=\dimen117
 Applying: [2015/01/01] Make \[ robust on input line 50.
@@ -137,7 +138,7 @@ Already applied: [0000/00/00] Make \] robust on input line 83.
 )
 \appnamewidth=\dimen118
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\txfonts.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/txfonts.sty
 Package: txfonts 2008/01/22 v3.2.1
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 21.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -213,10 +214,10 @@ LaTeX Font Info:    Overwriting symbol font `largesymbolsA' in version `bold'
 (Font)                  U/txexa/m/n --> U/txexa/bx/n on input line 129.
 LaTeX Info: Redefining \not on input line 1043.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks18
 LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 59.
@@ -450,41 +451,41 @@ LaTeX Font Info:    Redeclaring math symbol \Bbbk on input line 261.
 LaTeX Font Info:    Redeclaring math symbol \hslash on input line 262.
 LaTeX Font Info:    Redeclaring math symbol \backepsilon on input line 265.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
-Package: amsmath 2013/01/14 v2.14 AMS math features
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/03/03 v2.15a AMS math features
 \@mathmargin=\skip47
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
-Package: amstext 2000/06/29 v2.01
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
-File: amsgen.sty 1999/11/30 v2.0
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
 \ex@=\dimen119
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
-Package: amsbsy 1999/11/29 v1.2d
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen120
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count98
-LaTeX Info: Redefining \frac on input line 210.
+LaTeX Info: Redefining \frac on input line 199.
 \uproot@=\count99
 \leftroot@=\count100
-LaTeX Info: Redefining \overline on input line 306.
+LaTeX Info: Redefining \overline on input line 297.
 \classnum@=\count101
 \DOTSCASE@=\count102
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
 \Mathstrutbox@=\box30
 \strutbox@=\box31
 \big@size=\dimen121
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
 \macc@depth=\count103
 \c@MaxMatrixCols=\count104
 \dotsspace@=\muskip10
@@ -505,31 +506,31 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip48
 \multlinetaggap=\skip49
 \mathdisplay@stack=\toks23
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
+LaTeX Info: Redefining \[ on input line 2735.
+LaTeX Info: Redefining \] on input line 2736.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -538,7 +539,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -550,17 +551,21 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
-))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
-Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
-Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
-Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
 Package hobsub Info: Skipping package `ltxcmds' (already loaded).
 Package hobsub Info: Skipping package `ifluatex' (already loaded).
@@ -579,7 +584,7 @@ Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
 )
 Package hobsub Info: Skipping package `hobsub' (already loaded).
 Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
-Package: hopatch 2011/06/24 v1.1 Wrapper for package hooks (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
 Package: xcolor-patch 2011/01/30 xcolor patch
 Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
@@ -587,19 +592,19 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen128
 \Hy@linkcounter=\count110
 \Hy@pagecounter=\count111
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count112
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `final' set `true' on input line 4319.
@@ -612,7 +617,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count113
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\url\url.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
@@ -637,36 +642,35 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count118
 \c@bookmark@seq@number=\count119
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip50
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
-Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 142.
+Package color Info: Driver file: pdftex.def on input line 143.
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 \bigstrutjot=\dimen132
-)
-(article.aux)
+) (./article.aux)
 \openout1 = `article.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 60.
 LaTeX Font Info:    Try loading font information for OML+txmi on input line 60.
 
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\omltxmi.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    ... okay on input line 60.
@@ -677,7 +681,8 @@ LaTeX Font Info:    ... okay on input line 60.
 LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 60.
 LaTeX Font Info:    Try loading font information for OMS+txsy on input line 60.
 
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\omstxsy.fd"
+
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    ... okay on input line 60.
@@ -685,14 +690,14 @@ LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 60.
 LaTeX Font Info:    Try loading font information for OMX+txex on input line 60.
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\omxtxex.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    ... okay on input line 60.
 LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 60.
 LaTeX Font Info:    Try loading font information for U+txexa on input line 60.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\utxexa.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    ... okay on input line 60.
@@ -700,10 +705,10 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
 LaTeX Font Info:    Try loading font information for OT1+txr on input line 60.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\ot1txr.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count120
 \scratchdimen=\dimen133
@@ -755,10 +760,10 @@ File: ot1txr.fd 2000/12/15 v3.1
 
 \AtBeginShipoutBox=\box33
 Package hyperref Info: Link coloring OFF on input line 60.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count126
@@ -767,37 +772,37 @@ LaTeX Info: Redefining \ref on input line 60.
 LaTeX Info: Redefining \pageref on input line 60.
 LaTeX Info: Redefining \nameref on input line 60.
 
-(article.out) (article.out)
+(./article.out) (./article.out)
 \@outlinefile=\write4
 \openout4 = `article.out'.
 
 LaTeX Font Info:    Try loading font information for U+txmia on input line 119.
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\utxmia.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 119.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 119.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+txsyc on input line 119.
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\txfonts\utxsyc.fd"
+(/usr/share/texlive/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
-) [1{C:/Users/felix/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 ]
-<figures/censeCoder.pdf, id=87, 418.56375pt x 218.8175pt>
+<figures/censeCoder.pdf, id=88, 418.56375pt x 218.8175pt>
 File: figures/censeCoder.pdf Graphic file (type pdf)
 
 <use figures/censeCoder.pdf>
@@ -866,16 +871,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 178--179
  []
 
 Package epstopdf Info: Source file: <figures/tob_imp.eps>
-(epstopdf)                    date: 2017-06-11 15:04:25
-(epstopdf)                    size: 203437 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 199883 bytes
 (epstopdf)             Output file: <figures/tob_imp-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:29
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 11609 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/tob_imp-eps-convert
-ed-to.pdf figures/tob_imp.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/tob_imp-eps-conver
+ted-to.pdf figures/tob_imp.eps>
 (epstopdf)             \includegraphics on input line 182.
 Package epstopdf Info: Output file is already uptodate.
-<figures/tob_imp-eps-converted-to.pdf, id=156, 421.575pt x 316.18124pt>
+<figures/tob_imp-eps-converted-to.pdf, id=157, 421.575pt x 316.18124pt>
 File: figures/tob_imp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/tob_imp-eps-converted-to.pdf>
@@ -904,17 +909,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 201--202
 
 [4 <./figures/tob_imp-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figures/pdf.eps>
-(epstopdf)                    date: 2017-06-11 15:58:44
-(epstopdf)                    size: 180723 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 177444 bytes
 (epstopdf)             Output file: <figures/pdf-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:30
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 9876 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/pdf-eps-converted-t
-o.pdf figures/pdf.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/pdf-eps-converted-
+to.pdf figures/pdf.eps>
 (epstopdf)             \includegraphics on input line 205.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/pdf-eps-converted-to.pdf, id=220, 421.575pt x 316.18124pt>
+<figures/pdf-eps-converted-to.pdf, id=222, 421.575pt x 316.18124pt>
 File: figures/pdf-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/pdf-eps-converted-to.pdf>
@@ -927,16 +932,16 @@ Overfull \hbox (12.0pt too wide) in paragraph at lines 205--206
  []
 
 Package epstopdf Info: Source file: <figures/dict_comp.eps>
-(epstopdf)                    date: 2017-06-11 16:25:12
-(epstopdf)                    size: 116042 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 113124 bytes
 (epstopdf)             Output file: <figures/dict_comp-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:31
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 9067 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/dict_comp-eps-conve
-rted-to.pdf figures/dict_comp.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/dict_comp-eps-conv
+erted-to.pdf figures/dict_comp.eps>
 (epstopdf)             \includegraphics on input line 212.
 Package epstopdf Info: Output file is already uptodate.
-<figures/dict_comp-eps-converted-to.pdf, id=221, 421.575pt x 316.18124pt>
+<figures/dict_comp-eps-converted-to.pdf, id=223, 421.575pt x 316.18124pt>
 File: figures/dict_comp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/dict_comp-eps-converted-to.pdf>
@@ -944,16 +949,11 @@ Package pdftex.def Info: figures/dict_comp-eps-converted-to.pdf used on input l
 ine 212.
 (pdftex.def)             Requested size: 222.0pt x 166.50421pt.
 
-<figures/scheme.pdf, id=223, 960.58875pt x 172.645pt>
+<figures/scheme.pdf, id=225, 960.58875pt x 172.645pt>
 File: figures/scheme.pdf Graphic file (type pdf)
  <use figures/scheme.pdf>
 Package pdftex.def Info: figures/scheme.pdf used on input line 221.
 (pdftex.def)             Requested size: 468.0pt x 84.11469pt.
-
-
-Package natbib Warning: Citation `iec-norm2' on page 5 undefined on input line 
-232.
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
@@ -980,7 +980,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 248--249
 
  []
 
-<figures/freq.png, id=253, 421.575pt x 316.18124pt>
+<figures/freq.png, id=257, 421.575pt x 316.18124pt>
 File: figures/freq.png Graphic file (type png)
  <use figures/freq.png>
 Package pdftex.def Info: figures/freq.png used on input line 252.
@@ -988,18 +988,18 @@ Package pdftex.def Info: figures/freq.png used on input line 252.
 
 [6 <./figures/scheme.pdf> <./figures/freq.png (PNG copy)>]
 Package epstopdf Info: Source file: <figures/bitrate_qall.eps>
-(epstopdf)                    date: 2017-06-15 22:02:31
-(epstopdf)                    size: 116982 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 113911 bytes
 (epstopdf)             Output file: <figures/bitrate_qall-eps-converted-to.pdf>
 
-(epstopdf)                    date: 2017-06-21 09:40:32
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 9112 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/bitrate_qall-eps-co
-nverted-to.pdf figures/bitrate_qall.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/bitrate_qall-eps-c
+onverted-to.pdf figures/bitrate_qall.eps>
 (epstopdf)             \includegraphics on input line 267.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/bitrate_qall-eps-converted-to.pdf, id=309, 421.575pt x 316.18124pt>
+<figures/bitrate_qall-eps-converted-to.pdf, id=313, 421.575pt x 316.18124pt>
 File: figures/bitrate_qall-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/bitrate_qall-eps-converted-to.pdf>
@@ -1007,18 +1007,18 @@ Package pdftex.def Info: figures/bitrate_qall-eps-converted-to.pdf used on inpu
 t line 267.
 (pdftex.def)             Requested size: 222.0pt x 166.50421pt.
 Package epstopdf Info: Source file: <figures/bitrate_mel_avg.eps>
-(epstopdf)                    date: 2017-06-16 02:25:22
-(epstopdf)                    size: 116830 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 113881 bytes
 (epstopdf)             Output file: <figures/bitrate_mel_avg-eps-converted-to.p
 df>
-(epstopdf)                    date: 2017-06-21 09:40:33
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 8322 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/bitrate_mel_avg-eps
--converted-to.pdf figures/bitrate_mel_avg.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/bitrate_mel_avg-ep
+s-converted-to.pdf figures/bitrate_mel_avg.eps>
 (epstopdf)             \includegraphics on input line 276.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/bitrate_mel_avg-eps-converted-to.pdf, id=311, 421.575pt x 316.18124pt>
+<figures/bitrate_mel_avg-eps-converted-to.pdf, id=315, 421.575pt x 316.18124pt>
 File: figures/bitrate_mel_avg-eps-converted-to.pdf Graphic file (type pdf)
 <use figures/bitrate_mel_avg-eps-converted-to.pdf>
 Package pdftex.def Info: figures/bitrate_mel_avg-eps-converted-to.pdf used on i
@@ -1035,29 +1035,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 297--299
  []
 
 Package epstopdf Info: Source file: <figures/error_qall.eps>
-(epstopdf)                    date: 2017-06-15 13:36:27
-(epstopdf)                    size: 108415 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 106102 bytes
 (epstopdf)             Output file: <figures/error_qall-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:34
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 8652 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/error_qall-eps-conv
-erted-to.pdf figures/error_qall.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/error_qall-eps-con
+verted-to.pdf figures/error_qall.eps>
 (epstopdf)             \includegraphics on input line 302.
 Package epstopdf Info: Output file is already uptodate.
-<figures/error_qall-eps-converted-to.pdf, id=313, 421.575pt x 316.18124pt>
+<figures/error_qall-eps-converted-to.pdf, id=317, 421.575pt x 316.18124pt>
 File: figures/error_qall-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/error_qall-eps-converted-to.pdf>
 Package pdftex.def Info: figures/error_qall-eps-converted-to.pdf used on input 
 line 302.
 (pdftex.def)             Requested size: 222.0pt x 166.50421pt.
-
-
-Package natbib Warning: Citation `iec-norm2' on page 7 undefined on input line 
-308.
-
-[7 <./figures/bitrate_qall-eps-converted-to.pdf> <./figures/bitrate_mel_avg-eps
--converted-to.pdf>]
+ [7 <./figures/bitrate_qall-eps-converted-to.pdf> <./figures/bitrate_mel_avg-ep
+s-converted-to.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 312--313
 
  []
@@ -1073,16 +1068,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 314--315
  []
 
 Package epstopdf Info: Source file: <figures/class_mel_q.eps>
-(epstopdf)                    date: 2017-06-21 09:35:25
-(epstopdf)                    size: 115554 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 112594 bytes
 (epstopdf)             Output file: <figures/class_mel_q-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:35
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 11023 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/class_mel_q-eps-con
-verted-to.pdf figures/class_mel_q.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/class_mel_q-eps-co
+nverted-to.pdf figures/class_mel_q.eps>
 (epstopdf)             \includegraphics on input line 318.
 Package epstopdf Info: Output file is already uptodate.
-<figures/class_mel_q-eps-converted-to.pdf, id=333, 421.575pt x 316.18124pt>
+<figures/class_mel_q-eps-converted-to.pdf, id=338, 421.575pt x 316.18124pt>
 File: figures/class_mel_q-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/class_mel_q-eps-converted-to.pdf>
@@ -1092,8 +1087,8 @@ Package pdftex.def Info: figures/class_mel_q-eps-converted-to.pdf used on input
 
 Underfull \hbox (badness 1117) in paragraph at lines 323--324
 \OT1/txr/m/n/10 the higher per-form-ing sys-tems at $0\OML/txmi/m/it/10 :\OT1/t
-xr/m/n/10 69 \OMS/txsy/m/n/10  \OT1/txr/m/n/10 0\OML/txmi/m/it/10 :\OT1/txr/m/
-n/10 06$ and
+xr/m/n/10 69 \OMS/txsy/m/n/10 ^^F \OT1/txr/m/n/10 0\OML/txmi/m/it/10 :\OT1/txr/
+m/n/10 06$ and
  []
 
 
@@ -1120,16 +1115,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 390--391
  []
 
 Package epstopdf Info: Source file: <figures/class_tob_q.eps>
-(epstopdf)                    date: 2017-06-18 23:12:50
-(epstopdf)                    size: 107675 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 105490 bytes
 (epstopdf)             Output file: <figures/class_tob_q-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-06-21 09:40:35
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 10126 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/class_tob_q-eps-con
-verted-to.pdf figures/class_tob_q.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/class_tob_q-eps-co
+nverted-to.pdf figures/class_tob_q.eps>
 (epstopdf)             \includegraphics on input line 394.
 Package epstopdf Info: Output file is already uptodate.
-<figures/class_tob_q-eps-converted-to.pdf, id=337, 421.575pt x 316.18124pt>
+<figures/class_tob_q-eps-converted-to.pdf, id=342, 421.575pt x 316.18124pt>
 File: figures/class_tob_q-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/class_tob_q-eps-converted-to.pdf>
@@ -1149,18 +1144,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 399--400
 [8 <./figures/error_qall-eps-converted-to.pdf> <./figures/class_mel_q-eps-conve
 rted-to.pdf>] [9 <./figures/class_tob_q-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figures/csii_mel_avg.eps>
-(epstopdf)                    date: 2017-06-19 08:45:26
-(epstopdf)                    size: 116908 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 113898 bytes
 (epstopdf)             Output file: <figures/csii_mel_avg-eps-converted-to.pdf>
 
-(epstopdf)                    date: 2017-06-21 09:40:38
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 8714 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/csii_mel_avg-eps-co
-nverted-to.pdf figures/csii_mel_avg.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/csii_mel_avg-eps-c
+onverted-to.pdf figures/csii_mel_avg.eps>
 (epstopdf)             \includegraphics on input line 414.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/csii_mel_avg-eps-converted-to.pdf, id=377, 421.575pt x 316.18124pt>
+<figures/csii_mel_avg-eps-converted-to.pdf, id=383, 421.575pt x 316.18124pt>
 File: figures/csii_mel_avg-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/csii_mel_avg-eps-converted-to.pdf>
@@ -1168,18 +1163,18 @@ Package pdftex.def Info: figures/csii_mel_avg-eps-converted-to.pdf used on inpu
 t line 414.
 (pdftex.def)             Requested size: 222.0pt x 166.50421pt.
 Package epstopdf Info: Source file: <figures/fwsnrseg_mel_avg.eps>
-(epstopdf)                    date: 2017-06-19 08:50:40
-(epstopdf)                    size: 115923 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 113011 bytes
 (epstopdf)             Output file: <figures/fwsnrseg_mel_avg-eps-converted-to.
 pdf>
-(epstopdf)                    date: 2017-06-21 09:40:39
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 9293 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/fwsnrseg_mel_avg-ep
-s-converted-to.pdf figures/fwsnrseg_mel_avg.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/fwsnrseg_mel_avg-e
+ps-converted-to.pdf figures/fwsnrseg_mel_avg.eps>
 (epstopdf)             \includegraphics on input line 421.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/fwsnrseg_mel_avg-eps-converted-to.pdf, id=378, 421.575pt x 316.18124pt
+<figures/fwsnrseg_mel_avg-eps-converted-to.pdf, id=384, 421.575pt x 316.18124pt
 >
 File: figures/fwsnrseg_mel_avg-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/fwsnrseg_mel_avg-eps-converted-to.pdf>
@@ -1187,18 +1182,18 @@ Package pdftex.def Info: figures/fwsnrseg_mel_avg-eps-converted-to.pdf used on
 input line 421.
 (pdftex.def)             Requested size: 222.0pt x 166.50421pt.
 Package epstopdf Info: Source file: <figures/percint_mel_avg.eps>
-(epstopdf)                    date: 2017-05-08 14:21:54
-(epstopdf)                    size: 124483 bytes
+(epstopdf)                    date: 2017-06-22 09:26:34
+(epstopdf)                    size: 120775 bytes
 (epstopdf)             Output file: <figures/percint_mel_avg-eps-converted-to.p
 df>
-(epstopdf)                    date: 2017-06-21 09:40:40
+(epstopdf)                    date: 2017-06-22 09:26:34
 (epstopdf)                    size: 9725 bytes
-(epstopdf)             Command: <epstopdf --outfile=figures/percint_mel_avg-eps
--converted-to.pdf figures/percint_mel_avg.eps>
+(epstopdf)             Command: <repstopdf --outfile=figures/percint_mel_avg-ep
+s-converted-to.pdf figures/percint_mel_avg.eps>
 (epstopdf)             \includegraphics on input line 428.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/percint_mel_avg-eps-converted-to.pdf, id=379, 490.83376pt x 384.43625p
+<figures/percint_mel_avg-eps-converted-to.pdf, id=385, 490.83376pt x 384.43625p
 t>
 File: figures/percint_mel_avg-eps-converted-to.pdf Graphic file (type pdf)
  <use figures/percint_mel_avg-eps-converted-to.pdf>
@@ -1206,8 +1201,8 @@ Package pdftex.def Info: figures/percint_mel_avg-eps-converted-to.pdf used on i
 nput line 428.
 (pdftex.def)             Requested size: 222.0pt x 173.8746pt.
  [10 <./figures/csii_mel_avg-eps-converted-to.pdf> <./figures/fwsnrseg_mel_avg-
-eps-converted-to.pdf> <./figures/percint_mel_avg-eps-converted-to.pdf>] (articl
-e.bbl
+eps-converted-to.pdf> <./figures/percint_mel_avg-eps-converted-to.pdf>] (./arti
+cle.bbl
 Underfull \hbox (badness 4072) in paragraph at lines 12--14
 []\OT1/txr/m/n/8 IEC 61260-1:2014 ---Electroacoustics - Octave-band and
  []
@@ -1241,46 +1236,40 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [11
 
 ])
-
-Package natbib Warning: There were undefined citations.
-
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 567.
+
 [12
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 567.
- (article.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+ (./article.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 567.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 567.
 Package rerunfilecheck Info: File `article.out' has not changed.
-(rerunfilecheck)             Checksum: 520DB534E1030353C93E8201353E1EF9;975.
+(rerunfilecheck)             Checksum: A197069ED899AC0A77944EC4E998F551;959.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 567.
  ) 
 Here is how much of TeX's memory you used:
- 7842 strings out of 493634
- 113039 string characters out of 3141315
- 225234 words of memory out of 3000000
- 10960 multiletter control sequences out of 15000+200000
- 38674 words of font info for 95 fonts, out of 3000000 for 9000
- 1025 hyphenation exceptions out of 8191
- 42i,10n,30p,1828b,606s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt8.pfb><C:/Program F
-iles (x86)/MiKTeX 2.9/fonts/type1/public/txfonts/rtxi.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/txfonts/rtxmi.pfb><C:/Program Files (x86)/MiKT
-eX 2.9/fonts/type1/public/txfonts/rtxr.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
-onts/type1/public/txfonts/txex.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
-e1/public/txfonts/txsy.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/t
-imes/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on article.pdf (12 pages, 1082817 bytes).
+ 7853 strings out of 494310
+ 112711 string characters out of 6162891
+ 222997 words of memory out of 5000000
+ 10921 multiletter control sequences out of 15000+600000
+ 38674 words of font info for 95 fonts, out of 8000000 for 9000
+ 372 hyphenation exceptions out of 8191
+ 42i,10n,30p,1822b,607s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/txfonts/rtxmi.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/txfonts/rtxr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tx
+ex.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/font
+s/type1/urw/times/utmri8a.pfb>
+Output written on article.pdf (12 pages, 1033322 bytes).
 PDF statistics:
- 470 PDF objects out of 1000 (max. 8388607)
+ 477 PDF objects out of 1000 (max. 8388607)
+ 382 compressed objects within 4 object streams
  92 named destinations out of 1000 (max. 500000)
  199 words of extra memory for PDF output out of 10000 (max. 10000000)
 
