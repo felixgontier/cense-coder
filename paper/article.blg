@@ -1,8 +1,51 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: article.aux
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: article.aux
 The style file: plain.bst
 Database file #1: biblio.bib
 Warning--to sort, need author or key in citeulike:9580295
 Warning--to sort, need author or key in iec-norm
 Warning--to sort, need author or key in iec-norm2
 Warning--empty booktitle in mydlarz2015design
+You've used 45 entries,
+            2118 wiz_defined-function locations,
+            734 strings with 11589 characters,
+and the built_in function-call counts, 14502 in all, are:
+= -- 1357
+> -- 702
+< -- 2
++ -- 285
+- -- 232
+* -- 1023
+:= -- 2398
+add.period$ -- 131
+call.type$ -- 45
+change.case$ -- 251
+chr.to.int$ -- 0
+cite$ -- 49
+duplicate$ -- 530
+empty$ -- 1229
+format.name$ -- 232
+if$ -- 3049
+int.to.chr$ -- 0
+int.to.str$ -- 45
+missing$ -- 39
+newline$ -- 222
+num.names$ -- 84
+pop$ -- 286
+preamble$ -- 1
+purify$ -- 206
+quote$ -- 0
+skip$ -- 354
+stack$ -- 0
+substring$ -- 855
+swap$ -- 76
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 180
+warning$ -- 4
+while$ -- 118
+width$ -- 47
+write$ -- 468
 (There were 4 warnings)

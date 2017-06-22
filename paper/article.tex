@@ -324,8 +324,9 @@ The effect of changing representation time-frequency resolution is presented in 
 
 \begin{table*}[h]
 \centering
-\caption{Classification accuracy for varying representation resolutions, in percentages for clarity}
+\caption{Classification accuracy in percentage for different classifiers: SVMs (a), Random Forests (b), Decision Trees (c), and Nearest Neigbors (d) with respect to varying representation resolutions. Numbers in red indicate best performance and numbers in bold indicate statistical equivalent results compared to teh best performing setting.}
 \label{T1}
+(a)\\
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
@@ -339,7 +340,7 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{40} & 60$\pm$3 & 63$\pm$4 & \textbf{64$\pm$4} & 64$\pm$4 & \textbf{64$\pm$4} & \textbf{66$\pm$4} & \textbf{68$\pm$5} \\ \cline{1-9}
 \end{tabular}
-
+(b)\\
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
@@ -353,7 +354,7 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{40} & 62$\pm$4 & 63$\pm$4 & 63$\pm$4 & 64$\pm$4 & 63$\pm$4 & \textbf{67$\pm$6} & \textbf{68$\pm$6} \\ \cline{1-9}
 \end{tabular}
-
+(c)\\
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
@@ -367,7 +368,7 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{1}{|c}{}
  & \multicolumn{1}{|c|}{40} & 0.42$\pm$0.06 & 0.43$\pm$0.03 & 0.43$\pm$0.03 & 0.42$\pm$0.03 & 0.44$\pm$0.03 & 0.46$\pm$0.03 & \textbf{0.46$\pm$0.04} \\ \cline{1-9}
 \end{tabular}
-
+(d)\\
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
@@ -387,7 +388,7 @@ The effect of changing representation time-frequency resolution is presented in 
 
 \subsection{Third-octave bands as base descriptors}
 
-We now compare the efficiency of third-octave bands at characterizing urban soundscapes to that of mel spectrograms. Following the previous discussions, the classification task is run on corresponding cepstra with a fixed 8 frames per second and 31 bands. Figure~\ref{fig:class_tob_q} displays similar results to the 40 bands, 8 fps mel spectrograms seen in Table~\ref{T1} for all classification schemes.\\
+We now compare the efficiency of third-octave bands at characterizing urban soundscapes to that of mel spectrograms. Following the previous discussions, the classification task is run on corresponding cepstra with a fixed 8 frames per second and 31 bands. Figure~\ref{fig:class_tob_q} displays similar results to the 40 bands, 8 fps mel spectrograms seen in Table~\ref{T1} for all classification schemes. In this table, equivalence of performance with respect to the best performing setting (in red) is evaluated using the following procedure. We evaluate the null hypothesis that the substraction of the two compared distribution (the distribution of the setting we consider minus the distribution of the best performing one) comes from a normal distribution with mean equal to zero and unknown variance, using the paired-sample t-test at the 0.05 significance level. If the null hypothesis is not rejected, the setting is considered as equivalent in terms of performance to the best performing one. \\
 
 \begin{figure}[htbp]
 	\centering
