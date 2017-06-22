@@ -30,7 +30,7 @@ machineNames  = {'felix'}
 % path to input data (usually accessed read only)
 inputPath  = D:\datasets\
 % path to the code repository of the experiment (diamond operator <> do not replace unless you do not want expLanes to fill this field automatically)
-codePath  = C:\Users\felix\Desktop\Stage\Matlab\Coder\censeCoder
+codePath  = C:\Users\felix\Desktop\Stage\Matlab\cense-coder\censeCoder
 % path to the data repository of the experiment (structured with one directory per step)
 dataPath  = D:\expLanes\data\experiments\censeCoder
 % path to the data repository of the experiment for observation data (same as dataPath if left blank)

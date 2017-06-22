@@ -1,0 +1,268 @@
+\begin{thebibliography}{10}
+
+\bibitem{citeulike:9580295}
+{ANSI S1.1-1986, (ASA 65-1986)---Specifications for Octave-Band and
+  Fractional-Octave-Band Analog and Digital Filters}, 1993.
+
+\bibitem{iec-norm2}
+{IEC 61672-1:2013 ---Electroacoustics - Sound level meters - Part 1:
+  Specifications}, 2013.
+
+\bibitem{iec-norm}
+{IEC 61260-1:2014 ---Electroacoustics - Octave-band and fractional-octave-band
+  filters - Part 1: Specifications}, 2014.
+
+\bibitem{antoni2010}
+J.~Antoni.
+\newblock Orthogonal-like fractional-octave-band filters.
+\newblock {\em J. Ac. Soc. Am.}, 127(2):884–895, 2010.
+
+\bibitem{anusuya2009}
+M.~Anusuya and S.~Katty.
+\newblock Speech recognition by machine, a review.
+\newblock {\em International Journal of Computer Science and Information
+  Security}, 6(3):181--205, 2009.
+
+\bibitem{aucouturier2007}
+J.~Aucouturier, B.~Defreville, and F.~Pachet.
+\newblock The bag-of-frames approach to audio pattern recognition: A sufficient
+  model for urban soundscapes but not for polyphonic music.
+\newblock {\em J. Ac. Soc. Am.}, 122(2):881--891, 2007.
+
+\bibitem{aumond2017modeling}
+Pierre Aumond, Arnaud Can, Bert De~Coensel, Dick Botteldooren, Carlos Ribeiro,
+  and Catherine Lavandier.
+\newblock Modeling soundscape pleasantness using perceptual assessments and
+  acoustic measurements along paths in urban context.
+\newblock {\em Acta Acustica united with Acustica}, 103(3):430--443, 2017.
+
+\bibitem{bauge2013}
+C.~Baugé, M.~Lagrange, J.~And\'en, and S.~Mallat.
+\newblock Representing environmental sounds using the separable scattering
+  transform.
+\newblock In {\em 2013 IEEE International Conference on Acoustics, Speech and
+  Signal Processing}, 2013.
+
+\bibitem{brocolini2013}
+L.~Brocolini, C.~Lavandier, M.~Quoy, and C.~Ribeiro.
+\newblock Measurements of acoustic environments for urban soundscapes: Choice
+  of homogeneous periods, optimization of durations, and selection of
+  indicators.
+\newblock {\em J. Ac. Soc. Am.}, 134(1):813--821, 2013.
+
+\bibitem{cai2006}
+R.~Cai, L.~Lu, A.~Hanjalic, H.~Zhang, and L.~Cai.
+\newblock A flexible framewok for key audio effects detection and auditory
+  context inference.
+\newblock {\em IEEE Transactions on Audio, Speech, and Language Processing},
+  14(3):1026--1039, 2006.
+
+\bibitem{can2016}
+A.~Can, P.~Aumond, S.~Michel, B.~De~Coensel, C.~Ribeiro, D.~Botteldooren, and
+  C.~Lavandier.
+\newblock Comparison of noise indicators in an urban context.
+\newblock In {\em 45th International Congress and Exposition on Noise Control
+  Engineering}, pages 5678--5686, 2016.
+
+\bibitem{can2015}
+A.~Can and B.~Gauvreau.
+\newblock Describing and classifying urban sound environments with a relevant
+  set of physical indicators.
+\newblock {\em J. Ac. Soc. Am.}, 137(1):208--218, 2015.
+
+\bibitem{chachada2013}
+S.~Chachada and C.~Kuo.
+\newblock Environmental sound recognition: A survey.
+\newblock In {\em 2013 Asia-Pacific Signal and Information Processing
+  Association Annual Summit and Conference}, 2013.
+
+\bibitem{chu2009}
+S.~Chu, S.~Narayanan, and C.~Kuo.
+\newblock Environmental sound recognition with time-frequency audio features.
+\newblock {\em IEEE Transactions on Audio, Speech, and Language Processing},
+  17(6):1142--1158, 2009.
+
+\bibitem{couvreur}
+C.~Couvreur.
+\newblock Implementation of a one-third-octave filter bank in matlab.
+\newblock \url{http://citeseer.ist.psu.edu/24150.html}.
+
+\bibitem{couvreur2004}
+L.~Couvreur and M.~Laniray.
+\newblock Automatic noise recognition in urban environments based on artificial
+  neural networks and hidden markov models.
+\newblock In {\em The 33rd International Congress and Exposition on Noise
+  Control Engineering}, 2004.
+
+\bibitem{davis1986}
+S.~Davis.
+\newblock Octave and fractional-octave band digital filtering based on the
+  proposed ansi standard.
+\newblock In {\em 1986 IEEE International Conference on Acoustics, Speech and
+  Signal Processing}, 1986.
+
+\bibitem{defreville2006automatic}
+Boris Defr{\'e}ville, Fran{\c{c}}ois Pachet, Christophe Rosin, and Pierre Roy.
+\newblock Automatic recognition of urban sound sources.
+\newblock In {\em Audio Engineering Society Convention 120}. Audio Engineering
+  Society, 2006.
+
+\bibitem{ellis2005}
+D.~Ellis.
+\newblock {PLP} and {RASTA} (and {MFCC}, and inversion) in {M}atlab.
+\newblock \url{http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/},
+  2005.
+
+\bibitem{foggia2015}
+P.~Foggia, N.~Petkov, A.~Saggese, N.~Strisciuglio, and M.~Vento.
+\newblock Reliable detection of audio events in highly noisy environments.
+\newblock {\em Pattern Recognition Letters}, 65:22--28, 2015.
+
+\bibitem{griffin1984}
+D.~Griffin and J.~Lim.
+\newblock Signal estimation from modified short-time fourier transform.
+\newblock {\em IEEE Transactions on Acoustics, Speech, and Signal Processing},
+  32(2):236--243, 1984.
+
+\bibitem{hu2008}
+Y.~Hu and P.~Loizou.
+\newblock Evaluation of objective quality measures for speech enhancement.
+\newblock {\em IEEE Transactions on Audio, Speech, and Language Processing},
+  16(1):229–238, 2008.
+
+\bibitem{huffman1952}
+D.~Huffman.
+\newblock A method for the construction of minimum-redundancy codes.
+\newblock {\em Proceedings of the IRE}, 40(9):1098--1101, 1952.
+
+\bibitem{ishiyama2000}
+T.~Ishiyama and T.~Hashimoto.
+\newblock The impact of sound quality on annoyance caused by road traffc noise:
+  an influence of frequency spectra on annoyance.
+\newblock {\em JSAE Review}, 21(2):225--230, 2000.
+
+\bibitem{kates2005}
+J.~Kates and K.~Arehart.
+\newblock Coherence and the speech intelligibility index.
+\newblock {\em J. Ac. Soc. Am.}, 115(5):2224–2237, 2005.
+
+\bibitem{khunarsal2013}
+P.~Khunarsal, C.~Lursinsap, and T.~Raicharoen.
+\newblock Very short time environmental sound classification based on
+  spectrogram pattern matching.
+\newblock {\em Information Sciences}, 243:57--74, 2013.
+
+\bibitem{kumar2016}
+A.~Kumar and B.~Raj.
+\newblock Features and kernels for audio event recognition.
+\newblock \url{https://arxiv.org/abs/1607.05765}, 2016.
+
+\bibitem{lavandier2006contribution}
+Catherine Lavandier and Boris Defr{\'e}ville.
+\newblock The contribution of sound source characteristics in the assessment of
+  urban soundscapes.
+\newblock {\em Acta Acustica united with Acustica}, 92(6):912--921, 2006.
+
+\bibitem{lim2005sensor}
+Hock~Beng Lim, Yong~Meng Teo, Protik Mukherjee, Vinh~The Lam, Weng~Fai Wong,
+  and Simon See.
+\newblock Sensor grid: integration of wireless sensor networks and the grid.
+\newblock In {\em Local Computer Networks, 2005. 30th Anniversary. The IEEE
+  Conference on}, pages 91--99. IEEE, 2005.
+
+\bibitem{ma2009}
+J.~Ma, Y.~Hu, and P.~Loizou.
+\newblock Objective measures for predicting speech intelligibility in noisy
+  conditions based on new band-importance functions.
+\newblock {\em J. Ac. Soc. Am.}, 125(5):3387–3405, 2009.
+
+\bibitem{mydlarz2017implementation}
+Charlie Mydlarz, Justin Salamon, and Juan~Pablo Bello.
+\newblock The implementation of low-cost urban acoustic monitoring devices.
+\newblock {\em Applied Acoustics}, 117:207--218, 2017.
+
+\bibitem{mydlarz2015design}
+Charlie Mydlarz, Charles Shamoon, Melody Baglione, and Michael Pimpinella.
+\newblock The design and calibration of low cost urban acoustic sensing
+  devices.
+\newblock Euronoise, 2015.
+
+\bibitem{nilsson2007}
+M.~Nilsson, D.~Botteldooren, and B.~De~Coensel.
+\newblock Acoustic indicators of soundscape quality and noise annoyance in
+  outdoor urban areas.
+\newblock In {\em 19th International Congress on Acoustics}, 2007.
+
+\bibitem{ntalampiras2014}
+S.~Ntalampiras.
+\newblock Universal background modeling for acoustic surveillance of urban
+  traffic.
+\newblock {\em Digital Signal Processing}, 31:69--78, 2014.
+
+\bibitem{piczak2015}
+K.~Piczak.
+\newblock Environmental sound classification with convolutional neural
+  networks.
+\newblock In {\em IEEE 25th International Workshop on Machine Learning for
+  Signal Processing}, 2015.
+
+\bibitem{radhakrishnan2005}
+R.~Radhakrishnan, A.~Divakaran, and P.~Smaragdis.
+\newblock Audio analysis for surveillance applications.
+\newblock In {\em IEEE Workshop on Applications of Signal Processing to Audio
+  and Acoustics}, 2005.
+
+\bibitem{gozalo2015}
+G.~Rey~Gozalo, J.~Trujillo~Carmona, J.M. Barrigon~Morillas, and
+  V~Gomez~Escobar.
+\newblock Relationship between objective acoustic indices and subjective
+  assessments for the quality of soundscapes.
+\newblock {\em Applied Acoustics}, 97:1--10, 2015.
+
+\bibitem{rychtarikova2013}
+M.~Rychtarikova and G.~Vermeir.
+\newblock Soundscape categorization on the basis of objective acoustical
+  parameters.
+\newblock {\em Applied Acoustics}, 74(2):240--247, 2013.
+
+\bibitem{salamon2015}
+J.~Salamon and J.~Bello.
+\newblock Feature learning with deep scattering for urban sound analysis.
+\newblock In {\em 23rd European Signal Processing Conference}, 2015.
+
+\bibitem{salamon2015-2}
+J.~Salamon and J.~Bello.
+\newblock Unsupervised feature learning for urman sound classification.
+\newblock In {\em 2015 IEEE International Conference on Acoustics, Speech and
+  Signal Processing}, 2015.
+
+\bibitem{salamon2017}
+J.~Salamon and J.~Bello.
+\newblock Deep convolutional neural networks and data augmentation for
+  environmental sound classification.
+\newblock {\em IEEE Signal Processing Letters}, 24(3):279--283, 2017.
+
+\bibitem{salamon2014}
+J.~Salamon, C.~Jacoby, and J.~Bello.
+\newblock A dataset and taxonomy for urban sound research.
+\newblock In {\em 22nd ACM international conference on Multimedia}, 2014.
+
+\bibitem{tham2005sensorgrid}
+Chen-Khong Tham and Rajkumar Buyya.
+\newblock Sensorgrid: Integrating sensor networks and grid computing.
+\newblock {\em CSI communications}, 29(1):24--29, 2005.
+
+\bibitem{torija2013}
+A.~Torija, D.~Ruiz, and A.~Ramos-Ridao.
+\newblock Application of a methodology for categorizing and differentiating
+  urban soundscapes using acoustical descriptors and semantic-differential
+  attributes.
+\newblock {\em J. Ac. Soc. Am.}, 134(1):791--802, 2013.
+
+\bibitem{tzanetakis2002}
+G.~Tzanztakis, G.~Essl, and P.~Cook.
+\newblock Automatic musical genre classification of audio signals.
+\newblock {\em IEEE Transactions on Speech and Audio Processing},
+  10(5):293--302, 2002.
+
+\end{thebibliography}

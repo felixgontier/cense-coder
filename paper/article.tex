@@ -132,15 +132,15 @@ In our application setting, the requirements are the following. First,  the numb
 
 The data of interest is first acoustic indicators (LAeq, ...) and second the presence of sound sources of interest (bird calls, sirens, explosion, ...). The latter allow us to better assess soundscapes in terms of pleasantness and other perceptual indicators \cite{lavandier2006contribution, aumond2017modeling}. This detection step can respectively be operated online (on the sensors) or offline (on the data servers).
 
-The former is efficient in terms of data storage as only the detection events are transmitted and is thus currently considered in several approaches \cite{defreville2006automatic, mydlarz2017implementation, mydlarz2015design}. Though, it requires the availability of computing resources on the sensors in order to perform the detection step which as of today's efficiency of hardware d not allow them to be autonomous using power sources like decent size solar panels. Furthermore, the detection is done once and cannot be recomputed during posterior analyses.
+The former is efficient in terms of data storage as only the detection events are transmitted and is thus currently considered in several approaches \cite{defreville2006automatic, mydlarz2017implementation, mydlarz2015design}. Though, it requires the availability of computing resources on the sensors in order to perform the detection step which as of today's efficiency of hardware do not allow them to be autonomous using power sources like decent size solar panels. Furthermore, the detection is done once and cannot be recomputed during posterior analyses.
 
 The latter scheme has several benefits. First, the sensor is much simpler and can thus be autonomous in terms of energy, easing the deployment of the network. Second, it allows researchers to gather large amount of data that can be post processed and studied further offline. Data can be re analysed following newer classification schemes or using new indicators.
 
-However, transmitting the raw audio through the network has several disavantages, in terms of required bandwidth, storage capabilities and privacy.Thus, for transmission from the sensors to the storage unit, the data needs to be encoded in an efficient way. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process, in order to ensure the privacy of the citizens.
+However, transmitting the raw audio through the network has several disavantages, in terms of required bandwidth, storage capabilities and privacy. Thus, for transmission from the sensors to the storage unit, the data needs to be encoded in an efficient way. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process, in order to ensure the privacy of the citizens.
 
 We thus propose in this paper a audio coding scheme specifically tailored for use in a sensor grid which has the following features. It is of low bitrate but still allows the computation of most of the standard acoustics indicators with high precision. As far as acoustic event detection is concerned, we report equivalent performance of several state of the art classification schemes from features computed using raw audio data and encoded data. Finally, according to preliminary perceptual evaluation, the proposed coding scheme very strongly degrades the intelligibility, thus ensuring citizen privacy.
 
-In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community. The remaining of the paper is organized as follows: Section \ref{sec:background} reviews the types of data that needs to be estimated using the transmitted data and Section \ref{sec:coder} describes the proposed encoding schemeSection. the experimental protocol designed to validate the proposed approach is described in Section \ref{sec:protocol} and results are discussed in Section \ref{sec:results}.
+In order to promote reproducible research, the coder as well as the experiments needed to generate the figures will be made available to the community. The remaining of the paper is organized as follows: Section \ref{sec:background} reviews the types of data that needs to be estimated using the transmitted data and Section \ref{sec:coder} describes the proposed encoding scheme. The experimental protocol designed to validate the proposed approach is described in Section \ref{sec:protocol} and results are discussed in Section \ref{sec:results}.
 
 
 \begin{figure}[t]
@@ -179,7 +179,7 @@ A common way to implement third-octave analysis is to first design the highest o
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{tob_imp.eps}
+		\includegraphics[width=\columnwidth]{figures/tob_imp.eps}
 	\caption{Comparison of Couvreur's and Antoni's implementations of third-octave filters. Frequency-weighting allows for arbitrary transfer functions and thus more accurate gains as standards impose.}
 	\label{fig:freq_filt}
 \end{figure}
@@ -202,14 +202,14 @@ In the example shown here, the former is $H_{log} = 6.24~sh$ and the latter $H_{
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=0.5\textwidth]{pdf.eps}
+		\includegraphics[width=0.5\textwidth]{figures/pdf.eps}
 	\caption{Example of estimated probability density functions of the data throughout the encoding step. (left) Unchanged output of the representation step, concentrated towards very low values. (middle) PDF "flattening" effect induced by logarithm application. Here values are mapped to the range $[0, 2^7-1]$ and rounded to perform quantization. (right) Output of the $\Delta$ compression, with desirable probabilities as the input to a Huffman algorithm.}
 	\label{fig:pdf}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{dict_comp.eps}
+		\includegraphics[width=\columnwidth]{figures/dict_comp.eps}
 	\caption{Performance comparison of locally and globally generated Huffman dictionnaries. (top) The mean execution time ratio favors the use of frame-specific dictionnaries for tested texture frame lengths. (bottom) The mean output bitrate is close for both algorithms, showing that the necessity of sending symbol-code pairs mostly compensates for their optimality.}
 	\label{fig:dict_comp}
 \end{figure}
@@ -218,7 +218,7 @@ The decoding process is quite straightforward, as both Huffman and $\Delta$ comp
 
 \begin{figure*}[htbp]
 	\centering
-		\includegraphics[width=1\textwidth]{scheme.pdf}
+		\includegraphics[width=1\textwidth]{figures/scheme.pdf}
 	\caption{Overview of the coder process.}
 	\label{fig:scheme}
 \end{figure*}
@@ -229,7 +229,7 @@ A set of metrics is computed to assess the efficiency of the proposed coder sche
 
 \subsection{Efficiency}
 
-The coder's output bitrate as well as additional measurement error is computed for both data representations : third-octave and Mel. It is expressed in dB and compared to the IEC 61672-1:2013 standard on sound level meter tolerance. This is to verify that the quantization step yields a maximum absolute error inferior to the precision of the target recording device. To provide relevant statistics, these quantities are estimated for a total of 53 10-minutes texture frames. They are obtained from the UrbanSound8k dataset presented in the next section.
+The coder's output bitrate as well as additional measurement error is computed for both data representations : third-octave and Mel. It is expressed in dB and compared to the IEC 61672-1:2013 standard \cite{iec-norm2} on sound level meter tolerance. This is to verify that the quantization step yields a maximum absolute error inferior to the precision of the target recording device. To provide relevant statistics, these quantities are estimated for a total of 53 10-minutes texture frames. They are obtained from the UrbanSound8k dataset presented in the next section.
 
 \subsection{Event recognition}
 
@@ -249,7 +249,7 @@ These metrics require a recovery of the time-domain signal. To do so, a linearly
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{freq.png}
+		\includegraphics[width=\columnwidth]{figures/freq.png}
 	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
 	\label{fig:freq}
 \end{figure}
@@ -264,7 +264,7 @@ The main indicator of performance is the bitrate obtained at the output of the c
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{bitrate_qall.eps}
+		\includegraphics[width=\columnwidth]{figures/bitrate_qall.eps}
 	\caption{Coder output bitrate as a function of quantization for third-octave and mel bands with 8 frames per second.}
 	\label{fig:bitrate_q}
 \end{figure}
@@ -273,7 +273,7 @@ A second set of parameters influences directly the time-frequency resolution of 
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{bitrate_mel_avg.eps}
+		\includegraphics[width=\columnwidth]{figures/bitrate_mel_avg.eps}
 	\caption{Impact of representation resolution on the encoded data bitrate.}
 	\label{fig:bitrate_mel_avg}
 \end{figure}
@@ -299,13 +299,13 @@ justifying the decaying ratio as $q$ increases. In practice, we assume that $\va
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{error_qall.eps}
+		\includegraphics[width=\columnwidth]{figures/error_qall.eps}
 	\caption{Measurement error induced by encoding for different quantization resolutions.}
 	\label{fig:error_q}
 \end{figure}
 
 
-As $\Delta_x$ is sampled for each analysis frame in our implementation, the error has the same statistics across all bands. We compare the observed values against those specified in the IEC 61672-1:2013 \ml{norm ? please cite} for $f = 1~kHz$ as it is where the most accurate measurements are expected. For class 1 and 2 sound level meters, the tolerance is set at about $\pm 1~dB$ and $\pm 1.5~dB$ respectively. Results for 6, 7 or 8-bit words lie within the shorter range and are therefore compliant with those standard's measurement tolerance.
+As $\Delta_x$ is sampled for each analysis frame in our implementation, the error has the same statistics across all bands. We compare the observed values against those specified in the IEC 61672-1:2013 \cite{iec-norm2} for $f = 1~kHz$ as it is where the most accurate measurements are expected. For class 1 and 2 sound level meters, the tolerance is set at about $\pm 1~dB$ and $\pm 1.5~dB$ respectively. Results for 6, 7 or 8-bit words lie within the shorter range and are therefore compliant with those standard's measurement tolerance.
 
 \subsection{Event recognition}
 
@@ -315,7 +315,7 @@ First, we observe the impact of quantization on classification accuracy. The mod
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{class_mel_q.eps}
+		\includegraphics[width=\columnwidth]{figures/class_mel_q.eps}
 	\caption{Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation.}
 	\label{fig:class_mel_q}
 \end{figure}
@@ -324,20 +324,20 @@ The effect of changing representation time-frequency resolution is presented in 
 
 \begin{table*}[h]
 \centering
-\caption{Classification accuracy for varying representation resolutions}
+\caption{Classification accuracy for varying representation resolutions, in percentages for clarity}
 \label{T1}
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
 \cline{3-9}
 \multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & 0.55$\pm$0.03 & 0.60$\pm$0.03 & 0.61$\pm$0.04 & 0.62$\pm$0.03 & 0.62$\pm$0.04 & \textbf{0.63$\pm$0.06} & \textbf{0.65$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} & 55$\pm$3 & 60$\pm$3 & 61$\pm$4 & 62$\pm$3 & 62$\pm$4 & \textbf{63$\pm$6} & \textbf{65$\pm$6} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & 0.58$\pm$0.04 & 0.62$\pm$0.04 & 0.63$\pm$0.04 & 0.64$\pm$0.04 & 0.63$\pm$0.04 & \textbf{0.65$\pm$0.05} & \textbf{0.67$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 58$\pm$4 & 62$\pm$4 & 63$\pm$4 & 64$\pm$4 & 63$\pm$4 & \textbf{65$\pm$0.05} & \textbf{67$\pm$6} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & 0.60$\pm$0.03 & 0.64$\pm$0.04 & 0.64$\pm$0.04 & \textbf{0.65$\pm$0.04} & \textbf{0.65$\pm$0.03} & \textbf{0.67$\pm$0.04} & \textbf{\textcolor{red}{0.68$\pm$0.04}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 60$\pm$3 & 64$\pm$4 & 64$\pm$4 & \textbf{65$\pm$4} & \textbf{65$\pm$3} & \textbf{67$\pm$4} & \textbf{\textcolor{red}{68$\pm$4}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & 0.60$\pm$0.03 & 0.63$\pm$0.04 & \textbf{0.64$\pm$0.04} & 0.64$\pm$0.04 & \textbf{0.64$\pm$0.04} & \textbf{0.66$\pm$0.04} & \textbf{0.68$\pm$0.05} \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 60$\pm$3 & 63$\pm$4 & \textbf{64$\pm$4} & 64$\pm$4 & \textbf{64$\pm$4} & \textbf{66$\pm$4} & \textbf{68$\pm$5} \\ \cline{1-9}
 \end{tabular}
 
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
@@ -345,13 +345,13 @@ The effect of changing representation time-frequency resolution is presented in 
 \multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{|c|}{Frames per second}\\ \cline{3-9}
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ \cline{1-9}
 \multicolumn{1}{|c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{|c|}{10} & 0.60$\pm$0.03 & 0.62$\pm$0.03 & 0.62$\pm$0.03 & 0.63$\pm$0.03 & 0.63$\pm$0.03 & \textbf{0.65$\pm$0.04} & \textbf{0.67$\pm$0.05} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{10} & 60$\pm$3 & 62$\pm$3 & 62$\pm$3 & 63$\pm$3 & 63$\pm$3 & \textbf{65$\pm$4} & \textbf{67$\pm$5} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{20} & 0.61$\pm$0.04 & 0.63$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.04 & \textbf{0.66$\pm$0.06} & \textbf{0.69$\pm$0.06} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{20} & 61$\pm$4 & 63$\pm$3 & 64$\pm$3 & 64$\pm$3 & 64$\pm$4 & \textbf{66$\pm$6} & \textbf{69$\pm$6} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{30} & 0.62$\pm$0.03 & 0.63$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.03 & 0.64$\pm$0.04 & \textbf{0.67$\pm$0.05} & \textbf{\textcolor{red}{0.69$\pm$0.06}} \\ \cline{2-9}
+ & \multicolumn{1}{|c|}{30} & 62$\pm$3 & 63$\pm$3 & 64$\pm$3 & 64$\pm$3 & 64$\pm$4 & \textbf{67$\pm$5} & \textbf{\textcolor{red}{69$\pm$6}} \\ \cline{2-9}
 \multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{40} & 0.62$\pm$0.04 & 0.63$\pm$0.04 & 0.63$\pm$0.04 & 0.64$\pm$0.04 & 0.63$\pm$0.04 & \textbf{0.67$\pm$0.06} & \textbf{0.68$\pm$0.06} \\ \cline{1-9}
+ & \multicolumn{1}{|c|}{40} & 62$\pm$4 & 63$\pm$4 & 63$\pm$4 & 64$\pm$4 & 63$\pm$4 & \textbf{67$\pm$6} & \textbf{68$\pm$6} \\ \cline{1-9}
 \end{tabular}
 
 \begin{tabular}{ll|c|c|c|c|c|c|c|}
@@ -391,54 +391,41 @@ We now compare the efficiency of third-octave bands at characterizing urban soun
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{class_tob_q.eps}
+		\includegraphics[width=\columnwidth]{figures/class_tob_q.eps}
 	\caption{Classification accuracy with third-octave bands and varying word size.}
 	\label{fig:class_tob_q}
 \end{figure}
 
-To further analyze both representations advantages, the confusion matrix is a reliable tool. It aims at providing information regarding class-by-class accuracy and misclassification rates. We thus compute these metrics for the SVM classifier, with predictions cumulated over the ten folds in test configuration. Results are visible in Figure~\ref{fig:tob_conf} and Figure~\ref{fig:mel_conf}. The analogous natures of the two descriptors is highlighted by close one-versus-one differentiation performances, with a slightly lower accuracy for third-octave bands on average. A noticeable difference is that on the log-frequency scale the bandwidth of mel filters narrows as frequency increases while third-octave are evenly distributed. The effect of this can be seen between classes 5 and 8 (resp. \textit{Drilling} and \textit{Jackhammer}). These sounds involve important low-frequency information which can generally differentiate them, leading third-octave descriptors to perform better. Conversely this improves globally class 1 (\textit{Air conditioning}) recognition as most of its defining components are situated in higher frequencies.\\
+To further analyze both representations advantages, the confusion matrix is a reliable tool. It aims at providing information regarding class-by-class accuracy and misclassification rates. We thus compute these metrics for the SVM classifier, with predictions cumulated over the ten folds in test configuration. The analogous natures of the two descriptors is highlighted by close one-versus-one differentiation performances, with a slightly lower accuracy for third-octave bands on average. Both representations yield best results for the \textit{Gun shot} class with 88.2\% for third-octave cepstra and 86.6\% for mel cepstra. Their poorest accuracy is on the \textit{Air conditioning} class with 32.0\% and 38.1\% respectively. However, a noticeable difference between them is that on the log-frequency scale the bandwidth of mel filters narrows as frequency increases, while third-octave are evenly distributed. The effect of this can be seen between classes \textit{Drilling} and \textit{Jackhammer}. These sounds involve important low-frequency information which can generally differentiate them, leading third-octave descriptors to perform better. Conversely, using mel-based cepstra improves globally \textit{Air conditioning} recognition as most of its defining components are situated in higher frequencies.\\
 
-Each descriptor is thus found to have similar representational capabilities despite minor construction differences.
+Both descriptor are thus found to have similar representational capabilities despite minor construction differences.
 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=\columnwidth]{tob_conf.eps}
-	\caption{Confusion matrix of the SVM classification on third-octave bands with $q = 8$.}
-	\label{fig:tob_conf}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-		\includegraphics[width=\columnwidth]{mel_conf.eps}
-	\caption{Confusion matrix for the same setup with 40 mel bands.}
-	\label{fig:mel_conf}
-\end{figure}
 
 \subsection{Inintelligibility}
 
-Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_mel_avg} and \ref{fig:fwsnrseg_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. For this test, subjects were asked to blindly listen to recovered speech audio with different representation and coding parameters. They had to rate each extract between 0 ans 5, respectively inintelligible and perfectly comprehensible. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_mel_avg} and \ref{fig:fwsnrseg_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. %For this test, subjects were asked to blindly listen to recovered speech audio with different representation and coding parameters. They had to rate each extract between 0 ans 5, respectively inintelligible and perfectly comprehensible. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
 
-The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
+%The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
 
-Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion.  Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance. \ml{incrompehnsible}
+%Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion.  Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance. \ml{incrompehnsible}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{csii_mel_avg.eps}
+		\includegraphics[width=\columnwidth]{figures/csii_mel_avg.eps}
 	\caption{The Coherence SII objective indicator computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
 	\label{fig:csii_mel_avg}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{fwsnrseg_mel_avg.eps}
+		\includegraphics[width=\columnwidth]{figures/fwsnrseg_mel_avg.eps}
 	\caption{Frequency-weighted segmental SNR for the same parameters.}
 	\label{fig:fwsnrseg_mel_avg}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{percint_mel_avg.eps}
+		\includegraphics[width=\columnwidth]{figures/percint_mel_avg.eps}
 	\caption{Results of the perceptual intelligibility test.}
 	\label{fig:percint_mel_avg}
 \end{figure}
@@ -460,127 +447,123 @@ Alternatively, the frequency-weighted segmental SNR considers only spectrogram m
 
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
-\section{References}
 
 \bibliographystyle{plain}
 \bibliography{biblio}
 
-\ml{USE BIBTEX !!}
-
-\begin{thebibliography}{09}
-
-
-
-
-
-
-\bibitem{gozalo2015}
-Rey Gozalo, G. and Trujillo Carmona, J. and Barrigon Morillas, J.M. and Gomez Escobar, V. (2015). Relationship between objective acoustic indices and subjective assessments for the quality of soundscapes. \textit{Applied Acoustics}, 97, pp. 1-10
-
-\bibitem{rychtarikova2013}
-Rychtarikova, M. and Vermeir, G. (2013). Soundscape categorization on the basis of objective acoustical parameters. \textit{Applied Acoustics}, 74(2), pp. 240-247
-
-\bibitem{can2016}
-Can, A. and Aumond, P. and Michel, S. and De Coensel, B. and Ribeiro, C. and Botteldooren, D. and Lavandier, C. (2016). Comparison of noise indicators in an urban context. In: \textit{Proceedings of the 45th International Congress and Exposition on Noise Control Engineering}, pp. 5678-5686
-
-\bibitem{can2015}
-Can, A. and Gauvreau, B. (2015). Describing and classifying urban sound environments with a relevant set of physical indicators. \textit{J. Ac. Soc. Am.}, 137(1), pp. 208-218
-
-\bibitem{brocolini2013}
-Brocolini, L. and Lavandier, C. and Quoy, M. and Ribeiro, C. (2013). Measurements of acoustic environments for urban soundscapes: Choice of homogeneous periods, optimization of durations, and selection of indicators. \textit{J. Ac. Soc. Am.}, 134(1), pp. 813-821
-
-\bibitem{nilsson2007}
-Nilsson, M. and Botteldooren, D. and De Coensel, B. (2007). Acoustic indicators of soundscape quality and noise annoyance in outdoor urban areas. In: \textit{Proceedings of the 19th International Congress on Acoustics}
-
-\bibitem{ishiyama2000}
-Ishiyama, T. and Hashimoto, T. (2000). The impact of sound quality on annoyance caused by road traffc noise: an influence of frequency spectra on annoyance. \textit{JSAE Review}, 21(2), pp. 225-230
-
-\bibitem{torija2013}
-Torija, A. and Ruiz, D. and Ramos-Ridao, A. (2013). Application of a methodology for categorizing and differentiating urban soundscapes using acoustical descriptors and semantic-differential attributes. \textit{J. Ac. Soc. Am.}, 134(1), pp. 791-802
-
-\bibitem{anusuya2009}
-Anusuya, M. and Katty, S. (2009).  Speech recognition by machine, a review. \textit{International Journal of Computer Science and Information Security}, 6(3), pp. 181-205
-
-\bibitem{tzanetakis2002}
-Tzanztakis, G. and Essl, G. and Cook, P. (2002). Automatic musical genre classification of audio signals. \textit{IEEE Transactions on Speech and Audio Processing}, 10(5), pp. 293-302
-
-\bibitem{ntalampiras2014}
-Ntalampiras, S. (2014). Universal background modeling for acoustic surveillance of urban traffic. \textit{Digital Signal Processing}, 31, pp. 69-78
-
-\bibitem{aucouturier2007}
-Aucouturier, J. and Defreville, B. and Pachet, F. (2007). The bag-of-frames approach to audio pattern recognition: A sufficient model for urban soundscapes but not for polyphonic music. \textit{J. Ac. Soc. Am.}, 122(2), pp. 881-891
-
-\bibitem{foggia2015}
-Foggia, P. and Petkov, N. and Saggese, A. and Strisciuglio, N. and Vento, M. (2015). Reliable detection of audio events in highly noisy environments. \textit{Pattern Recognition Letters}, 65, pp. 22-28
-
-\bibitem{kumar2016}
-Kumar, A. and Raj, B. (2016). Features and Kernels for Audio Event Recognition. \textit{arXiv Preprint}, Available at: \url{https://arxiv.org/abs/1607.05765}
-
-\bibitem{radhakrishnan2005}
-Radhakrishnan, R. and Divakaran, A. and Smaragdis, P. (2005). Audio analysis for surveillance applications. In: \textit{IEEE Workshop on Applications of Signal Processing to Audio and Acoustics}
-
-\bibitem{salamon2017}
-Salamon, J. and Bello, J. (2017). Deep convolutional neural networks and data augmentation for environmental sound classification. \textit{IEEE Signal Processing Letters}, 24(3), pp. 279-283
-
-\bibitem{piczak2015}
-Piczak, K. (2015). Environmental sound classification with convolutional neural networks. In: \textit{IEEE 25th International Workshop on Machine Learning for Signal Processing}
-
-\bibitem{khunarsal2013}
-Khunarsal, P. and Lursinsap, C. and Raicharoen, T. (2013). Very short time environmental sound classification based on spectrogram pattern matching. \textit{Information Sciences}, 243, pp. 57-74
-
-\bibitem{couvreur2004}
-Couvreur, L. and Laniray, M. (2004). Automatic noise recognition in urban environments based on artificial neural networks and hidden markov models. In: \textit{The 33rd International Congress and Exposition on Noise Control Engineering}
-
-\bibitem{cai2006}
-Cai, R. and Lu, L. and Hanjalic, A. and Zhang, H. and Cai, L. (2006). A flexible framewok for key audio effects detection and auditory context inference. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 14(3), pp. 1026-1039
-
-\bibitem{chu2009}
-Chu, S. and Narayanan, S. and Kuo, C. (2009). Environmental sound recognition with time-frequency audio features. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 17(6), pp. 1142-1158
-
-\bibitem{salamon2015-2}
-Salamon, J. and Bello, J. (2015). Unsupervised feature learning for urman sound classification. In: \textit{2015 IEEE International Conference on Acoustics, Speech and Signal Processing}
-
-\bibitem{bauge2013}
-Baugé, C. and Lagrange, M. and Andén, J. and Mallat, S. (2013). Representing environmental sounds using the separable scattering transform. In: \textit{2013 IEEE International Conference on Acoustics, Speech and Signal Processing}
-
-\bibitem{salamon2015}
-Salamon, J. and Bello, J. (2015). Feature learning with deep scattering for urban sound analysis. In: \textit{23rd European Signal Processing Conference}
-
-\bibitem{chachada2013}
-Chachada, S. and Kuo, C. (2013). Environmental sound recognition: A survey. In: \textit{2013 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference}
-
-\bibitem{davis1986}
-Davis, S. (1986). Octave and fractional-octave band digital filtering based on the proposed ANSI standard. In: \textit{1986 IEEE International Conference on Acoustics, Speech and Signal Processing}
-
-\bibitem{ellis2005}
-Ellis, D. (2005). \textit{{PLP} and {RASTA} (and {MFCC}, and inversion) in {M}atlab}. Available at: \url{http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/}
-
-\bibitem{huffman1952}
-Huffman, D. (1952). A method for the construction of minimum-redundancy codes. \textit{Proceedings of the IRE}, 40(9), pp. 1098-1101
-
-\bibitem{antoni2010}
-Antoni, J. (2010). Orthogonal-like fractional-octave-band filters. \textit{J. Ac. Soc. Am.}, 127(2)
-
-\bibitem{couvreur}
-Couvreur, C. \textit{Implementation of a one-third-octave filter bank in Matlab}. Available at: \url{http://citeseer.ist.psu.edu/24150.html}
-
-\bibitem{griffin1984}
-Griffin, D. and Lim, J. (1984). Signal Estimation from Modified Short-Time Fourier Transform. \textit{IEEE Transactions on Acoustics, Speech, and Signal Processing}, 32(2)
-
-\bibitem{salamon2014}
-Salamon, J. and Jacoby, C. and Bello, J. (2014). A Dataset and Taxonomy for Urban Sound Research. \textit{Proceedings of the 22nd ACM international conference on Multimedia}
-
-\bibitem{kates2005}
-Kates, J. and Arehart, K. (2005). Coherence and the Speech Intelligibility Index. \textit{J. Ac. Soc. Am.}, 115(5)
-
-\bibitem{hu2008}
-Hu, Y. and Loizou, P. (2008). Evaluation of objective quality measures for speech enhancement. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 16(1)
-
-\bibitem{ma2009}
-Ma, J. and Hu, Y. and Loizou, P. (2009). Objective measures for predicting speech intelligibility in noisy conditions based on new band-importance functions. \textit{J. Ac. Soc. Am.}, 125(5)
-
-
-\end{thebibliography}
+%\ml{USE BIBTEX !!}
+%\bibliography{mybib}{}
+%
+%
+%\begin{thebibliography}{09}
+%
+%\bibitem{gozalo2015}
+%Rey Gozalo, G. and Trujillo Carmona, J. and Barrigon Morillas, J.M. and Gomez Escobar, V. (2015). Relationship between objective acoustic indices and subjective assessments for the quality of soundscapes. \textit{Applied Acoustics}, 97, pp. 1-10
+%
+%\bibitem{rychtarikova2013}
+%Rychtarikova, M. and Vermeir, G. (2013). Soundscape categorization on the basis of objective acoustical parameters. \textit{Applied Acoustics}, 74(2), pp. 240-247
+%
+%\bibitem{can2016}
+%Can, A. and Aumond, P. and Michel, S. and De Coensel, B. and Ribeiro, C. and Botteldooren, D. and Lavandier, C. (2016). Comparison of noise indicators in an urban context. In: \textit{Proceedings of the 45th International Congress and Exposition on Noise Control Engineering}, pp. 5678-5686
+%
+%\bibitem{can2015}
+%Can, A. and Gauvreau, B. (2015). Describing and classifying urban sound environments with a relevant set of physical indicators. \textit{J. Ac. Soc. Am.}, 137(1), pp. 208-218
+%
+%\bibitem{brocolini2013}
+%Brocolini, L. and Lavandier, C. and Quoy, M. and Ribeiro, C. (2013). Measurements of acoustic environments for urban soundscapes: Choice of homogeneous periods, optimization of durations, and selection of indicators. \textit{J. Ac. Soc. Am.}, 134(1), pp. 813-821
+%
+%\bibitem{nilsson2007}
+%Nilsson, M. and Botteldooren, D. and De Coensel, B. (2007). Acoustic indicators of soundscape quality and noise annoyance in outdoor urban areas. In: \textit{Proceedings of the 19th International Congress on Acoustics}
+%
+%\bibitem{ishiyama2000}
+%Ishiyama, T. and Hashimoto, T. (2000). The impact of sound quality on annoyance caused by road traffc noise: an influence of frequency spectra on annoyance. \textit{JSAE Review}, 21(2), pp. 225-230
+%
+%\bibitem{torija2013}
+%Torija, A. and Ruiz, D. and Ramos-Ridao, A. (2013). Application of a methodology for categorizing and differentiating urban soundscapes using acoustical descriptors and semantic-differential attributes. \textit{J. Ac. Soc. Am.}, 134(1), pp. 791-802
+%
+%\bibitem{anusuya2009}
+%Anusuya, M. and Katty, S. (2009). Speech recognition by machine, a review. \textit{International Journal of Computer Science and Information Security}, 6(3), pp. 181-205
+%
+%\bibitem{tzanetakis2002}
+%Tzanztakis, G. and Essl, G. and Cook, P. (2002). Automatic musical genre classification of audio signals. \textit{IEEE Transactions on Speech and Audio Processing}, 10(5), pp. 293-302
+%
+%\bibitem{ntalampiras2014}
+%Ntalampiras, S. (2014). Universal background modeling for acoustic surveillance of urban traffic. \textit{Digital Signal Processing}, 31, pp. 69-78
+%
+%\bibitem{aucouturier2007}
+%Aucouturier, J. and Defreville, B. and Pachet, F. (2007). The bag-of-frames approach to audio pattern recognition: A sufficient model for urban soundscapes but not for polyphonic music. \textit{J. Ac. Soc. Am.}, 122(2), pp. 881-891
+%
+%\bibitem{foggia2015}
+%Foggia, P. and Petkov, N. and Saggese, A. and Strisciuglio, N. and Vento, M. (2015). Reliable detection of audio events in highly noisy environments. \textit{Pattern Recognition Letters}, 65, pp. 22-28
+%
+%\bibitem{kumar2016}
+%Kumar, A. and Raj, B. (2016). Features and Kernels for Audio Event Recognition. \textit{arXiv Preprint}, Available at: \url{https://arxiv.org/abs/1607.05765}
+%
+%\bibitem{radhakrishnan2005}
+%Radhakrishnan, R. and Divakaran, A. and Smaragdis, P. (2005). Audio analysis for surveillance applications. In: \textit{IEEE Workshop on Applications of Signal Processing to Audio and Acoustics}
+%
+%\bibitem{salamon2017}
+%Salamon, J. and Bello, J. (2017). Deep convolutional neural networks and data augmentation for environmental sound classification. \textit{IEEE Signal Processing Letters}, 24(3), pp. 279-283
+%
+%\bibitem{piczak2015}
+%Piczak, K. (2015). Environmental sound classification with convolutional neural networks. In: \textit{IEEE 25th International Workshop on Machine Learning for Signal Processing}
+%
+%\bibitem{khunarsal2013}
+%Khunarsal, P. and Lursinsap, C. and Raicharoen, T. (2013). Very short time environmental sound classification based on spectrogram pattern matching. \textit{Information Sciences}, 243, pp. 57-74
+%
+%\bibitem{couvreur2004}
+%Couvreur, L. and Laniray, M. (2004). Automatic noise recognition in urban environments based on artificial neural networks and hidden markov models. In: \textit{The 33rd International Congress and Exposition on Noise Control Engineering}
+%
+%\bibitem{cai2006}
+%Cai, R. and Lu, L. and Hanjalic, A. and Zhang, H. and Cai, L. (2006). A flexible framewok for key audio effects detection and auditory context inference. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 14(3), pp. 1026-1039
+%
+%\bibitem{chu2009}
+%Chu, S. and Narayanan, S. and Kuo, C. (2009). Environmental sound recognition with time-frequency audio features. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 17(6), pp. 1142-1158
+%
+%\bibitem{salamon2015-2}
+%Salamon, J. and Bello, J. (2015). Unsupervised feature learning for urman sound classification. In: \textit{2015 IEEE International Conference on Acoustics, Speech and Signal Processing}
+%
+%\bibitem{bauge2013}
+%Baugé, C. and Lagrange, M. and Andén, J. and Mallat, S. (2013). Representing environmental sounds using the separable scattering transform. In: \textit{2013 IEEE International Conference on Acoustics, Speech and Signal Processing}
+%
+%\bibitem{salamon2015}
+%Salamon, J. and Bello, J. (2015). Feature learning with deep scattering for urban sound analysis. In: \textit{23rd European Signal Processing Conference}
+%
+%\bibitem{chachada2013}
+%Chachada, S. and Kuo, C. (2013). Environmental sound recognition: A survey. In: \textit{2013 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference}
+%
+%\bibitem{davis1986}
+%Davis, S. (1986). Octave and fractional-octave band digital filtering based on the proposed ANSI standard. In: \textit{1986 IEEE International Conference on Acoustics, Speech and Signal Processing}
+%
+%\bibitem{ellis2005}
+%Ellis, D. (2005). \textit{{PLP} and {RASTA} (and {MFCC}, and inversion) in {M}atlab}. Available at: \url{http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/}
+%
+%\bibitem{huffman1952}
+%Huffman, D. (1952). A method for the construction of minimum-redundancy codes. \textit{Proceedings of the IRE}, 40(9), pp. 1098-1101
+%
+%\bibitem{antoni2010}
+%Antoni, J. (2010). Orthogonal-like fractional-octave-band filters. \textit{J. Ac. Soc. Am.}, 127(2), pp. 884–895
+%
+%\bibitem{couvreur}
+%Couvreur, C. \textit{Implementation of a one-third-octave filter bank in Matlab}. Available at: \url{http://citeseer.ist.psu.edu/24150.html}
+%
+%\bibitem{griffin1984}
+%Griffin, D. and Lim, J. (1984). Signal Estimation from Modified Short-Time Fourier Transform. \textit{IEEE Transactions on Acoustics, Speech, and Signal Processing}, 32(2), pp. 236-243
+%
+%\bibitem{salamon2014}
+%Salamon, J. and Jacoby, C. and Bello, J. (2014). A Dataset and Taxonomy for Urban Sound Research. \textit{Proceedings of the 22nd ACM international conference on Multimedia}
+%
+%\bibitem{kates2005}
+%Kates, J. and Arehart, K. (2005). Coherence and the Speech Intelligibility Index. \textit{J. Ac. Soc. Am.}, 115(5), pp. 2224–2237
+%
+%\bibitem{hu2008}
+%Hu, Y. and Loizou, P. (2008). Evaluation of objective quality measures for speech enhancement. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 16(1), pp. 229–238
+%
+%\bibitem{ma2009}
+%Ma, J. and Hu, Y. and Loizou, P. (2009). Objective measures for predicting speech intelligibility in noisy conditions based on new band-importance functions. \textit{J. Ac. Soc. Am.}, 125(5), pp. 3387–3405
+%
+%
+%\end{thebibliography}
 \end{document}
 
 \endinput

@@ -118,6 +118,7 @@ for ind_fold = 1:length(X_desc)
                     end
                     x{ind_fold}{ind_file} = x_temp;
             end
+            audiowrite(['..\..\decoded_samples\Sample_mel_fps' num2str(setting.fps) '_mel' num2str(setting.mel) '_quant' num2str(setting.quant) '_' setting.phaserec '_' num2str(ind_file) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
         elseif strcmp(setting.desc, 'tob')
             %% Normalisation
             if setting.quant ~= 0
@@ -158,14 +159,11 @@ for ind_fold = 1:length(X_desc)
                     end
                     x{ind_fold}{ind_file} = x_temp;
             end
+            audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_hop' num2str(setting.tobhop) '_' setting.phaserec '_' num2str(ind_file) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
         end
     end
 end
-if strcmp(setting.desc, 'mel')
-    audiowrite(['..\..\decoded_samples\Sample_mel_fps' num2str(setting.fps) '_mel' num2str(setting.mel) '_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
-elseif strcmp(setting.desc, 'tob')
-    audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_' setting.phaserec '.wav'], x{1}{1}./max(abs(x{1}{1})), sr);
-end
+
 %% Outputs
 % Store
 store.x_rec = x;

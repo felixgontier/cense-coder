@@ -110,35 +110,35 @@ end
 % errorbar(13:10:43, data_csii.meanData(7, :), data_csii.stdData(7, :))
 % axis([-10 45 -0.7 -0.1]), grid on, legend(fps_lgd, 'location', 'northwest'), xlabel('Mel bands'); ylabel('CSII')
 
-load('report/figures/mel_fwSNRseg_melall_avgall_q8.mat');
-data_fwSNRseg = data;
-clear data;
-figure(1), clf
-
-errorbar(10:10:40, data_fwSNRseg.meanData(1, :), data_fwSNRseg.stdData(1, :))
-hold on,
-errorbar(10:10:40, data_fwSNRseg.meanData(2, :), data_fwSNRseg.stdData(2, :))
-errorbar(10:10:40, data_fwSNRseg.meanData(3, :), data_fwSNRseg.stdData(3, :))
-errorbar(10:10:40, data_fwSNRseg.meanData(4, :), data_fwSNRseg.stdData(4, :))
-errorbar(10:10:40, data_fwSNRseg.meanData(5, :), data_fwSNRseg.stdData(5, :))
-errorbar(10:10:40, data_fwSNRseg.meanData(6, :), data_fwSNRseg.stdData(6, :))
-errorbar(10:10:40, data_fwSNRseg.meanData(7, :), data_fwSNRseg.stdData(7, :))
-axis([-10 45 -15 5]), grid on, legend(fps_lgd, 'location', 'northwest'), xlabel('Mel bands'); ylabel('fwSNRseg (dB)')
-
-%% Mel_class_q
-% load('report/figures/mel_class_mel30_avg0_qall.mat');
-% data_qall = data;
-% load('report/figures/mel_class_mel30_avg0_q0.mat');
+% load('report/figures/mel_fwSNRseg_melall_avgall_q8.mat');
+% data_fwSNRseg = data;
+% clear data;
 % figure(1), clf
 % 
-% errorbar([8.44 8.48 8.52 8.56], data.meanData, data.stdData, 'xk', 'Linewidth', 1.5)
+% errorbar(10:10:40, data_fwSNRseg.meanData(1, :), data_fwSNRseg.stdData(1, :))
 % hold on,
-% errorbar([3.94:7.94 8.44], [data_qall.meanData(1, :) data.meanData(1)], [data_qall.stdData(1, :) data.stdData(1)])
-% errorbar([3.98:7.98 8.48], [data_qall.meanData(2, :) data.meanData(2)], [data_qall.stdData(2, :) data.stdData(2)])
-% errorbar([4.02:8.02 8.52], [data_qall.meanData(3, :) data.meanData(3)], [data_qall.stdData(3, :) data.stdData(3)])
-% errorbar([4.06:8.06 8.56], [data_qall.meanData(4, :) data.meanData(4)], [data_qall.stdData(4, :) data.stdData(4)])
-% axis([3 9 0.4 0.8]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('Baseline', 'SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
+% errorbar(10:10:40, data_fwSNRseg.meanData(2, :), data_fwSNRseg.stdData(2, :))
+% errorbar(10:10:40, data_fwSNRseg.meanData(3, :), data_fwSNRseg.stdData(3, :))
+% errorbar(10:10:40, data_fwSNRseg.meanData(4, :), data_fwSNRseg.stdData(4, :))
+% errorbar(10:10:40, data_fwSNRseg.meanData(5, :), data_fwSNRseg.stdData(5, :))
+% errorbar(10:10:40, data_fwSNRseg.meanData(6, :), data_fwSNRseg.stdData(6, :))
+% errorbar(10:10:40, data_fwSNRseg.meanData(7, :), data_fwSNRseg.stdData(7, :))
+% axis([-10 45 -15 5]), grid on, legend(fps_lgd, 'location', 'northwest'), xlabel('Mel bands'); ylabel('fwSNRseg (dB)')
 
+%% Mel_class_q
+load('report/figures/mel_class_mel40_avg0_qall.mat');
+data_qall = data;
+load('report/figures/mel_class_mel40_avg0_q0.mat');
+figure(1), clf
+
+% errorbar([8.44 8.48 8.52 8.56], data.meanData, data.stdData, 'xk', 'Linewidth', 1.5)
+hold on,
+errorbar([3.94:7.94 8.44 8.94], [data_qall.meanData(1, :) NaN data.meanData(1)], [data_qall.stdData(1, :) NaN data.stdData(1)], '-x')
+errorbar([3.98:7.98 8.48 8.98], [data_qall.meanData(2, :) NaN data.meanData(2)], [data_qall.stdData(2, :) NaN data.stdData(2)], '-x')
+errorbar([4.02:8.02 8.52 9.02], [data_qall.meanData(3, :) NaN data.meanData(3)], [data_qall.stdData(3, :) NaN data.stdData(3)], '-x')
+errorbar([4.06:8.06 8.56 9.06], [data_qall.meanData(4, :) NaN data.meanData(4)], [data_qall.stdData(4, :) NaN data.stdData(4)], '-x')
+axis([3 9.5 0.4 0.8]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
+set(gca, 'xticklabels', {'3','4','5','6','7','8','None'})
 %% Tob_class_q
 % load('report/figures/tob_class.mat');
 % data_tob = data;
