@@ -38,7 +38,7 @@ if strcmp(setting.desc, 'mel')
         n_fps = 1+(sr-l_frame)/l_hop; % Number of frames per second with base settings
     end
 elseif strcmp(setting.desc, 'tob')
-    l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
+    l_frame = (round(setting.toblen*sr)-mod(round(setting.toblen*sr), 2)); % Approximately 125ms, "fast" Leq
     l_hop = setting.tobhop*l_frame;
     n_fps = 1+(sr-l_frame)/l_hop;
 end
@@ -101,6 +101,7 @@ if strcmp(setting.desc, 'mel')
 end
 if setting.quant; store.q_norm = data.q_norm; end
 store.n_frames = data.n_frames;
+if strcmp(setting.dataset, 'speech_mod'); store.wav_name = data.wav_name; end
 
 % Observations
 obs.code_len = code_len;

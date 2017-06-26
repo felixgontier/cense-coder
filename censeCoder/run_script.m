@@ -1,7 +1,7 @@
 clear all, close all, clc;
 
 %% Global run
-%%% censeCoder('do', [step], 'mask', {fps, mel, quant, dictgen, htreealg, textframe, dataset, classmethod, phaserec, desc, intelind, tobhop});
+%%% censeCoder('do', [step], 'mask', {fps, mel, quant, dictgen, htreealg, textframe, dataset, classmethod, phaserec, desc, intelind, tobhop, toblen});
 %%% Error - All quant
 % censeCoder('do', [1], 'mask', {-1, -1, 0, -1, -1, -1, 0, -1, -1, 2, -1, 2}); % Third-octave bands
 %%% Bitrate - All quant
@@ -29,5 +29,6 @@ clear all, close all, clc;
  
 % censeCoder('do', [1 2 3], 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, -1, -1});
 % censeCoder('do', [3], 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, -1, -1});
-censeCoder('do', [1 2 3], 'mask', {-1, -1, 0, 1, 2, 10, 1, -1, 1, 2, -1, 1});
-censeCoder('do', [1 2 3], 'mask', {-1, -1, 0, 1, 2, 10, 1, -1, 1, 2, -1, 2});
+% censeCoder('do', [1 2 3], 'mask', {-1, -1, 0, 1, 2, 10, 1, -1, 1, 2, -1, 1});
+% censeCoder('do', [1 2 3], 'mask', {-1, -1, 0, 1, 2, 10, 1, -1, 1, 2, -1, 2});
+censeCoder('do', [1 2 3 4], 'mask', {-1, -1, 6, 1, 2, 10, 1, -1, 1, 2, 0, 2, 1:4});

@@ -26,10 +26,10 @@ if strcmp(setting.desc, 'mel')
         n_avg = round(n_fps/setting.fps); % Number of consecutive frames to average into one
     end
 elseif strcmp(setting.desc, 'tob')
-    l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
+    l_frame = (round(setting.toblen*sr)-mod(round(setting.toblen*sr), 2)); % Approximately 125ms, "fast" Leq
     l_hop = setting.tobhop*l_frame;
     %% Filterbank calculation, can be replaced with constant matrix
-    N = 2^13;
+    N = 2^(ceil(log2(l_frame)));
     N_filt = 2^17; % Design with a much greater precision
     G = third_octave_filterbank(sr, N_filt, -17:13);
     G = G(:, 1:round(N_filt/N):end); % Only take the resolution needed
@@ -155,11 +155,15 @@ for ind_fold = 1:length(X_desc)
                         x_stft = stft(x_temp, l_frame, l_hop, 'hamming', 1);
                         b = sqrt(sum(win(1:end/2+1)))*sqrt(Xw).*x_stft./abs(x_stft); % As described in G&L paper
                         % b = (sqrt(x_spec)/32768).*exp(1i*angle(x_stft)); % Also works
-                        x_temp = istft(b, l_frame, l_hop, 'hanning');
+                        x_temp = istft(b, l_frame, l_hop, 'hamming');
                     end
                     x{ind_fold}{ind_file} = x_temp;
             end
-            audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_hop' num2str(setting.tobhop) '_' setting.phaserec '_' num2str(ind_file) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+            if ~strcmp(setting.dataset, 'speech_mod')
+                audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_hop' num2str(setting.tobhop) '_' setting.phaserec '_len' num2str(setting.toblen) '_file' num2str(ind_file) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+            else
+                audiowrite(['../../decoded_samples/perc_int/' data.wav_name{1}{ind_file}(1:end-4) '_q' num2str(setting.quant) '_l' num2str(1000*setting.toblen) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+            end
         end
     end
 end

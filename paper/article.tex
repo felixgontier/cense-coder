@@ -253,7 +253,7 @@ In order to decrease the intelligibility, several approaches can be considered. 
 
 %conduct thus preliminary perceptive tests to ensure that a clean speech recording is made unintelligible, implying the same results in usually noisier urban soundscapes. We also
 
-To evaluate the impact of the frame rate on intelligibility two objective metrics are considered: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-weighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study.\\
+To evaluate the impact of the frame rate on intelligibility two objective metrics are considered: the Coherence Speech Intelligibility Index\cite{kates2005} (CSII) and frequency-weighted segmental SNR\cite{hu2008} (fwSNRseg) by comparing original unaltered samples and recovered audio. These two indicators have been shown to correlate well with perceptual tests\cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study. For this reason, a small-scale perceptual test is also conducted. We use a dataset of clean speech recordings comprised of 9 french sentences enunciated by 3 male and 3 female speakers. The recordings are encoded with analysis frame rates of 50~Hz, 16~Hz, 8~Hz and 4~Hz for a total of 216 audio excerpts. At each test iteration, a listener is presented with sentences and asked both to transcribe the utterances and rate the global intelligibility between 1 and 5. Each sentence is tested twice in order to palliate the reduced number of participants. The listening bias induced is attenuated by using the 9 sentences only once for the two lower and higher frame rates. Furthermore, the global order of examples as well as speakers are randomized. Nine subjects of ages ranging from 17 to 60 and with normal hearing capacity participated.\\
 
 These metrics require a recovery of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is approximated by either white noise spectrogram scaling or a Griffin \& Lim algorithm \cite{griffin1984}, and the signal is retrieved using concatenation or overlap-add. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.\\
 
@@ -415,32 +415,34 @@ Both descriptor are thus found to have similar representational capabilities des
 
 \subsection{Inintelligibility}
 
+Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_tob_fps} and \ref{fig:fwsnrseg_tob_fps} shows both the CSII and fwSNRseg indicators for varying frames per second in analysis. Figure~\ref{fig:subj_int} presents the results of the preliminar perceptual test for the same setup. We acknowledge that it is surely biased by the reduced number of participants and scarcity of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions and study the intelligibility of fast acoustical measurements.\\
 
-Finally, objective intelligibility metrics are estimated for the studied parameters and compared to an informal perceptual evaluation \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. Figures~\ref{fig:csii_mel_avg} and \ref{fig:fwsnrseg_mel_avg} shows both the CSII and fwSNRseg indicators for varying representation dimensions. Figure~\ref{fig:percint_mel_avg} presents the results of the preliminar perceptual test for the same setup. %For this test, subjects were asked to blindly listen to recovered speech audio with different representation and coding parameters. They had to rate each extract between 0 ans 5, respectively inintelligible and perfectly comprehensible. We acknowledge that it is surely biased by a reduced number of participants and lack of tested audio material. However, it is sufficient to judge the relevance of objective indicators in our conditions as we can observe a correlation between the three metrics.
+Perceptual test results are in accordance with the formulated concerns. First, phonems separation is mandatory in order to ensure intelligibility. This implies an analysis frame rate significantly larger than that of phonems in the considered language. Here we observe a limit of about 10~Hz corresponding to a duration of 100~ms, rendering the studied 8~Hz measurements inintelligible. Few words were understood correctly as a result of coincidentally adequate frame timings, ie. analysis frames matching phonem utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher fps transcriptions and a globally lower comprehension as perceived by the subjects.\\
 
-%The CSII accounts for the whole spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse mel bands transformation as well as operations reducing data dimensionality further contribute to very high distances. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. The indicator differs from perceptual evaluations for middle-valued frame rates, with for example the 9.5 fps curve being lower than expected. Values are also very close for multiple parameter combinations where a threshold between intelligibility and inintelligibility could be found. This is therefore not an adequate indicator for our purpose.\\
+The CSII accounts for the spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse third-octave bands transformation as well as operations reducing data dimensionality further contribute to very high point-wise disparities. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. When compared to perceptual test results, the CSII shows no clear separation in the 10 frames per second neighbourhood. It is therefore not a good indicator in our conditions.\\
 
-%Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion.  Nevertheless, the fwSNRseg still uses point-wise comparison. A shape seems to appear where the influences of frame rate and mel bands on output are decorrelated, ie. almost the same curve is offset as a function of frame rate. While the values are still concentrated around the critical threshold location at about -5~dB, this metric is likely a better indicator due to its approach of the clean-reconstructed signal distance. \ml{incrompehnsible}
+Alternatively, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and a more representative of the induced perceptual distortion. Nevertheless, the fwSNRseg still uses a point-wise comparison which is certainly too precise for the studied degradations. Its shape seems more accurate at higher frame rates where intelligibility is almost constant. The previously observed threshold is however absent as the curve present a smoother increase trend, and the difference between 8~Hz and 16~Hz is not significant enough to correlate with subjective measurements.\\
+
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{figures/csii_mel_avg.eps}
+		\includegraphics[width=\columnwidth]{figures/csii_tob_fps.eps}
 	\caption{The Coherence SII objective indicator computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
-	\label{fig:csii_mel_avg}
+	\label{fig:csii_tob_fps}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{figures/fwsnrseg_mel_avg.eps}
-	\caption{Frequency-weighted segmental SNR for the same parameters.}
-	\label{fig:fwsnrseg_mel_avg}
+		\includegraphics[width=\columnwidth]{figures/fwsnrseg_tob_fps.eps}
+	\caption{Frequency-weighted segmental SNR with varying analysis frame rates around the considered 8~Hz value. This indicator shows a better correlation with subjective tests but lacks an inintelligibility threshold.}
+	\label{fig:fwsnrseg_tob_fps}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\columnwidth]{figures/percint_mel_avg.eps}
-	\caption{Results of the perceptual intelligibility test.}
-	\label{fig:percint_mel_avg}
+		\includegraphics[width=\columnwidth]{figures/subj_int.eps}
+	\caption{Results of the perceptual intelligibility test with subjective normalized for visibility. A limit for intelligibility appears at around 10~Hz, corresponding to the average duration of a phonem.}
+	\label{fig:subj_int}
 \end{figure}
 \section{Conclusion}
 

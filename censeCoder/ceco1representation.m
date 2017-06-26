@@ -27,10 +27,10 @@ if strcmp(setting.desc, 'mel')
         disp(['Chosen FPS is ' num2str(setting.fps) ', actual one is ' num2str(n_fps/n_avg) '.']);
     end
 elseif strcmp(setting.desc, 'tob')
-    l_frame = (round(0.125*sr)-mod(round(0.125*sr), 2)); % Approximately 125ms, "fast" Leq
+    l_frame = (round(setting.toblen*sr)-mod(round(setting.toblen*sr), 2)); % Approximately 125ms, "fast" Leq
     l_hop = setting.tobhop*l_frame;
     %% Filterbank calculation, can be replaced with constant matrix
-    N = 2^13;
+    N = 2^(ceil(log2(l_frame)));
     N_filt = 2^17; % Design with a much greater precision
     G = third_octave_filterbank(sr, N_filt, -17:13);
     G = G(:, 1:round(N_filt/N):end); % Only take the resolution needed
@@ -51,6 +51,18 @@ switch setting.dataset
             if length(rush_names{ind_file}) > 4 && strcmp(rush_names{ind_file}(end-3:end), '.wav')
                 ind_wav = ind_wav+1;
                 file_path{1}{ind_wav} = [datapath rush_names{ind_file}];
+            end
+        end
+    case 'speech_mod'
+        if ispc; datapath = [config.inputPath 'rush_mod\']; else datapath = [config.inputPath 'rush_mod/']; end
+        rush_dir = dir(datapath);
+        rush_names = {rush_dir.name};
+        ind_wav = 0; % Real number of .wav files
+        for ind_file = 1:numel(rush_names)
+            if length(rush_names{ind_file}) > 4 && strcmp(rush_names{ind_file}(end-3:end), '.wav')
+                ind_wav = ind_wav+1;
+                file_path{1}{ind_wav} = [datapath rush_names{ind_file}];
+                wav_name{1}{ind_wav} = rush_names{ind_file};
             end
         end
     case 'urbansound8k'
@@ -131,6 +143,7 @@ for ind_fold = 1:length(file_path)
             X = stft(x, l_frame, l_hop, 'rect', 1)/sqrt(l_frame/2+1); % Energy conservation (Parseval theorem)
             n_frames{ind_fold}{ind_file} = size(X, 2); % Number of STFT windows before averaging, needed for reconstruction
             Xi{ind_fold}{ind_file} = H*(abs(X).^2);
+            Xi{ind_fold}{ind_file}(Xi{ind_fold}{ind_file} == 0) = 1e-8;
             Xi{ind_fold}{ind_file} = 10*log10(Xi{ind_fold}{ind_file}/N);
             if ~isempty(find(isnan(Xi{ind_fold}{ind_file}), 1)) || ~isempty(find(isnan(Xi{ind_fold}{ind_file}), 1))
                 disp(['NaN or Inf found at file ' num2str(ind_file) ' in fold ' num2str(ind_fold) '.']);
@@ -163,7 +176,7 @@ if strcmp(setting.desc, 'mel')
 elseif strcmp(setting.desc, 'tob')
     store.X_desc = Xi;
 end
-if strcmp(setting.dataset, 'urbansound8k'); store.wav_name = wav_name; end
+if strcmp(setting.dataset, 'urbansound8k') || strcmp(setting.dataset, 'speech_mod'); store.wav_name = wav_name; end
 store.n_frames = n_frames;
 
 % Observations

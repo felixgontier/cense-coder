@@ -126,22 +126,22 @@ end
 % axis([-10 45 -15 5]), grid on, legend(fps_lgd, 'location', 'northwest'), xlabel('Mel bands'); ylabel('fwSNRseg (dB)')
 
 %% Mel_class_q
-load('report/figures/mel_class_mel40_avg0_qall.mat');
-data_qall = data;
-load('report/figures/mel_class_mel40_avg0_q0.mat');
-figure(1), clf
-
-errorbar([3.94:7.94], [data_qall.meanData(1, :)], [data_qall.stdData(1, :)], '-x', 'Color', [0 0.4470 0.7410])
-hold on,
-errorbar([3.98:7.98], [data_qall.meanData(2, :)], [data_qall.stdData(2, :)], '-x', 'Color', [0.8500 0.3250 0.0980])
-errorbar([4.02:8.02], [data_qall.meanData(3, :)], [data_qall.stdData(3, :)], '-x', 'Color', [0.9290 0.6940 0.1250])
-errorbar([4.06:8.06], [data_qall.meanData(4, :)], [data_qall.stdData(4, :)], '-x', 'Color', [0.4940 0.1840 0.5560])
-errorbar([8.44 8.94], [NaN data.meanData(1)], [NaN data.stdData(1)], 'x', 'Linewidth', 1.5, 'Color', [0 0.4470 0.7410])
-errorbar([8.44 8.98], [NaN data.meanData(2)], [NaN data.stdData(2)], 'x', 'Linewidth', 1.5, 'Color', [0.8500 0.3250 0.0980])
-errorbar([8.48 9.02], [NaN data.meanData(3)], [NaN data.stdData(3)], 'x', 'Linewidth', 1.5, 'Color', [0.9290 0.6940 0.1250])
-errorbar([8.52 9.06], [NaN data.meanData(4)], [NaN data.stdData(4)], 'x', 'Linewidth', 1.5, 'Color', [0.4940 0.1840 0.5560])
-axis([3 9.5 0.4 0.8]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
-set(gca, 'xticklabels', {'3','4','5','6','7','8','No quant.'})
+% load('report/figures/mel_class_mel40_avg0_qall.mat');
+% data_qall = data;
+% load('report/figures/mel_class_mel40_avg0_q0.mat');
+% figure(1), clf
+% 
+% errorbar([3.94:7.94], [data_qall.meanData(1, :)], [data_qall.stdData(1, :)], '-x', 'Color', [0 0.4470 0.7410])
+% hold on,
+% errorbar([3.98:7.98], [data_qall.meanData(2, :)], [data_qall.stdData(2, :)], '-x', 'Color', [0.8500 0.3250 0.0980])
+% errorbar([4.02:8.02], [data_qall.meanData(3, :)], [data_qall.stdData(3, :)], '-x', 'Color', [0.9290 0.6940 0.1250])
+% errorbar([4.06:8.06], [data_qall.meanData(4, :)], [data_qall.stdData(4, :)], '-x', 'Color', [0.4940 0.1840 0.5560])
+% errorbar([8.44 8.94], [NaN data.meanData(1)], [NaN data.stdData(1)], 'x', 'Linewidth', 1.5, 'Color', [0 0.4470 0.7410])
+% errorbar([8.44 8.98], [NaN data.meanData(2)], [NaN data.stdData(2)], 'x', 'Linewidth', 1.5, 'Color', [0.8500 0.3250 0.0980])
+% errorbar([8.48 9.02], [NaN data.meanData(3)], [NaN data.stdData(3)], 'x', 'Linewidth', 1.5, 'Color', [0.9290 0.6940 0.1250])
+% errorbar([8.52 9.06], [NaN data.meanData(4)], [NaN data.stdData(4)], 'x', 'Linewidth', 1.5, 'Color', [0.4940 0.1840 0.5560])
+% axis([3 9.5 0.4 0.8]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
+% set(gca, 'xticklabels', {'3','4','5','6','7','8','No quant.'})
 %% Tob_class_q
 % load('report/figures/tob_class.mat');
 % data_tob = data;
@@ -153,4 +153,18 @@ set(gca, 'xticklabels', {'3','4','5','6','7','8','No quant.'})
 % errorbar([4.06:8.06], data_tob.meanData(4, 1:end-1) , data_tob.stdData(4, 1:end-1))
 % axis([3.5 8.5 0.35 0.75]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
 
+%% Intel
 
+load('report/figures/tob_csii_len.mat');
+data_csii = data;
+load('report/figures/tob_fwSNRseg_len.mat');
+
+figure(1), clf,
+errorbar([4 8 16 50], flip(data_csii.meanData), flip(data_csii.stdData)),
+grid on, xlabel('Analysis frames per second'), ylabel('CSII')
+axis([0 55 -0.55 -0.2])
+
+figure(2), clf,
+errorbar([4 8 16 50], flip(data.meanData), flip(data.stdData)),
+grid on, xlabel('Analysis frames per second'), ylabel('fwSNRseg (dB)')
+axis([0 55 -12.5 -7.5])
