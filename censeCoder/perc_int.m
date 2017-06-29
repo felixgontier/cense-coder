@@ -104,31 +104,11 @@ switch act
         hold on,
         errorbar([4.2 8.2 16.2 50.2], flip(m_tr), flip(s_tr)),
         axis([0 55 -0.1 1.1]), grid on, xlabel('Analysis frames per second'), ylabel('Intelligibility metric')
-        legend('Subjective note', 'Correct transcription ratio', 'location', 'southeast')
-%         save('disp_int', 'notes', 'tr_r');
+        legend('Subjective judgement', 'Transcription ratio', 'location', 'southeast')
+        set(gca, 'xtick', [4 8 16 50]);
+
+        % 23M-55F-17M-60M-22F-22M-24M-23M
         
-%         if ndims(subj_notes) > 2
-%             mean_sn = mean(subj_notes, 3);
-%             var_sn = squeeze(var(permute(subj_notes, [3 1 2])));
-%         else
-%             mean_sn = subj_notes;
-%             var_sn = zeros(size(subj_notes));
-%         end
-%         
-%         %% Mel on x axis, FPS on legend
-%         real_fps = {'2', '4.1', '6.1', '7.7', '9.5', '21', '85'};
-%         fps_lgd = cell(1, length(real_fps));
-%         for ind_lgd = 1:length(real_fps)
-%             fps_lgd{ind_lgd} = ['fps: ' real_fps{ind_lgd}];
-%         end
-%         figure, clf;
-%         errorbar(mean_sn', var_sn', '-x'), grid on, axis([0.5 4.5 -0.5 5.5])
-%         xlabel('Number of Mel bands'), ylabel('Subjective intelligibility score');
-%         legend(fps_lgd, 'Location', 'bestoutside');
-%         ax = gca;
-%         ax.XTickLabels = mel;
-%         set(gca,'XTick',[1:4]);
-%         print(gcf, '-depsc', 'report/figures/processed/percint_fps_mel.eps');
 end
 
 

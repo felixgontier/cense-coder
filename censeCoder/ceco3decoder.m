@@ -162,7 +162,11 @@ for ind_fold = 1:length(X_desc)
             if ~strcmp(setting.dataset, 'speech_mod')
                 audiowrite(['..\..\decoded_samples\Sample_th_oct_quant' num2str(setting.quant) '_hop' num2str(setting.tobhop) '_' setting.phaserec '_len' num2str(setting.toblen) '_file' num2str(ind_file) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
             else
-                audiowrite(['../../decoded_samples/perc_int/' data.wav_name{1}{ind_file}(1:end-4) '_q' num2str(setting.quant) '_l' num2str(1000*setting.toblen) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+                if setting.tobhop == 1
+                    audiowrite(['../../decoded_samples/perc_int/' data.wav_name{1}{ind_file}(1:end-4) '_q' num2str(setting.quant) '_l' num2str(1000*setting.toblen) '.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+                else
+                    audiowrite(['../../decoded_samples/perc_int/' data.wav_name{1}{ind_file}(1:end-4) '_q' num2str(setting.quant) '_l' num2str(1000*setting.toblen) '_h50.wav'], x{ind_fold}{ind_file}./max(abs(x{ind_fold}{ind_file})), sr);
+                end
             end
         end
     end

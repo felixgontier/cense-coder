@@ -163,8 +163,10 @@ figure(1), clf,
 errorbar([4 8 16 50], flip(data_csii.meanData), flip(data_csii.stdData)),
 grid on, xlabel('Analysis frames per second'), ylabel('CSII')
 axis([0 55 -0.55 -0.2])
+set(gca, 'xtick', [4 8 16 50]);
 
 figure(2), clf,
 errorbar([4 8 16 50], flip(data.meanData), flip(data.stdData)),
 grid on, xlabel('Analysis frames per second'), ylabel('fwSNRseg (dB)')
 axis([0 55 -12.5 -7.5])
+set(gca, 'xtick', [4 8 16 50]);
