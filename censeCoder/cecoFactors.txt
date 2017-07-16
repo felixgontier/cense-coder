@@ -9,5 +9,5 @@ classmethod = 4 = 7/2 = {'SVM', 'RF', 'DT', 'KNN'}
 phaserec = 3 =  = {'WNS', 'GL'}
 desc = 1:4 = = {'mel', 'tob'}
 intelind = 4 = 7/1 = {'CSII', 'fwSNRseg'}
-tobhop = 1:4 = 10/2 = [0.5, 1]
+tobhop = 1:4 = 10/2 = [0.5, 1, 0.125]
 toblen = 1:4 = 10/2 = [0.02 0.06 0.125 0.250 0.500 1]

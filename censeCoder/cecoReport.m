@@ -92,8 +92,9 @@ if nargin==0, censeCoder('report', 'r'); return; end%censeCoder('report', 'rhv')
 % Varying: Mel - All, Avg - All
 % config = expExpose(config, 'p', 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, 1, -1}, 'obs', 'csii', 'save', 'mel_csii_melall_avgall_q8', 'step', 4, 'expand', 'mel');
 % config = expExpose(config, 'p', 'mask', {0, 0, 6, 1, 2, 10, 1, -1, 1, 1, 2, -1}, 'obs', 'fwSNRseg', 'save', 'mel_fwSNRseg_melall_avgall_q8', 'step', 4, 'expand', 'mel');
-config = expExpose(config, 'p', 'mask', {-1, -1, 6, 1, 2, 10, 1, -1, 1, 2, 1, 2, 1:4}, 'obs', 'csii', 'save', 'tob_csii_len', 'step', 4);
-config = expExpose(config, 'p', 'mask', {-1, -1, 6, 1, 2, 10, 1, -1, 1, 2, 2, 2, 1:4}, 'obs', 'fwSNRseg', 'save', 'tob_fwSNRseg_len', 'step', 4);
+% config = expExpose(config, 'p', 'mask', {-1, -1, 6, 1, 2, 10, 1, -1, 1, 2, 1, 2, 1:4}, 'obs', 'csii', 'save', 'tob_csii_len', 'step', 4);
+% config = expExpose(config, 'p', 'mask', {-1, -1, 6, 1, 2, 10, 1, -1, 1, 2, 2, 2, 1:4}, 'obs', 'fwSNRseg', 'save', 'tob_fwSNRseg_len', 'step', 4);
 
+config = expExpose(config, 'p', 'mask', {-1, -1, 6, 1, 2, 10, 2, 0, -1, 2, -1, 1, 6}, 'obs', 'fwSNRseg', 'save', 'tob_fwSNRseg_len', 'step', 4);
 
 

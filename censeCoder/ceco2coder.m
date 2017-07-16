@@ -79,6 +79,7 @@ for ind_frame = 1:n_frames
                 X_delta_all = delta_enc(X_desc_all);
                 [symbol, prob] = huff_dict(X_delta_all, 'unique', setting.quant); % DdP
                 dict = huffmandict(symbol, prob, 2, setting.htreealg); % Tree generation
+                save('../embedded/matlab/dict.mat', 'dict');
                 clear X_desc_all X_delta_all;
             end
             X_huff{ind_frame} = huffmanenco(X_delta, dict);

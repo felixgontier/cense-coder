@@ -31,7 +31,7 @@ elseif strcmp(setting.desc, 'tob')
     %% Filterbank calculation, can be replaced with constant matrix
     N = 2^(ceil(log2(l_frame)));
     N_filt = 2^17; % Design with a much greater precision
-    G = third_octave_filterbank(sr, N_filt, -17:13);
+    G = third_octave_filterbank(sr, N_filt, -17:13, 3);
     G = G(:, 1:round(N_filt/N):end); % Only take the resolution needed
     H = G.^2; % Frequency weights matrix
     HH = H'*H;
