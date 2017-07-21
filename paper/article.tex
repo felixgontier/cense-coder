@@ -454,7 +454,7 @@ Both descriptor are thus found to have similar representational capabilities des
 
 \subsection{Inintelligibility}
 
-Objective intelligibility metrics are then computed for the encoder's settings under evaluation and compared to the results of the perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{http://}}. The results of the perceptual test is evaluated using the average intelligibility score (AIS) given by the subjects and the ineligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Figures~\ref{fig:csii_tob_fps} and \ref{fig:fwsnrseg_tob_fps} shows both the CSII and fwSNRseg indicators for varying encoding frames per second. Figure~\ref{fig:subj_int} presents the results of the perceptual test for the same encoder's settings.
+Objective intelligibility metrics are then computed for the encoder's settings under evaluation and compared to the results of the perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{https://felixgontier.github.io/cense-coder/}}. The results of the perceptual test is evaluated using the average intelligibility score (AIS) given by the subjects and the ineligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Figures~\ref{fig:csii_tob_fps} and \ref{fig:fwsnrseg_tob_fps} shows both the CSII and fwSNRseg indicators for varying encoding frames per second. Figure~\ref{fig:subj_int} presents the results of the perceptual test for the same encoder's settings.
 
 Perceptual test results confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility}. Phonemes separation is indeed mandatory in order to ensure good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit of about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible. Very few words are understood correctly. We assume that the correctly identified words are a result of coincidentally adequate frame timings, \textit{i.e.} analysis frames matching the location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.\\
 
@@ -480,7 +480,7 @@ More interestingly, the frequency-weighted segmental SNR considers only spectrog
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=\columnwidth]{figures/subj_int.eps}
-	\caption{Average intellibility score (AIS) given by the subjects and the inteligibility ratio (IR) as a function of the frame rate. Inintelligibility appears at around 10~Hz, corresponding to the average duration of a phoneme. \fg{update legend with acronyms}}
+	\caption{Average intellibility score (AIS) given by the subjects and the inteligibility ratio (IR) as a function of the frame rate. Inintelligibility appears at around 10~Hz, corresponding to the average duration of a phoneme.}
 	\label{fig:subj_int}
 \end{figure}
 
@@ -491,7 +491,7 @@ An audio encoding scheme have been described and motivated for use in a sensor g
 The proposed approach have the following benefits:
 \begin{itemize}
 	\item precision: the impact of the quantization step for 8 bits codewords is found to be negligible compared to sensor precision of class 2 sensors
-	\item efficiency: for fast and slow modes, the bitrate is respectively about \fg{numbers} kbps for the high precision mode
+	\item efficiency: for fast and slow modes, the bitrate is respectively about 1.4~kbps and 0.4~kbps for the high precision mode
 	\item privacy: at all operating modes, the reverted audio signal is found to be inintelligible.
 \end{itemize}
 
@@ -523,119 +523,7 @@ The authors would like to thank Christophe d'Alessandro for fruitful discussion 
 \bibliographystyle{plain}
 \bibliography{biblio}
 
-%\ml{USE BIBTEX !!}
-%\bibliography{mybib}{}
-%
-%
-%\begin{thebibliography}{09}
-%
-%\bibitem{gozalo2015}
-%Rey Gozalo, G. and Trujillo Carmona, J. and Barrigon Morillas, J.M. and Gomez Escobar, V. (2015). Relationship between objective acoustic indices and subjective assessments for the quality of soundscapes. \textit{Applied Acoustics}, 97, pp. 1-10
-%
-%\bibitem{rychtarikova2013}
-%Rychtarikova, M. and Vermeir, G. (2013). Soundscape categorization on the basis of objective acoustical parameters. \textit{Applied Acoustics}, 74(2), pp. 240-247
-%
-%\bibitem{can2016}
-%Can, A. and Aumond, P. and Michel, S. and De Coensel, B. and Ribeiro, C. and Botteldooren, D. and Lavandier, C. (2016). Comparison of noise indicators in an urban context. In: \textit{Proceedings of the 45th International Congress and Exposition on Noise Control Engineering}, pp. 5678-5686
-%
-%\bibitem{can2015}
-%Can, A. and Gauvreau, B. (2015). Describing and classifying urban sound environments with a relevant set of physical indicators. \textit{J. Ac. Soc. Am.}, 137(1), pp. 208-218
-%
-%\bibitem{brocolini2013}
-%Brocolini, L. and Lavandier, C. and Quoy, M. and Ribeiro, C. (2013). Measurements of acoustic environments for urban soundscapes: Choice of homogeneous periods, optimization of durations, and selection of indicators. \textit{J. Ac. Soc. Am.}, 134(1), pp. 813-821
-%
-%\bibitem{nilsson2007}
-%Nilsson, M. and Botteldooren, D. and De Coensel, B. (2007). Acoustic indicators of soundscape quality and noise annoyance in outdoor urban areas. In: \textit{Proceedings of the 19th International Congress on Acoustics}
-%
-%\bibitem{ishiyama2000}
-%Ishiyama, T. and Hashimoto, T. (2000). The impact of sound quality on annoyance caused by road traffc noise: an influence of frequency spectra on annoyance. \textit{JSAE Review}, 21(2), pp. 225-230
-%
-%\bibitem{torija2013}
-%Torija, A. and Ruiz, D. and Ramos-Ridao, A. (2013). Application of a methodology for categorizing and differentiating urban soundscapes using acoustical descriptors and semantic-differential attributes. \textit{J. Ac. Soc. Am.}, 134(1), pp. 791-802
-%
-%\bibitem{anusuya2009}
-%Anusuya, M. and Katty, S. (2009). Speech recognition by machine, a review. \textit{International Journal of Computer Science and Information Security}, 6(3), pp. 181-205
-%
-%\bibitem{tzanetakis2002}
-%Tzanztakis, G. and Essl, G. and Cook, P. (2002). Automatic musical genre classification of audio signals. \textit{IEEE Transactions on Speech and Audio Processing}, 10(5), pp. 293-302
-%
-%\bibitem{ntalampiras2014}
-%Ntalampiras, S. (2014). Universal background modeling for acoustic surveillance of urban traffic. \textit{Digital Signal Processing}, 31, pp. 69-78
-%
-%\bibitem{aucouturier2007}
-%Aucouturier, J. and Defreville, B. and Pachet, F. (2007). The bag-of-frames approach to audio pattern recognition: A sufficient model for urban soundscapes but not for polyphonic music. \textit{J. Ac. Soc. Am.}, 122(2), pp. 881-891
-%
-%\bibitem{foggia2015}
-%Foggia, P. and Petkov, N. and Saggese, A. and Strisciuglio, N. and Vento, M. (2015). Reliable detection of audio events in highly noisy environments. \textit{Pattern Recognition Letters}, 65, pp. 22-28
-%
-%\bibitem{kumar2016}
-%Kumar, A. and Raj, B. (2016). Features and Kernels for Audio Event Recognition. \textit{arXiv Preprint}, Available at: \url{https://arxiv.org/abs/1607.05765}
-%
-%\bibitem{radhakrishnan2005}
-%Radhakrishnan, R. and Divakaran, A. and Smaragdis, P. (2005). Audio analysis for surveillance applications. In: \textit{IEEE Workshop on Applications of Signal Processing to Audio and Acoustics}
-%
-%\bibitem{salamon2017}
-%Salamon, J. and Bello, J. (2017). Deep convolutional neural networks and data augmentation for environmental sound classification. \textit{IEEE Signal Processing Letters}, 24(3), pp. 279-283
-%
-%\bibitem{piczak2015}
-%Piczak, K. (2015). Environmental sound classification with convolutional neural networks. In: \textit{IEEE 25th International Workshop on Machine Learning for Signal Processing}
-%
-%\bibitem{khunarsal2013}
-%Khunarsal, P. and Lursinsap, C. and Raicharoen, T. (2013). Very short time environmental sound classification based on spectrogram pattern matching. \textit{Information Sciences}, 243, pp. 57-74
-%
-%\bibitem{couvreur2004}
-%Couvreur, L. and Laniray, M. (2004). Automatic noise recognition in urban environments based on artificial neural networks and hidden markov models. In: \textit{The 33rd International Congress and Exposition on Noise Control Engineering}
-%
-%\bibitem{cai2006}
-%Cai, R. and Lu, L. and Hanjalic, A. and Zhang, H. and Cai, L. (2006). A flexible framewok for key audio effects detection and auditory context inference. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 14(3), pp. 1026-1039
-%
-%\bibitem{chu2009}
-%Chu, S. and Narayanan, S. and Kuo, C. (2009). Environmental sound recognition with time-frequency audio features. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 17(6), pp. 1142-1158
-%
-%\bibitem{salamon2015-2}
-%Salamon, J. and Bello, J. (2015). Unsupervised feature learning for urman sound classification. In: \textit{2015 IEEE International Conference on Acoustics, Speech and Signal Processing}
-%
-%\bibitem{bauge2013}
-%Baugé, C. and Lagrange, M. and Andén, J. and Mallat, S. (2013). Representing environmental sounds using the separable scattering transform. In: \textit{2013 IEEE International Conference on Acoustics, Speech and Signal Processing}
-%
-%\bibitem{salamon2015}
-%Salamon, J. and Bello, J. (2015). Feature learning with deep scattering for urban sound analysis. In: \textit{23rd European Signal Processing Conference}
-%
-%\bibitem{chachada2013}
-%Chachada, S. and Kuo, C. (2013). Environmental sound recognition: A survey. In: \textit{2013 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference}
-%
-%\bibitem{davis1986}
-%Davis, S. (1986). Octave and fractional-octave band digital filtering based on the proposed ANSI standard. In: \textit{1986 IEEE International Conference on Acoustics, Speech and Signal Processing}
-%
-%\bibitem{ellis2005}
-%Ellis, D. (2005). \textit{{PLP} and {RASTA} (and {MFCC}, and inversion) in {M}atlab}. Available at: \url{http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/}
-%
-%\bibitem{huffman1952}
-%Huffman, D. (1952). A method for the construction of minimum-redundancy codes. \textit{Proceedings of the IRE}, 40(9), pp. 1098-1101
-%
-%\bibitem{antoni2010}
-%Antoni, J. (2010). Orthogonal-like fractional-octave-band filters. \textit{J. Ac. Soc. Am.}, 127(2), pp. 884–895
-%
-%\bibitem{couvreur}
-%Couvreur, C. \textit{Implementation of a one-third-octave filter bank in Matlab}. Available at: \url{http://citeseer.ist.psu.edu/24150.html}
-%
-%\bibitem{griffin1984}
-%Griffin, D. and Lim, J. (1984). Signal Estimation from Modified Short-Time Fourier Transform. \textit{IEEE Transactions on Acoustics, Speech, and Signal Processing}, 32(2), pp. 236-243
-%
-%\bibitem{salamon2014}
-%Salamon, J. and Jacoby, C. and Bello, J. (2014). A Dataset and Taxonomy for Urban Sound Research. \textit{Proceedings of the 22nd ACM international conference on Multimedia}
-%
-%\bibitem{kates2005}
-%Kates, J. and Arehart, K. (2005). Coherence and the Speech Intelligibility Index. \textit{J. Ac. Soc. Am.}, 115(5), pp. 2224–2237
-%
-%\bibitem{hu2008}
-%Hu, Y. and Loizou, P. (2008). Evaluation of objective quality measures for speech enhancement. \textit{IEEE Transactions on Audio, Speech, and Language Processing}, 16(1), pp. 229–238
-%
-%\bibitem{ma2009}
-%Ma, J. and Hu, Y. and Loizou, P. (2009). Objective measures for predicting speech intelligibility in noisy conditions based on new band-importance functions. \textit{J. Ac. Soc. Am.}, 125(5), pp. 3387–3405
-%
-%
-%\end{thebibliography}
+
 \end{document}
 
 \endinput

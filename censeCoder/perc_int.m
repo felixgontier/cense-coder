@@ -104,7 +104,7 @@ switch act
         hold on,
         errorbar([4.2 8.2 16.2 50.2], flip(m_tr), flip(s_tr)),
         axis([0 55 -0.1 1.1]), grid on, xlabel('Analysis frames per second'), ylabel('Intelligibility metric')
-        legend('Subjective judgement', 'Transcription ratio', 'location', 'southeast')
+        legend('Average Intelligibility Score (AIS)', 'Intelligibility ratio (IR)', 'location', 'southeast')
         set(gca, 'xtick', [4 8 16 50]);
 
         % 23M-55F-17M-60M-22F-22M-24M-23M
