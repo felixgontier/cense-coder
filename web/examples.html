@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="explanes">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Explanes</title>
+    <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400italic,700' rel='stylesheet' type='text/css'>
+    <!--<link href='https://fonts.googleapis.com/css?family=Old+Standard+TT:400italic,700' rel='stylesheet' type='text/css'>-->
+    <!--<link href='https://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>-->
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+
+<body>
+
+<h3>Clean speech</h3>
+<audio controls><source src="audio/clean.wav" /></audio>
+
+<h3>Reconstructed audio</h3>
+<p>Recovered recordings from 20 Hz - 20 kHz third-octave bands</p>
+
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <th colspan="4">Frame rate (Hz)</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <th>Speaker</th>
+    <td>4</td>
+    <td>8</td>
+    <td>16</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <th rowspan="4">Overlap</th>
+    <td rowspan="2">50%</td>
+    <td>Male</td>
+    <td><audio controls><source src="audio/M_05_250.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_05_125.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_05_60.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_05_20.wav" /></audio></td>
+  </tr>
+  <tr>
+    <td>Female</td>
+    <td><audio controls><source src="audio/F_05_250.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_05_125.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_05_60.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_05_20.wav" /></audio></td>
+  </tr>
+  <tr>
+    <td rowspan="2">None</td>
+    <td>Male</td>
+    <td><audio controls><source src="audio/M_1_250.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_1_125.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_1_60.wav" /></audio></td>
+    <td><audio controls><source src="audio/M_1_20.wav" /></audio></td>
+  </tr>
+  <tr>
+    <td>Female</td>
+    <td><audio controls><source src="audio/F_1_250.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_1_125.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_1_60.wav" /></audio></td>
+    <td><audio controls><source src="audio/F_1_20.wav" /></audio></td>
+  </tr>
+</table>
+
+
+</body>
+</html>
