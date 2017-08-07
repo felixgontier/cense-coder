@@ -43,6 +43,7 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage{subcaption}
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -147,7 +148,7 @@ In order to promote reproducible research, the coder as well as the experiments 
 \begin{figure}[t]
 \includegraphics[width=\columnwidth]{figures/censeCoder}
 \vspace{-0.15in}
-\caption{Alternative implementations of the sensor grid approach for the monitoring of the acoustic environment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows roughly indicate bandwidth and thickness of boxes roughly indicates the level of computation or storage required.}
+\caption{Alternative implementations of the sensor grid approach for the monitoring of the acoustic environment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows roughly indicate bandwidth and thickness of boxes roughly indicates the level of computation or storage required.\pa{Figure non appelee}}
 \label{fig:codingScheme}
 \end{figure}
 
@@ -197,9 +198,13 @@ Mel spectrograms are computed with the \textit{rastamat} library \cite{ellis2005
 
 \subsection{Data Encoding}
 
-A Huffman coding scheme \cite{huffman1952} is then used to further reduce data rate. As in most entropy coding algorithms, the efficiency of this technique depends on two important factors. A reduced amount of symbols in the dictionary yields smaller code size on lower probability symbols. Lower data entropy, \textit{i.e.} lower average information content of the signal distribution, also increases efficiency. The first is generally obtained by applying a quantization process to the signal, whereas the second is directly linked with the probability density function (PDF) of these symbols. It is defined as $H = -\sum\limits_i p_ilog_n(p_i)$, where $p_i$ is the probability of appearance of a given symbol and $n$ the numerical base in which information is represented.
+A Huffman coding scheme \cite{huffman1952} is an efficient method to further reduce data rate. At this point of the processing chain, the data takes the form of a spectrogram with amplitude values represented on an arbitrary data type. It is therefore assimilable to a discrete distribution. By defining symbols as the possible values taken by the data, a discrete probability density function (PDF) can be expressed and estimated. The Shannon entropy then specifies the minimum average obtainable output data rate for this given distribution, or average information content. The Huffman algorithm is an entropy coding scheme, as it uses the PDF to assign an code to each symbol so that the average output rate is the closest to the entropy. The resulting mapping function is called a Huffman dictionnary.
 
-As such, entropy decreases when very few symbols have a very high probability of appearance and is maximum for a uniform distribution. Considering an estimated PDF for our data as shown in Figure~\ref{fig:pdf}a, immediately applying a linear quantization clearly results in most of the information being lost. We therefore spread the PDF by taking the logarithm of the representation. A linear quantization is then applied with $2^{q-1}-1$ output values to obtain Figure~\ref{fig:pdf}b. Finally, we use a $\Delta$-encoding algorithm along the time dimension to reduce redundancies. This also effectively concentrates higher probabilities on symbols around zero (Figure~\ref{fig:pdf}c). This yields a higher amount of symbols at $2^q-1$ but a nevertheless smaller entropy.
+The efficiency of the coding step thus directly depends on the entropy of the transmitted data. It is defined as $H = -\sum\limits_i p_ilog_n(p_i)$, where $p_i$ is the probability of appearance of a given symbol and $n$ the numerical base in which the output code is represented. A lower entropy can be obtained with two factors. First, the dictionnary size \textit{i.e.} the number of symbols must be kept low. This implies performing a quantization on the data resulting in a loss of precision. Second, the data distribution itself is important. Entropy decreases when very few symbols have a very high probability of appearance and is maximum for a uniform distribution.
+
+%The algorithm concepts are summarized in Figure~\ref{fig:huffalg}.
+%\fg{Schéma}
+Considering an estimated PDF for our data as shown in Figure~\ref{fig:pdf}a, immediately applying a linear quantization clearly results in most of the information being lost. We therefore spread the PDF by taking the logarithm of the representation. A linear quantization is then applied with $2^{q-1}-1$ output values to obtain Figure~\ref{fig:pdf}b. Finally, we use a $\Delta$-encoding algorithm along the time dimension to reduce redundancies. This also effectively concentrates higher probabilities on symbols around zero (Figure~\ref{fig:pdf}c). This yields a higher amount of symbols at $2^q-1$ but a nevertheless smaller entropy.
 
 In the example shown here, the former is $H_{log} = 6.24~sh$ and the latter $H_{\Delta} = 3.54~sh$. Huffman encoding is then computed with either a frame-specific symbol-code dictionary or a constant one generated from an entire dataset. A comparison of both methods is shown in Figure~\ref{fig:dict_comp}. For most short texture frame duration, we found the local Huffman algorithm to be much faster. In fact, encoding complexity is function of the amount of dictionary elements. If it is specific to a given data packet, then it does not need to contain every possible value. This gain seem to outweight the additional complexity induced by the need to transmit the result of the tree generation algorithm. Alternatively, short texture frames or single analysis windows can be encoded using one general dictionary to improve bitrate. Choosing between those two approaches is the result of a balance between requirements in terms of size and complexity.\\
 
@@ -232,8 +237,7 @@ A set of metrics is computed to assess the efficiency of the proposed coder sche
 
 \subsection{Efficiency}
 
-The coder's output bitrate as well as measurement error is computed for both data representations. This metric is composed of band analysis error and the additional loss yielded by quantization before the encoding process. To this aim, third-octave bands are computed with the proposed method, then averaged and compared to a trusted reference. The chosen reference consiiders the Matlab \textit{ita\_ toolbox} implementation \cite{itatoolbox2017} processed over the whole signal. We study both "fast" computation with 125~ms windows and no overlap and "slow" 1~s, 50\% overlap analysis to assess the impact of time integration. In both cases the sound dataset is the same and is composed of 2~s extracts. The experiment is run for white noise as well as urban environmental recordings. As the analysis frames are of short duration, poor frequency resolution and spectral leakage are expected, particularly in the lower frequencies bands. For this reason we evaluate the effect of the use of different windowing functions on each band measurement error in order to mitigate this loss of precision. The reference implementation shows less than 0.1~dB error when compared with a class 1 sound level meter and as such is considered a sufficient reference. To provide relevant statistics, these quantities are estimated for about 4500 extracts obtained from the UrbanSound8k dataset \cite{salamon2014}.
-
+The coder's output bitrate as well as measurement error is computed for both data representations. This metric is composed of band analysis error and the additional loss yielded by quantization before the encoding process. To this aim, third-octave bands are computed with the proposed method, then averaged and compared to a trusted reference. The chosen reference consiiders the Matlab \textit{ita\_ toolbox} implementation \cite{itatoolbox2017} processed over the whole signal. We study both "fast" computation with 125~ms windows and "slow" 1~s analysis to assess the impact of time integration. In both cases the sound dataset is the same and is composed of 2~s extracts. The experiment is run for white noise as well as urban environmental recordings. As the analysis frames are of short duration, poor frequency resolution and spectral leakage are expected, particularly in the lower frequencies bands. For this reason we evaluate the effect of the use of windowing functions on each band measurement error in order to mitigate this loss of precision. To provide relevant statistics, these quantities are estimated for about 4500 extracts obtained from the UrbanSound8k dataset \cite{salamon2014} and 4500 \textit{iid.} noise sequences.
 
 \subsection{Event recognition}
 
@@ -253,13 +257,11 @@ Second, as the speech is mostly concentrated at a given frequency region, a band
 
 A third approach is to wisely choose the frame rate. Since a phoneme is about 100ms to 200ms long \cite{kuwabara1996acoustic} \cite{rosen1992temporal} a frame rate lower than 4 Hz should therefore dramatically reduce intelligibility.
 
-Thus, the impact of the frame rate parameter of the proposed encoding scheme on intelligibility is evaluated. To do so, a perceptual test and the evolution of two objective measures are considered. For the evaluation, a dataset of clean speech recordings made of 9 french sentences enunciated by 3 male and 3 female speakers, for a total of 216 audio excerpts. The recorded sentences are encoded using the proposed approach with analysis frame rates of respectively 50~Hz, 16~Hz, 8~Hz and 4~Hz.
+Thus, the impact of the frame rate parameter of the proposed encoding scheme on intelligibility is evaluated. To do so, a perceptual test is conducted. For the evaluation, a dataset of clean speech recordings made of 9 french sentences enunciated by 3 male and 3 female speakers, for a total of 216 audio excerpts. The recorded sentences are encoded using the proposed approach with analysis frame rates of respectively 50~Hz, 16~Hz, 8~Hz and 4~Hz.
 
 For the perceptual test, each subject is presented with sentences and asked both to transcribe the utterances and rate the global intelligibility from 1 (not intelligible) to 5 (intelligible). Due to the low number of sentences, each sentence is tested twice for the same subject but under different encoding setting and speaker identity. 12 subjects of age ranging from 17 to 60 which reported normal hearing participated to the listening test. The test was conducted using a Matlab interface displayed with a desktop computer and audio was played through \textit{Beyerdynamics DT 770} headphones. The output level was set by the experimenter at the same level for all subjects.
 
-Concerning the objective measures, the Coherence Speech Intelligibility Index \cite{kates2005} (CSII) and the frequency-weighted segmental SNR \cite{hu2008} (fwSNRseg) are considered. They both compare original unaltered samples and recovered audio as those two indicators have been shown to correlate well with perceptual tests \cite{ma2009}, although results are only available for lesser degradations and distortions than the ones we consider in this study.
-
-These metrics require an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is then approximated by either white noise spectrogram scaling or the Griffin \& Lim algorithm \cite{griffin1984}. The signal is then retrieved using concatenation or overlap-add depending on the overlap setting. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.
+This test requires an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation can be achieved by multiplying by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. Signal phase is then approximated by either white noise spectrogram scaling or the Griffin \& Lim algorithm \cite{griffin1984}. The signal is then retrieved using concatenation or overlap-add depending on the overlap setting. When using overlap to compute third-octave bands, one can also avoid framing effects produced by rectangular windowing by convoluting the signal with another windowing function prior to inverse-STFT computation.
 
 \begin{figure}[htbp]
 	\centering
@@ -294,39 +296,56 @@ A second set of parameters influences directly the time-frequency resolution of 
 
 This experiment aims at an initial assessment of potential tradeoffs between bitrate and preservation of valuable information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
 
-The measurement error is computed for third-octave bands and different windowing functions. Results are displayed in Table~\ref{T1}. The error was found to be decreasing with respect to an increase of frequency. The study is thus focused on the 20~Hz and 1~kHz bands, respectively the lowest and reference frequencies. The first observation is that using 1~s analysis over 125~ms yields better estimations at 20~Hz. This is expected as it provides a globally better resolution and therefore reduces the impact of spectral leakage effects in this region.
+The measurement error is computed for third-octave bands. Results are displayed in Figure~\ref{fig:error_m}. Only full-octave bands are shown for visibility. When computing the slow analysis, we found that applying overlap attenuated the error. This was not observed for fast analysis where the error was similar or higher with the use of overlapping frames. We propose to study the absolute error metric, as all experiments show a mean error close to zero.
 
-Closer inspection show that when considering white noise the error is low on the whole spectrum. This effectiveness does not translate though to environmental sounds analysis. One inducing factor for this phenomenon is the sound level disparities absent in the first case but omnipresent in the second. Let us consider, for each frame, the difference between the maximum and the remaining band levels in the reference, and compared it with the observed estimation error. The results show a correlation between the two quantities: when the average band level is low with respect to the peak, the error tends to increase. Furthermore, the closer a significantly higher level is to the considered frequency band, the larger the error is. This is due to framing that causes spectral leakage. This is found to be particularly important in lower frequencies.
+As can be expected when performing a short time analysis, high errors appear in low frequency bands where precision is poor. The slow analysis yields better estimations as it provides a globally better resolution and thus also reduces the impact of spectral leakage effects in this region. When considering white noise the error is low on the whole spectrum. This effectiveness does not translate to environmental sounds analysis. A factor of this phenomenon is the sound level disparities absent in the first case but omnipresent in the second. In fact, spectral leakage induces a correlation between close frequency components. In lower frequencies, large differences between adjacent frequency bins can cause important errors on third-octave bands computations. This issue is however not specific to Fourier transform based schemes as it is also encountered with a time domain filtering approach.
 
-To mitigate this issue, the choice of the window function shall be studied further. As the bitrate constraint prioritizes no overlap use for a fast analysis, the rectangular window seems a reasonable choice at first with its energy conservation qualities. While it yields the lowest error in high frequency bands, its high spectral leakage effect makes it unprecise for lower frequency regions. Non-flat windows better account for this issue but require assuming that the signal is stationary in a given frame and are thus biased. For slow measurements, the rectangular window impact is less harmful to band analysis due to an increased frequency resolution.\\
+To mitigate this phenomenon, the choice of the window function shall be studied further. For a fast analysis with no overlap, the rectangular window seems a reasonable choice at first with its energy conservation qualities. While it yields the lowest error in high frequency bands, its high spectral leakage effect makes it unprecise for lower frequency regions. Non-flat windows better account for this issue but require assuming that the signal is stationary in a given frame and are thus biased. For slow measurements, the rectangular window impact is less harmful to band analysis due to an increased frequency resolution.\\
+
+\begin{figure*}[h!]
+    \centering
+    \begin{subfigure}[h]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/err_m_n.eps} 
+        \caption{Noise extracts}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/err_m_u.eps} 
+        \caption{Urban sounds recordings}
+    \end{subfigure}
+    \label{fig:error_m}
+    \caption{Measurement error of third-octave bands over two-seconds recordings. The analysis of short frames has an effect on energy estimation at low frequencies. Framing is more impactful on signals where the energy is localized in frequency.}
+\end{figure*}
 
 
-\begin{table*}[h]
-\centering
-\caption{Third-octave bands measurement absolute error in dB for fast and slow computations and four window functions. The proposed method is here compared with evaluations by the \textit{ITA-toolbox} for 2-seconds exerpts. }
-\label{T1}
-\begin{tabular}{|c|c|c|c|c|c|}
-\cline{1-6}
-\multirow{2}{*}{Analysis} & \multirow{2}{*}{Window} & \multicolumn{2}{|c|}{White noise} & \multicolumn{2}{|c|}{Environmental recordings}\\ \cline{3-6}
- & & 20~Hz & 1~kHz & 20~Hz & 1~kHz\\ \cline{1-6}
-\multicolumn{1}{|c}{\multirow{4}{*}{Fast - 125~ms, 0$\%$ overlap}}
- & \multicolumn{1}{|c|}{Rectangular} & 0.94$\pm$0.75 & 0.07$\pm$0.02 & 5.59$\pm$5.64 & 0.21$\pm$0.76\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Hamming} & 1.02$\pm$0.71\newline & 0.16$\pm$0.14 & 3.34$\pm$3.41 & 0.44$\pm$0.76\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Gaussian} & 1.04$\pm$0.71 & 0.17$\pm$0.15 & 3.56$\pm$3.63 & 0.48$\pm$0.83\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.97$\pm$0.75 & 0.11$\pm$0.09 & 4.16$\pm$5.58 & 0.32$\pm$0.80\\ \cline{1-6}
- \multicolumn{1}{|c}{\multirow{4}{*}{Slow - 1~s, 50$\%$ overlap}}
- & \multicolumn{1}{|c|}{Rectangular} & 0.48$\pm$0.36 & 0.08$\pm$0.05 & 1.86$\pm$3.13 & 0.40$\pm$0.55\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Hamming} & 0.57$\pm$0.56 & 0.09$\pm$0.07 & 2.23$\pm$3.58 & 0.74$\pm$1.61\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Gaussian} & 0.62$\pm$0.61 & 0.10$\pm$0.08 & 2.48$\pm$4.16 & 0.80$\pm$1.75\\ \cline{2-6}
-\multicolumn{1}{|c}{}
- & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.53$\pm$0.48 & 0.09$\pm$0.07 & 2.82$\pm$6.64 & 0.61$\pm$1.40\\ \cline{1-6}
-\end{tabular}
-\end{table*}
+%\begin{table*}[h]
+%\centering
+%\caption{Third-octave bands measurement absolute error in dB for fast and slow computations and four window functions. The proposed method is here compared with evaluations by the \textit{ITA-toolbox} for 2-seconds exerpts. }
+%\label{T1}
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\cline{1-6}
+%\multirow{2}{*}{Analysis} & \multirow{2}{*}{Window} & \multicolumn{2}{|c|}{White noise} & \multicolumn{2}{|c|}{Environmental recordings}\\ \cline{3-6}
+% & & 20~Hz & 1~kHz & 20~Hz & 1~kHz\\ \cline{1-6}
+%\multicolumn{1}{|c}{\multirow{4}{*}{Fast - 125~ms, 0$\%$ overlap}}
+% & \multicolumn{1}{|c|}{Rectangular} & 0.94$\pm$0.75 & 0.07$\pm$0.02 & 5.59$\pm$5.64 & 0.21$\pm$0.76\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Hamming} & 1.02$\pm$0.71\newline & 0.16$\pm$0.14 & 3.34$\pm$3.41 & 0.44$\pm$0.76\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Gaussian} & 1.04$\pm$0.71 & 0.17$\pm$0.15 & 3.56$\pm$3.63 & 0.48$\pm$0.83\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.97$\pm$0.75 & 0.11$\pm$0.09 & 4.16$\pm$5.58 & 0.32$\pm$0.80\\ \cline{1-6}
+% \multicolumn{1}{|c}{\multirow{4}{*}{Slow - 1~s, 50$\%$ overlap}}
+% & \multicolumn{1}{|c|}{Rectangular} & 0.48$\pm$0.36 & 0.08$\pm$0.05 & 1.86$\pm$3.13 & 0.40$\pm$0.55\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Hamming} & 0.57$\pm$0.56 & 0.09$\pm$0.07 & 2.23$\pm$3.58 & 0.74$\pm$1.61\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Gaussian} & 0.62$\pm$0.61 & 0.10$\pm$0.08 & 2.48$\pm$4.16 & 0.80$\pm$1.75\\ \cline{2-6}
+%\multicolumn{1}{|c}{}
+% & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.53$\pm$0.48 & 0.09$\pm$0.07 & 2.82$\pm$6.64 & 0.61$\pm$1.40\\ \cline{1-6}
+%\end{tabular}
+%\end{table*}
 
 
 We also examine the additional error caused by the encoding steps after obtaining the desired data representation. The only lossy operation applied is quantization, which is defined by an output word size $q$ in bits. However, it corresponds to the word size \textit{after} $\Delta$-compression, meaning that the data is in fact quantized on $2^{q-1}$ values. Since these measurements are already expressed in dB, the error $\varepsilon$ is:
@@ -454,28 +473,10 @@ Both descriptor are thus found to have similar representational capabilities des
 
 \subsection{Inintelligibility}
 
-Objective intelligibility metrics are then computed for the encoder's settings under evaluation and compared to the results of the perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{https://felixgontier.github.io/cense-coder/}}. The results of the perceptual test is evaluated using the average intelligibility score (AIS) given by the subjects and the ineligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Figures~\ref{fig:csii_tob_fps} and \ref{fig:fwsnrseg_tob_fps} shows both the CSII and fwSNRseg indicators for varying encoding frames per second. Figure~\ref{fig:subj_int} presents the results of the perceptual test for the same encoder's settings.
+Objective intelligibility metrics are then computed for the encoder's settings under evaluation and compared to the results of the perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{https://felixgontier.github.io/cense-coder/}}. The results of the perceptual test is evaluated using the average intelligibility score (AIS) given by the subjects and the ineligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Figure~\ref{fig:subj_int} presents the results of the perceptual test for the same encoder's settings.
 
 Perceptual test results confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility}. Phonemes separation is indeed mandatory in order to ensure good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit of about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible. Very few words are understood correctly. We assume that the correctly identified words are a result of coincidentally adequate frame timings, \textit{i.e.} analysis frames matching the location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.\\
 
-The CSII accounts for the spectrogram distance between clean and distorted audio at each point in time and frequency. This includes the phase, which we discard early in the representation step. The error induced by forward and inverse third-octave bands transformation as well as operations reducing data dimensionality further contribute to very high point-wise disparities. In fact, the signal is too distorted for the proposed SNR normalization to ensure CSII values in the 0-1 range. When compared to perceptual test results, the CSII shows no clear separation around 10 frames per second. It is therefore not a good indicator in our conditions.\\
-
-More interestingly, the frequency-weighted segmental SNR considers only spectrogram magnitudes. As a result, distance is generally lower and more representative of the induced perceptual distortion. Nevertheless, the fwSNRseg still uses a point-wise comparison which is certainly too precise for the level of degradations considered in this study. Indeed, it seems more accurate at higher frame rates compared to the results achieved using the perceptual test. Though, the threshold observed in the results of the perceptual test is not measured using the fwSNRseg metric and the difference between 8~Hz and 16~Hz is not large enough to match subjective measurements.\\
-
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=\columnwidth]{figures/csii_tob_fps.eps}
-	\caption{The Coherence SII objective indicator computed for intelligibility assessment. Negative CSII values indicate a signal-to-noise ratio too low for the recommended normalization, thus severe disparities between the original and reconstructed signal.}
-	\label{fig:csii_tob_fps}
-\end{figure}
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=\columnwidth]{figures/fwsnrseg_tob_fps.eps}
-	\caption{Frequency-weighted segmental SNR with varying analysis frame rates around the considered 8~Hz value. This indicator shows a better correlation with subjective tests but lacks an inintelligibility threshold.}
-	\label{fig:fwsnrseg_tob_fps}
-\end{figure}
 
 \begin{figure}[htbp]
 	\centering
