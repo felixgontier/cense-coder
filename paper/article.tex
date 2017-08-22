@@ -296,7 +296,7 @@ A second set of parameters influences directly the time-frequency resolution of 
 
 This experiment aims at an initial assessment of potential tradeoffs between bitrate and preservation of valuable information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
 
-The measurement error is computed for third-octave bands. Results are displayed in Figure~\ref{fig:error_m}. Only full-octave bands are shown for visibility. When computing the slow analysis, we found that applying overlap attenuated the error. This was not observed for fast analysis where the error was similar or higher with the use of overlapping frames. We propose to study the absolute error metric, as all experiments show a mean error close to zero.
+The measurement error is computed for third-octave bands. Results are displayed in Figure~\ref{fig:errorm}. Only full-octave bands are shown for visibility. When computing the slow analysis, we found that applying overlap attenuated the error. This was not observed for fast analysis where the error was similar or higher with the use of overlapping frames. We propose to study the absolute error metric, as all experiments show a mean error close to zero.
 
 As can be expected when performing a short time analysis, high errors appear in low frequency bands where precision is poor. The slow analysis yields better estimations as it provides a globally better resolution and thus also reduces the impact of spectral leakage effects in this region. When considering white noise the error is low on the whole spectrum. This effectiveness does not translate to environmental sounds analysis. A factor of this phenomenon is the sound level disparities absent in the first case but omnipresent in the second. In fact, spectral leakage induces a correlation between close frequency components. In lower frequencies, large differences between adjacent frequency bins can cause important errors on third-octave bands computations. This issue is however not specific to Fourier transform based schemes as it is also encountered with a time domain filtering approach.
 
@@ -306,17 +306,17 @@ To mitigate this phenomenon, the choice of the window function shall be studied 
     \centering
     \begin{subfigure}[h]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/err_m_n.eps} 
+        \includegraphics[width=\linewidth]{figures/err_m_n.eps}
         \caption{Noise extracts}
     \end{subfigure}
     \hfill
     \begin{subfigure}[h]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/err_m_u.eps} 
+        \includegraphics[width=\linewidth]{figures/err_m_u.eps}
         \caption{Urban sounds recordings}
     \end{subfigure}
-    \label{fig:error_m}
-    \caption{Measurement error of third-octave bands over two-seconds recordings. The analysis of short frames has an effect on energy estimation at low frequencies. Framing is more impactful on signals where the energy is localized in frequency.}
+
+    \caption{Measurement error of third-octave bands over two-seconds recordings. The analysis of short frames has an effect on energy estimation at low frequencies. Framing is more impactful on signals where the energy is localized in frequency. \label{fig:errorm}}
 \end{figure*}
 
 
