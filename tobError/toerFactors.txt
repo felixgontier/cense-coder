@@ -1,5 +1,7 @@
-wintype = 1,3 =  = {'hamming', 'hanning', 'blackmanharris', 'bartlett', 'bartletthann', 'gaussian', 'kaiser', 'tukey01', 'tukey02', 'tukey03', 'tukey04', 'tukey05', 'tukey06', 'tukey07', 'tukey08', 'tukey09', 'rect'}
-dataset = 1:3 =  = {'noise', 'speech', 'urbansound8k'}
-framelen = 1,3 =  = [0.125 1]
-reflen = 1:3 =  = [0.125 0.25 0.5 1 1.5 2 2.5 3 3.5 4]
-gcalc = 1,3 =  = {'sub', 'mean', 'dec'}
+wintype = 1,3,4 =  = {'hamming', 'hanning', 'blackmanharris', 'bartlett', 'bartletthann', 'gaussian', 'kaiser', 'tukey01', 'tukey02', 'tukey03', 'tukey04', 'tukey05', 'tukey06', 'tukey07', 'tukey08', 'tukey09', 'rect'}
+dataset = 1:4 =  = {'noise', 'speech', 'urbansound8k'}
+framelen = 1,3,4 =  = [0.125 1]
+reflen = 1:4 =  = [0.125 0.25 0.5 1 1.5 2 2.5 3 3.5 4]
+gcalc = 1,3,4 =  = {'sub', 'mean', 'dec'}
+hopsize = 1,3,4 =  = [0.25 0.5 1 0.33]
+centype = 1,3 =  = {'cense', 'ita'}

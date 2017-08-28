@@ -33,5 +33,24 @@ if nargin==0, tobError('report', 'r'); return; end
 % config = expExpose(config, 't', 'mask', {0, 3, 2, 4}, 'obs', 0, 'save', 'tobErr_u_win_s', 'step', 3);
 
 % config = expExpose(config, 't', 'mask', {12, 1, 1, 4, 2}, 'obs', 0, 'save', 'tobErr_test', 'step', 3);
-config = expExpose(config, 't', 'mask', {[1 6 12 17], 1, 0, 6, 2}, 'obs', 0, 'save', 'tobErr_noise', 'step', 3);
-config = expExpose(config, 't', 'mask', {[1 6 12 17], 3, 0, 6, 2}, 'obs', 0, 'save', 'tobErr_us8k', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[1 6 12 17], 1, 0, 6, 2}, 'obs', 0, 'save', 'tobErr_noise', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[1 6 12 17], 3, 0, 6, 2}, 'obs', 0, 'save', 'tobErr_us8k', 'step', 3);
+
+
+% config = expExpose(config, 't', 'mask', {[1], 1, 0, 6, 2, 0}, 'obs', 0, 'save', 'tobErr_noise', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[1], 3, 0, 6, 2, 0}, 'obs', 0, 'save', 'tobErr_us8k', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[17], 1, 0, 6, 2, 0}, 'obs', 0, 'save', 'tobErr_noise_rect', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[17], 3, 0, 6, 2, 0}, 'obs', 0, 'save', 'tobErr_us8k_rect', 'step', 3);
+
+
+% config = expExpose(config, 't', 'mask', {[17], 3, 1, 6, 2, 3, 2}, 'obs', 0, 'save', 'tobErr_us8k_rect_ita_f', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[2], 3, 1, 6, 2, 3, 2}, 'obs', 0, 'save', 'tobErr_us8k_hann_ita_f', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[17], 3, 1, 6, 2, 3, 1}, 'obs', 0, 'save', 'tobErr_us8k_rect_cen_f', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[2], 3, 1, 6, 2, 3, 1}, 'obs', 0, 'save', 'tobErr_us8k_hann_cen_f', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[17], 3, 2, 6, 2, 2, 2}, 'obs', 0, 'save', 'tobErr_us8k_rect_ita_s', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[2], 3, 2, 6, 2, 2, 2}, 'obs', 0, 'save', 'tobErr_us8k_hann_ita_s', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[17], 3, 2, 6, 2, 2, 1}, 'obs', 0, 'save', 'tobErr_us8k_rect_cen_s', 'step', 3);
+% config = expExpose(config, 't', 'mask', {[2], 3, 2, 6, 2, 2, 1}, 'obs', 0, 'save', 'tobErr_us8k_hann_cen_s', 'step', 3);
+% 
+% 
+

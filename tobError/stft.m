@@ -7,7 +7,7 @@ if nargin < 3
     l_hop = round(0.5*l_win); % Default overlap: 50%
 end
 
-n_win = 1+(length(x)-l_win)/l_hop; % Number of windows
+n_win = floor(1+(length(x)-l_win)/l_hop); % Number of windows
 
 %% Window generation
 switch wintype % Other windows to implement

@@ -238,7 +238,10 @@ A set of metrics is computed to assess the efficiency of the proposed coder sche
 
 \subsection{Efficiency}
 
-The coder's output bitrate as well as measurement error is computed for both data representations. This metric is composed of band analysis error and the additional loss yielded by quantization before the encoding process. To this aim, third-octave bands are computed with the proposed method, then averaged and compared to a trusted reference. The chosen reference considers the Matlab \textit{ita\_ toolbox} implementation \cite{itatoolbox2017} processed over the whole signal. We study both "fast" computation with 125~ms windows and "slow" 1~s analysis to assess the impact of time integration. In both cases the sound dataset is the same and is composed of 2~s extracts. The experiment is run for white noise as well as urban environmental recordings. As the analysis frames are of short duration, poor frequency resolution and spectral leakage are expected, particularly in the lower frequencies bands. For this reason we evaluate the effect of the use of windowing functions on each band measurement error in order to mitigate this loss of precision. To provide relevant statistics, these quantities are estimated for about 4500 extracts obtained from the UrbanSound8k dataset \cite{salamon2014} and 4500 \textit{iid.} noise sequences.
+The coder's output bitrate as well as measurement error is computed for both data representations. This metric is composed of band analysis error and the additional loss yielded by quantization before the encoding process. 
+
+
+To evaluate the analysis error, we consider the Matlab \textit{ita\_toolbox} implementation \cite{itatoolbox2017} as a reference. We study both "fast" computation with 125~ms windows and "slow" 1~s analysis to assess the impact of time integration. Third-octave bands are computed using the proposed method as well as the \textit{ita\_toolbox} in the same conditions, then averaged over time and compared to the toolbox's measurements on longer extracts. In all experiments the sound dataset is the same and is composed of 2~s extracts. The experiment is run for white noise as well as urban environmental recordings. As the analysis frames are of short duration, poor frequency resolution and spectral leakage are expected, particularly in the lower frequencies bands. For this reason we evaluate the effect of the use of windowing functions on each band measurement error in order to mitigate this loss of precision. To provide relevant statistics, these quantities are estimated for about 4500 extracts obtained from the UrbanSound8k dataset \cite{salamon2014} and 4500 \textit{iid.} noise sequences.
 
 \subsection{Event recognition}
 
@@ -297,56 +300,46 @@ A second set of parameters influences directly the time-frequency resolution of 
 
 This experiment aims at an initial assessment of potential tradeoffs between bitrate and preservation of valuable information. As such, it will be further discussed in the \textit{Event recognition} subsection.\\
 
-The measurement error is computed for third-octave bands. Results are displayed in Figure~\ref{fig:errorm}. Only full-octave bands are shown for visibility. When computing the slow analysis, we found that applying overlap attenuated the error. This was not observed for fast analysis where the error was similar or higher with the use of overlapping frames. We propose to study the absolute error metric, as all experiments show a mean error close to zero.
+The measurement error is computed for third-octave bands. Results are displayed in Figure~\ref{fig:errormn} for white noise extracts and in Figure~\ref{fig:errormu} for environmental sounds. Only full-octave bands are shown for visibility. When computing the slow analysis, we found that applying overlap attenuated the error. This was not observed for fast analysis where the error was similar or higher with the use of overlapping frames.
 
-As can be expected when performing a short time analysis, high errors appear in low frequency bands where precision is poor. The slow analysis yields better estimations as it provides a globally better resolution and thus also reduces the impact of spectral leakage effects in this region. When considering white noise the error is low on the whole spectrum. This effectiveness does not translate to environmental sounds analysis. A factor of this phenomenon is the sound level disparities absent in the first case but omnipresent in the second. In fact, spectral leakage induces a correlation between close frequency components. In lower frequencies, large differences between adjacent frequency bins can cause important errors on third-octave bands computations. This issue is however not specific to Fourier transform based schemes as it is also encountered with a time domain filtering approach.
+As can be expected when performing a short time analysis, high errors appear in low frequency bands where precision is poor. The slow analysis yields better estimations as it provides a globally better resolution and thus also reduces the impact of spectral leakage effects in this region. When considering white noise the error is low on the whole spectrum. Its mean over the testing samples is close to zero and its standard deviation increases in low frequencies, confirming the above-mentioned considerations. This effectiveness does not translate well to environmental sounds analysis. A factor of this phenomenon is the sound level disparities absent in the first case but omnipresent in the second. In fact, spectral leakage induces a correlation between close frequency components. In lower frequencies, large differences between adjacent frequency bins can cause important errors on third-octave bands computations. This issue is however not specific to Fourier transform based schemes as it is also encountered with a time domain filtering approach.
 
-To mitigate this phenomenon, the choice of the window function shall be studied further. For a fast analysis with no overlap, the rectangular window seems a reasonable choice at first with its energy conservation qualities. While it yields the lowest error in high frequency bands, its high spectral leakage effect makes it unprecise for lower frequency regions. Non-flat windows better account for this issue but require assuming that the signal is stationary in a given frame and are thus biased. For slow measurements, the rectangular window impact is less harmful to band analysis due to an increased frequency resolution.\\
+To mitigate this phenomenon, the choice of the window function shall be studied further. For a fast analysis with no overlap, the rectangular window seems a reasonable choice at first with its energy conservation qualities. While it yields the lowest error in high frequency bands, its high spectral leakage effect makes it unprecise for lower frequency regions. Non-flat windows better account for this issue but require assuming that the signal is stationary in a given frame. The use of overlap then results in better estimates at the cost of an increased data size. For slow measurements, the rectangular window impact is less harmful to band analysis due to an increased frequency resolution.
+
+Comparing the error to that of third-octave bands estimated by a time-filtering algorithm results in important similarities being found. For fast measurements and a rectangular window (Figure~\ref{fig:errormu}a), a student t-test ($p<0.05$) shows that the errors are not significantly different between 125~Hz and 12~kHz bands. For the first bands, the two methods yield different error distributions but of similar importance. \fg{fast, Hann}. A slow analysis results in statistically equivalent errors between the two methods apart from the very low frequencies: $p = 0.011$ with the rectangular window (Figure~\ref{fig:errormu}c), $p = 0.003$ at 20~Hz and $p = 0.021$ at 25~Hz for the Hann window and 66\% overlap (Figure~\ref{fig:errormu}d).\\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/err_m_n.eps}
+    \caption{Measurement error of third-octave bands over two-seconds white noise extracts, with rectangular window and no overlap. The analysis of short frames has an effect on energy estimation at low frequencies that is corrected as the frequency resolution increases.\label{fig:errormn}}
+\end{figure}
 
 \begin{figure*}[h!]
     \centering
     \begin{subfigure}[h]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/err_m_n.eps}
-        \caption{Noise extracts}
+        \includegraphics[width=\linewidth]{figures/err_m_u_f_r.eps}
+        \caption{Fast analysis, rectangular window, no overlap}
     \end{subfigure}
     \hfill
     \begin{subfigure}[h]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/err_m_u.eps}
-        \caption{Urban sounds recordings}
+        \includegraphics[width=\linewidth]{figures/err_m_u_f_r.eps}
+        \caption{Fast analysis, Hann window, 66\% overlap\fg{missing}}
     \end{subfigure}
-
-    \caption{Measurement error of third-octave bands over two-seconds recordings. The analysis of short frames has an effect on energy estimation at low frequencies. Framing is more impactful on signals where the energy is localized in frequency. \label{fig:errorm}}
+	\begin{subfigure}[h]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/err_m_u_s_r.eps}
+        \caption{Slow analysis, rectangular window, 50\% overlap}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/err_m_u_s_h.eps}
+        \caption{Slow analysis, Hann window, 66\% overlap}
+    \end{subfigure}
+    \caption{Measurement error of third-octave bands over two-seconds environmental sounds recordings (US8k database). For most settings the FFT-based method yields similar errors to the time-domain filtering reference. \label{fig:errormu}}
 \end{figure*}
-
-
-%\begin{table*}[h]
-%\centering
-%\caption{Third-octave bands measurement absolute error in dB for fast and slow computations and four window functions. The proposed method is here compared with evaluations by the \textit{ITA-toolbox} for 2-seconds exerpts. }
-%\label{T1}
-%\begin{tabular}{|c|c|c|c|c|c|}
-%\cline{1-6}
-%\multirow{2}{*}{Analysis} & \multirow{2}{*}{Window} & \multicolumn{2}{|c|}{White noise} & \multicolumn{2}{|c|}{Environmental recordings}\\ \cline{3-6}
-% & & 20~Hz & 1~kHz & 20~Hz & 1~kHz\\ \cline{1-6}
-%\multicolumn{1}{|c}{\multirow{4}{*}{Fast - 125~ms, 0$\%$ overlap}}
-% & \multicolumn{1}{|c|}{Rectangular} & 0.94$\pm$0.75 & 0.07$\pm$0.02 & 5.59$\pm$5.64 & 0.21$\pm$0.76\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Hamming} & 1.02$\pm$0.71\newline & 0.16$\pm$0.14 & 3.34$\pm$3.41 & 0.44$\pm$0.76\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Gaussian} & 1.04$\pm$0.71 & 0.17$\pm$0.15 & 3.56$\pm$3.63 & 0.48$\pm$0.83\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.97$\pm$0.75 & 0.11$\pm$0.09 & 4.16$\pm$5.58 & 0.32$\pm$0.80\\ \cline{1-6}
-% \multicolumn{1}{|c}{\multirow{4}{*}{Slow - 1~s, 50$\%$ overlap}}
-% & \multicolumn{1}{|c|}{Rectangular} & 0.48$\pm$0.36 & 0.08$\pm$0.05 & 1.86$\pm$3.13 & 0.40$\pm$0.55\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Hamming} & 0.57$\pm$0.56 & 0.09$\pm$0.07 & 2.23$\pm$3.58 & 0.74$\pm$1.61\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Gaussian} & 0.62$\pm$0.61 & 0.10$\pm$0.08 & 2.48$\pm$4.16 & 0.80$\pm$1.75\\ \cline{2-6}
-%\multicolumn{1}{|c}{}
-% & \multicolumn{1}{|c|}{Tukey ($\alpha = 0.5$)} & 0.53$\pm$0.48 & 0.09$\pm$0.07 & 2.82$\pm$6.64 & 0.61$\pm$1.40\\ \cline{1-6}
-%\end{tabular}
-%\end{table*}
 
 
 We also examine the additional error caused by the encoding steps after obtaining the desired data representation. The only lossy operation applied is quantization, which is defined by an output word size $q$ in bits. However, it corresponds to the word size \textit{after} $\Delta$-compression, meaning that the data is in fact quantized on $2^{q-1}$ values. Since these measurements are already expressed in dB, the error $\varepsilon$ is:

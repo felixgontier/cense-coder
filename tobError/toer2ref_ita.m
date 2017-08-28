@@ -59,33 +59,47 @@ switch setting.dataset
                 n_x = floor(length(x)/l_frame);
                 for ind_x = 1:n_x
                     a = itaAudio(x((ind_x-1)*l_frame+1:ind_x*l_frame), sr, 'time');
-                    b = ita_mpb_filter(a, '3-oct');
-                    X_tob_ref{ind_wav}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
+%                     b = ita_mpb_filter(a, '3-oct');
+                    b = ita_spk2frequencybands(a, 'mode', 'filter');
+                    X_tob_ref{ind_wav}(:, ind_x) = 20*log10(b.freq);
+%                     X_tob_ref{ind_wav}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
                 end
             end
         else
             error('No file found');
         end
     case 'speech'
-        for ind_wav = 1:length(file_path)
+        for ind_wav = 1:1%length(file_path)
             disp(['Processing file ' num2str(ind_wav) ' of ' num2str(length(file_path)) '...']);
-            [x, sr2] = audioread(file_path{ind_wav});
-            x = resample(x(:, 1), sr, sr2);
-            % Analysis
-            if mod(size(x, 1)-l_frame, l_hop)
-                x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)]; % Sup
-            end
-            n_x = floor(length(x)/l_frame);
+%             [x, sr2] = audioread(file_path{ind_wav});
+            x = ita_read(file_path{ind_wav});
+            x = ita_resample(x, sr);
+            n_x = floor(x.nSamples/l_frame);
+            
             for ind_x = 1:n_x
-                a = itaAudio(x((ind_x-1)*l_frame+1:ind_x*l_frame), sr, 'time');
-                b = ita_mpb_filter(a, '3-oct');
-                X_tob_ref{ind_wav}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
+                sample1 = ita_time_window(x,[((ind_x-1)*l_frame+1)/sr, ind_x*l_frame/sr],@rectwin,'time', 'crop');
+                oct_sample1=ita_spk2frequencybands(sample1,'mode','filter');
+                X_tob_ref{ind_wav}(:, ind_x)=20*log10(oct_sample1.freq(:, 1));
             end
+            
+%             x = resample(x(:, 1), sr, sr2);
+%             % Analysis
+%             if mod(size(x, 1)-l_frame, l_hop)
+%                 x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)]; % Sup
+%             end
+%             n_x = floor(length(x)/l_frame);
+%             for ind_x = 1:n_x
+%                 a = itaAudio(x((ind_x-1)*l_frame+1:ind_x*l_frame), sr, 'time');
+%                 b = ita_mpb_filter(a, '3-oct');
+%                 X_tob_ref{ind_wav}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
+%             end
         end
     case 'urbansound8k'
         ind_wav2 = 0;
         for ind_wav = 1:length(file_path)
             disp(['Processing file ' num2str(ind_wav) ' of ' num2str(length(file_path)) '...']);
+            
+            
             [x, sr2] = audioread(file_path{ind_wav});
             x = resample(x(:, 1), sr, sr2);
             if length(x) > l_frame
@@ -97,8 +111,11 @@ switch setting.dataset
                 n_x = floor(length(x)/l_frame);
                 for ind_x = 1:n_x
                     a = itaAudio(x((ind_x-1)*l_frame+1:ind_x*l_frame), sr, 'time');
-                    b = ita_mpb_filter(a, '3-oct');
-                    X_tob_ref{ind_wav2}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
+                    b = ita_spk2frequencybands(a, 'mode', 'filter');
+                    X_tob_ref{ind_wav2}(:, ind_x) = 20*log10(b.freq);
+%                     a = itaAudio(x((ind_x-1)*l_frame+1:ind_x*l_frame), sr, 'time');
+%                     b = ita_mpb_filter(a, '3-oct');
+%                     X_tob_ref{ind_wav2}(:, ind_x) = sum(b.time.^2/length(x((ind_x-1)*l_frame+1:ind_x*l_frame)), 1)';
                 end
             end
         end
