@@ -1,0 +1,175 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\bibstyle{mdpi}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{mydlarz2017implementation}
+\citation{picault2017}
+\citation{lim2005sensor,tham2005sensorgrid}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\citation{lavandier2006contribution,aumond2017modeling}
+\citation{defreville2006automatic,mydlarz2017implementation,mydlarz2015design}
+\citation{pan1995tutorial}
+\citation{gozalo2015}
+\citation{rychtarikova2013}
+\citation{can2016}
+\citation{can2015,brocolini2013,nilsson2007}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{2}{section.2}}
+\newlabel{sec:background}{{2}{2}{Background}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Acoustic monitoring}{2}{subsection.2.1}}
+\citation{ishiyama2000}
+\citation{aumond2017}
+\citation{torija2013}
+\citation{anusuya2009}
+\citation{tzanetakis2002}
+\citation{ntalampiras2014}
+\citation{aucouturier2007,foggia2015}
+\citation{kumar2016}
+\citation{radhakrishnan2005}
+\citation{salamon2017,piczak2015}
+\citation{khunarsal2013}
+\citation{couvreur2004}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Alternative implementations of the sensor grid approach for the monitoring of the acoustic environment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows roughly indicate bandwidth and thickness of boxes roughly indicates the level of computation or storage required.\relax }}{3}{figure.1}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:codingScheme}{{1}{3}{Alternative implementations of the sensor grid approach for the monitoring of the acoustic environment. In A) the raw audio is transmitted, in B) only the detected events, and in C) a compressed spectral representation. Thickness of arrows roughly indicate bandwidth and thickness of boxes roughly indicates the level of computation or storage required.\relax }{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Event detection}{3}{subsection.2.2}}
+\citation{cai2006}
+\citation{chu2009}
+\citation{salamon2015-2}
+\citation{bauge2013}
+\citation{salamon2015}
+\citation{chachada2013}
+\citation{davis1986}
+\citation{antoni2010}
+\citation{citeulike:9580295}
+\citation{iec-norm}
+\citation{couvreur}
+\citation{antoni2010}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Encoding scheme}{4}{section.3}}
+\newlabel{sec:coder}{{3}{4}{Encoding scheme}{section.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Comparison of Couvreur's and Antoni's implementations of third-octave filters. Frequency-weighting allows for arbitrary transfer functions and thus more accurate gains as standards impose.\relax }}{4}{figure.2}}
+\newlabel{fig:freq_filt}{{2}{4}{Comparison of Couvreur's and Antoni's implementations of third-octave filters. Frequency-weighting allows for arbitrary transfer functions and thus more accurate gains as standards impose.\relax }{figure.2}{}}
+\citation{ellis2005}
+\citation{huffman1952}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Data Encoding}{5}{subsection.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Example of estimated probability density functions of the data throughout the encoding step. Unchanged output of the representation step (left), concentrated towards very low values. PDF "flattening" effect induced by logarithm application (middle). Here values are mapped to the range $[0, 2^7-1]$ and rounded to perform quantization. Output of the $\Delta $ compression (right) -, with desirable probabilities as the input to a Huffman algorithm.\relax }}{6}{figure.3}}
+\newlabel{fig:pdf}{{3}{6}{Example of estimated probability density functions of the data throughout the encoding step. Unchanged output of the representation step (left), concentrated towards very low values. PDF "flattening" effect induced by logarithm application (middle). Here values are mapped to the range $[0, 2^7-1]$ and rounded to perform quantization. Output of the $\Delta $ compression (right) -, with desirable probabilities as the input to a Huffman algorithm.\relax }{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Performance comparison of locally and globally generated Huffman dictionaries. (top) The mean execution time ratio favors the use of frame-specific dictionaries for tested texture frame lengths. (bottom) The mean output bitrate is close for both algorithms, showing that the necessity of sending symbol-code pairs mostly compensates for their optimality.\relax }}{6}{figure.4}}
+\newlabel{fig:dict_comp}{{4}{6}{Performance comparison of locally and globally generated Huffman dictionaries. (top) The mean execution time ratio favors the use of frame-specific dictionaries for tested texture frame lengths. (bottom) The mean output bitrate is close for both algorithms, showing that the necessity of sending symbol-code pairs mostly compensates for their optimality.\relax }{figure.4}{}}
+\citation{itatoolbox2017}
+\citation{salamon2014}
+\citation{salamon2014}
+\citation{salamon2014}
+\citation{salamon2014}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Overview of the coder process.\relax }}{7}{figure.5}}
+\newlabel{fig:scheme}{{5}{7}{Overview of the coder process.\relax }{figure.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Validation protocol}{7}{section.4}}
+\newlabel{sec:protocol}{{4}{7}{Validation protocol}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Efficiency}{7}{subsection.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Event recognition}{7}{subsection.4.2}}
+\citation{baldwin1990forensic}
+\citation{boe2000forensic}
+\citation{kent1992acoustic}
+\citation{kuwabara1996acoustic}
+\citation{rosen1992temporal}
+\citation{griffin1984}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Inintelligibility}{8}{subsection.4.3}}
+\newlabel{sec:inintelligibility}{{4.3}{8}{Inintelligibility}{subsection.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.\relax }}{9}{figure.6}}
+\newlabel{fig:freq}{{6}{9}{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.\relax }{figure.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{9}{section.5}}
+\newlabel{sec:results}{{5}{9}{Results}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Coder efficiency}{9}{subsection.5.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Coder output bitrate as a function of quantization for third-octave and Mel bands with 8 frames per second.\relax }}{9}{figure.7}}
+\newlabel{fig:bitrate_q}{{7}{9}{Coder output bitrate as a function of quantization for third-octave and Mel bands with 8 frames per second.\relax }{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Impact of representation resolution on the encoded data bitrate.\relax }}{10}{figure.8}}
+\newlabel{fig:bitrate_mel_avg}{{8}{10}{Impact of representation resolution on the encoded data bitrate.\relax }{figure.8}{}}
+\citation{iec-norm2}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Measurement error of third-octave bands over two-seconds white noise extracts, with rectangular window and no overlap. The analysis of short frames has an effect on energy estimation at low frequencies that is corrected as the frequency resolution increases.\relax }}{11}{figure.9}}
+\newlabel{fig:errormn}{{9}{11}{Measurement error of third-octave bands over two-seconds white noise extracts, with rectangular window and no overlap. The analysis of short frames has an effect on energy estimation at low frequencies that is corrected as the frequency resolution increases.\relax }{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Measurement error of third-octave bands over two-seconds environmental sounds recordings (US8k database). For most settings the FFT-based method yields similar errors to the time-domain filtering reference. \relax }}{12}{figure.10}}
+\newlabel{fig:errormu}{{10}{12}{Measurement error of third-octave bands over two-seconds environmental sounds recordings (US8k database). For most settings the FFT-based method yields similar errors to the time-domain filtering reference. \relax }{figure.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Event recognition}{12}{subsection.5.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Measurement error induced by encoding for different quantization resolutions.\relax }}{13}{figure.11}}
+\newlabel{fig:error_q}{{11}{13}{Measurement error induced by encoding for different quantization resolutions.\relax }{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation.\relax }}{13}{figure.12}}
+\newlabel{fig:class_mel_q}{{12}{13}{Classification accuracy as a function of word size before encoding. The baseline on the right is computed without quantizing the representation.\relax }{figure.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Classification accuracy in percentage for different classifiers: SVMs (a), Random Forests (b), Decision Trees (c), and Nearest Neigbors (d) with respect to varying representation resolutions. Numbers in red indicate best performance and numbers in bold indicate statistical equivalent results compared to the best performing setting.\relax }}{14}{table.1}}
+\newlabel{T2}{{1}{14}{Classification accuracy in percentage for different classifiers: SVMs (a), Random Forests (b), Decision Trees (c), and Nearest Neigbors (d) with respect to varying representation resolutions. Numbers in red indicate best performance and numbers in bold indicate statistical equivalent results compared to the best performing setting.\relax }{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Third-octave bands as base descriptors}{14}{subsection.5.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Classification accuracy with third-octave bands and varying word size.\relax }}{15}{figure.13}}
+\newlabel{fig:class_tob_q}{{13}{15}{Classification accuracy with third-octave bands and varying word size.\relax }{figure.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Inintelligibility}{15}{subsection.5.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Average intellibility score (AIS) given by the subjects and the inteligibility ratio (IR) as a function of the frame rate. Inintelligibility appears at around 10\nobreakspace  {}Hz, corresponding to the average duration of a phoneme.\relax }}{16}{figure.14}}
+\newlabel{fig:subj_int}{{14}{16}{Average intellibility score (AIS) given by the subjects and the inteligibility ratio (IR) as a function of the frame rate. Inintelligibility appears at around 10~Hz, corresponding to the average duration of a phoneme.\relax }{figure.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{16}{section.6}}
+\bibdata{biblio}
+\bibcite{mydlarz2017implementation}{{1}{2017}{{Mydlarz \em  {et~al.}}}{{Mydlarz, Salamon, and Bello}}}
+\bibcite{picault2017}{{2}{2017}{{Picaut \em  {et~al.}}}{{Picaut, Can, Ardouin, Cr\IeC {\'e}peaux, Dhorne, \IeC {\'E}coti\IeC {\`e}re, and Lagrange}}}
+\bibcite{lim2005sensor}{{3}{2005}{{Lim \em  {et~al.}}}{{Lim, Teo, Mukherjee, Lam, Wong, and See}}}
+\bibcite{tham2005sensorgrid}{{4}{2005}{{Tham and Buyya}}{{}}}
+\bibcite{lavandier2006contribution}{{5}{2006}{{Lavandier and Defr{\'e}ville}}{{}}}
+\bibcite{aumond2017modeling}{{6}{2017}{{Aumond \em  {et~al.}}}{{Aumond, Can, De~Coensel, Botteldooren, Ribeiro, and Lavandier}}}
+\bibcite{defreville2006automatic}{{7}{2006}{{Defr{\'e}ville \em  {et~al.}}}{{Defr{\'e}ville, Pachet, Rosin, and Roy}}}
+\bibcite{mydlarz2015design}{{8}{2015}{{Mydlarz \em  {et~al.}}}{{Mydlarz, Shamoon, Baglione, and Pimpinella}}}
+\bibcite{pan1995tutorial}{{9}{1995}{{Pan}}{{}}}
+\bibcite{gozalo2015}{{10}{2015}{{Rey~Gozalo \em  {et~al.}}}{{Rey~Gozalo, Trujillo~Carmona, Barrigon~Morillas, and Gomez~Escobar}}}
+\bibcite{rychtarikova2013}{{11}{2013}{{Rychtarikova and Vermeir}}{{}}}
+\bibcite{can2016}{{12}{2016}{{Can \em  {et~al.}}}{{Can, Aumond, Michel, De~Coensel, Ribeiro, Botteldooren, and Lavandier}}}
+\bibcite{can2015}{{13}{2015}{{Can and Gauvreau}}{{}}}
+\bibcite{brocolini2013}{{14}{2013}{{Brocolini \em  {et~al.}}}{{Brocolini, Lavandier, Quoy, and Ribeiro}}}
+\bibcite{nilsson2007}{{15}{2007}{{Nilsson \em  {et~al.}}}{{Nilsson, Botteldooren, and De~Coensel}}}
+\bibcite{ishiyama2000}{{16}{2000}{{Ishiyama and Hashimoto}}{{}}}
+\bibcite{aumond2017}{{17}{2017}{{Aumond \em  {et~al.}}}{{Aumond, Can, De~Coensel, Botteldooren, Ribeiro, and Lavandier}}}
+\bibcite{torija2013}{{18}{2013}{{Torija \em  {et~al.}}}{{Torija, Ruiz, and Ramos-Ridao}}}
+\bibcite{anusuya2009}{{19}{2009}{{Anusuya and Katty}}{{}}}
+\bibcite{tzanetakis2002}{{20}{2002}{{Tzanztakis \em  {et~al.}}}{{Tzanztakis, Essl, and Cook}}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Acknowlegments}{17}{section.7}}
+\bibcite{ntalampiras2014}{{21}{2014}{{Ntalampiras}}{{}}}
+\bibcite{aucouturier2007}{{22}{2007}{{Aucouturier \em  {et~al.}}}{{Aucouturier, Defreville, and Pachet}}}
+\bibcite{foggia2015}{{23}{2015}{{Foggia \em  {et~al.}}}{{Foggia, Petkov, Saggese, Strisciuglio, and Vento}}}
+\bibcite{kumar2016}{{24}{2016}{{Kumar and Raj}}{{}}}
+\bibcite{radhakrishnan2005}{{25}{2005}{{Radhakrishnan \em  {et~al.}}}{{Radhakrishnan, Divakaran, and Smaragdis}}}
+\bibcite{salamon2017}{{26}{2017}{{Salamon and Bello}}{{}}}
+\bibcite{piczak2015}{{27}{2015}{{Piczak}}{{}}}
+\bibcite{khunarsal2013}{{28}{2013}{{Khunarsal \em  {et~al.}}}{{Khunarsal, Lursinsap, and Raicharoen}}}
+\bibcite{couvreur2004}{{29}{2004}{{Couvreur and Laniray}}{{}}}
+\bibcite{cai2006}{{30}{2006}{{Cai \em  {et~al.}}}{{Cai, Lu, Hanjalic, Zhang, and Cai}}}
+\bibcite{chu2009}{{31}{2009}{{Chu \em  {et~al.}}}{{Chu, Narayanan, and Kuo}}}
+\bibcite{salamon2015-2}{{32}{2015}{{Salamon and Bello}}{{}}}
+\bibcite{bauge2013}{{33}{2013}{{Baug\IeC {\'e} \em  {et~al.}}}{{Baug\IeC {\'e}, Lagrange, And\'en, and Mallat}}}
+\bibcite{salamon2015}{{34}{2015}{{Salamon and Bello}}{{}}}
+\bibcite{chachada2013}{{35}{2013}{{Chachada and Kuo}}{{}}}
+\bibcite{davis1986}{{36}{1986}{{Davis}}{{}}}
+\bibcite{antoni2010}{{37}{2010}{{Antoni}}{{}}}
+\bibcite{citeulike:9580295}{{38}{1993}{{cit}}{{}}}
+\bibcite{iec-norm}{{39}{2014}{{iec}}{{}}}
+\bibcite{couvreur}{{40}{}{{Couvreur}}{{}}}
+\bibcite{ellis2005}{{41}{2005}{{Ellis}}{{}}}
+\bibcite{huffman1952}{{42}{1952}{{Huffman}}{{}}}
+\bibcite{itatoolbox2017}{{43}{2017}{{Berzborn \em  {et~al.}}}{{Berzborn, Bomhardt, Klein, Richter, and Vorl\IeC {\"a}nder}}}
+\bibcite{salamon2014}{{44}{2014}{{Salamon \em  {et~al.}}}{{Salamon, Jacoby, and Bello}}}
+\bibcite{baldwin1990forensic}{{45}{1990}{{Baldwin and French}}{{}}}
+\bibcite{boe2000forensic}{{46}{2000}{{Bo{\"e}}}{{}}}
+\bibcite{kent1992acoustic}{{47}{1992}{{Kent \em  {et~al.}}}{{Kent, Read, and Kent}}}
+\bibcite{kuwabara1996acoustic}{{48}{1996}{{Kuwabara}}{{}}}
+\bibcite{rosen1992temporal}{{49}{1992}{{Rosen}}{{}}}
+\bibcite{griffin1984}{{50}{1984}{{Griffin and Lim}}{{}}}
+\bibcite{iec-norm2}{{51}{2013}{{iec}}{{}}}
+\newlabel{LastPage}{{}{19}{}{page.19}{}}
+\xdef\lastpage@lastpage{19}
+\xdef\lastpage@lastpageHy{19}

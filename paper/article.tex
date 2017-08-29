@@ -306,7 +306,7 @@ As can be expected when performing a short time analysis, high errors appear in 
 
 To mitigate this phenomenon, the choice of the window function shall be studied further. For a fast analysis with no overlap, the rectangular window seems a reasonable choice at first with its energy conservation qualities. While it yields the lowest error in high frequency bands, its high spectral leakage effect makes it unprecise for lower frequency regions. Non-flat windows better account for this issue but require assuming that the signal is stationary in a given frame. The use of overlap then results in better estimates at the cost of an increased data size. For slow measurements, the rectangular window impact is less harmful to band analysis due to an increased frequency resolution.
 
-Comparing the error to that of third-octave bands estimated by a time-filtering algorithm results in important similarities being found. For fast measurements and a rectangular window (Figure~\ref{fig:errormu}a), a student t-test ($p<0.05$) shows that the errors are not significantly different between 125~Hz and 12~kHz bands. For the first bands, the two methods yield different error distributions but of similar importance. \fg{fast, Hann}. A slow analysis results in statistically equivalent errors between the two methods apart from the very low frequencies: $p = 0.011$ with the rectangular window (Figure~\ref{fig:errormu}c), $p = 0.003$ at 20~Hz and $p = 0.021$ at 25~Hz for the Hann window and 66\% overlap (Figure~\ref{fig:errormu}d).\\
+Comparing the error to that of third-octave bands estimated by a time-filtering algorithm results in important similarities being found. For fast measurements and a rectangular window (Figure~\ref{fig:errormu}a), a student t-test ($p<0.05$) shows that the errors are not significantly different between 125~Hz and 12~kHz bands. For the first bands, the two methods yield different error distributions but of similar importance. Using a Hann window function results in lower error in low frequencies but adds a bias to the previously accurate band measurements. Again comparing the two computation methods shows a significant difference in the bands below 100~Hz only. A slow analysis results in statistically equivalent errors between the two methods apart from the very low frequencies: $p = 0.011$ with the rectangular window (Figure~\ref{fig:errormu}c), $p = 0.003$ at 20~Hz and $p = 0.021$ at 25~Hz for the Hann window and 66\% overlap (Figure~\ref{fig:errormu}d).\\
 
 \begin{figure}[h!]
     \centering
@@ -324,8 +324,8 @@ Comparing the error to that of third-octave bands estimated by a time-filtering 
     \hfill
     \begin{subfigure}[h]{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/err_m_u_f_r.eps}
-        \caption{Fast analysis, Hann window, 66\% overlap\fg{missing}}
+        \includegraphics[width=\linewidth]{figures/err_m_u_f_h.eps}
+        \caption{Fast analysis, Hann window, 66\% overlap}
     \end{subfigure}
 	\begin{subfigure}[h]{0.45\textwidth}
         \centering
