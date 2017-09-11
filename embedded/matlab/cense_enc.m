@@ -49,7 +49,7 @@ end
 %% Huffman dictionnary
 load dict;
 
-imp_ver = 1;
+imp_ver = 0;
 % ----- END - Matlab ----- %
 
 if ~imp_ver
@@ -163,3 +163,7 @@ else
         end
     end
 end
+
+% ----- Matlab ----- %
+save('data_enc.mat', 'X_huff', 'X_huff_l', 'q_norm');
+% ----- END - Matlab ----- %
