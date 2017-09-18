@@ -27,6 +27,7 @@ x = resample(x(:, 1), sr, sr_temp); % Resample to 32kHz
 
 sig_type = 'White noise';
 sig_type = 'Sweep';
+sig_type = 'Sine_440';
 
 switch sig_type
     case 'White noise'
@@ -36,6 +37,10 @@ switch sig_type
         t = (0:1/sr:1)';
         x = chirp(t, 0, 1, 15000);
         res_file = fopen('res_sweep.txt', 'w');
+    case 'Sine_440'
+        t = (0:1/sr:1)';
+        x = sin(2*pi*440*t/sr);
+        res_file = fopen('res_sine440.txt', 'w');
     otherwise
 end
 
