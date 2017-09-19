@@ -28,6 +28,7 @@ x = resample(x(:, 1), sr, sr_temp); % Resample to 32kHz
 sig_type = 'White noise';
 sig_type = 'Sweep';
 sig_type = 'Sine_440';
+sig_type = 'Sine_440_emb';
 
 switch sig_type
     case 'White noise'
@@ -41,6 +42,10 @@ switch sig_type
         t = (0:1/sr:1)';
         x = sin(2*pi*440*t/sr);
         res_file = fopen('res_sine440.txt', 'w');
+    case 'Sine_440_emb'
+        x = csvread('sinus_440_emb.txt');
+        x = x(1:end-1)';
+        res_file = fopen('res_sine440emb.txt', 'w');
     otherwise
 end
 
@@ -89,7 +94,7 @@ fclose(tob_file);
 %% Huffman dictionnary
 load dict;
 
-imp_ver = 0;
+imp_ver = 1;
 
 fwrite(res_file, ['// ----- White noise results -----' 10]);
 fwrite(res_file, ['// Parameters:' 10]);
@@ -185,7 +190,7 @@ else
     
     for ind_frame = 1:n_frames
         f_cnt = f_cnt+1;
-        
+
         %% FFT
         X = fft(x((ind_frame-1)*l_hop+1:(ind_frame-1)*l_hop+l_frame).*w); % FFT of current frame
 
@@ -193,7 +198,7 @@ else
         X = abs(X).^2; % Squared magnitude
         X = X/fft_norm; % Normalize to conserve the energy of x
         X = X(1:end/2+1); % Only keep the first half
-        
+
         fwrite(res_file, ['// RFFT + Magnitude Spectrum (Frame' num2str(ind_frame) ')' 10]);
         fwrite(res_file, ['double X_' num2str(ind_frame) '[' num2str(length(X)) '] = {']);
         n_line = 0;
@@ -207,15 +212,15 @@ else
         end
         fwrite(res_file, [num2str(X(end))]);
         fwrite(res_file, ['};' 10 10]);
-        
-        
+
+
         %% Third-octave bands analysis
 %         X_tob(:, f_cnt) = H_st*X; % Filtering with matrix multiplication
         % or
         for ind_band = 1:length(H_band) % Filtering band by band
             X_tob(ind_band, f_cnt) = H_band{ind_band}*X(f_band{ind_band}(1):f_band{ind_band}(2));
         end
-        
+
         X_tob(X_tob == 0) = eps; % Avoid -Inf, Should never happen on real data
         X_tob(:, f_cnt) = 10*log10(X_tob(:, f_cnt)); % dB scale
 
@@ -232,7 +237,7 @@ else
         end
         fwrite(res_file, [num2str(X_tob(end, f_cnt))]);
         fwrite(res_file, ['};' 10 10]);
-        
+
         if f_cnt == l_tf || ind_frame == n_frames
             ind_tf = ind_tf+1;
             %% Quantization
@@ -241,9 +246,23 @@ else
             q_norm{end}(2) = max(max(X_tob));
             X_tob = round((2^(q-1)-1)*X_tob./q_norm{end}(2)); % Normalisation + Quantization
 
-            fwrite(res_file, ['// Quantization (Texture frame' num2str(ind_tf) ')' 10]);
-            fwrite(res_file, ['double X_tob_q' num2str(ind_tf) '[' num2str(size(X_tob, 1)) '][' num2str(size(X_tob, 2)) '] = {']);
-            for ind_f = 1:size(X_tob, 2)-1
+            if n_frames>1
+                fwrite(res_file, ['// Quantization (Texture frame' num2str(ind_tf) ')' 10]);
+                fwrite(res_file, ['double X_tob_q' num2str(ind_tf) '[' num2str(size(X_tob, 1)) '][' num2str(size(X_tob, 2)) '] = {']);
+                for ind_f = 1:size(X_tob, 2)-1
+                    n_line = 0;
+                    fwrite(res_file, ['{']);
+                    for ind_x = 1:size(X_tob, 1)-1
+                        n_line = n_line+1;
+                        fwrite(res_file, [num2str(X_tob(ind_x, ind_f)) ', ']);
+                        if n_line == 100
+                            n_line = 0;
+                            fwrite(res_file, [10]);
+                        end
+                    end
+                    fwrite(res_file, [num2str(X_tob(end, ind_f))]);
+                    fwrite(res_file, ['}, ' 10]);
+                end
                 n_line = 0;
                 fwrite(res_file, ['{']);
                 for ind_x = 1:size(X_tob, 1)-1
@@ -255,22 +274,18 @@ else
                     end
                 end
                 fwrite(res_file, [num2str(X_tob(end, ind_f))]);
-                fwrite(res_file, ['}, ' 10]);
-            end
-            n_line = 0;
-            fwrite(res_file, ['{']);
-            for ind_x = 1:size(X_tob, 1)-1
-                n_line = n_line+1;
-                fwrite(res_file, [num2str(X_tob(ind_x, ind_f)) ', ']);
-                if n_line == 100
-                    n_line = 0;
-                    fwrite(res_file, [10]);
+                fwrite(res_file, ['}']);
+                fwrite(res_file, ['};' 10 10]);
+            else
+                fwrite(res_file, ['// Quantization (Texture frame' num2str(ind_tf) ')' 10]);
+                fwrite(res_file, ['double X_tob_q' num2str(ind_tf) '[' num2str(size(X_tob, 1)) '] = {']);
+                for ind_x = 1:size(X_tob, 1)-1
+                    fwrite(res_file, [num2str(X_tob(ind_x)) ', ']);
                 end
+                fwrite(res_file, [num2str(X_tob(end))]);
+                fwrite(res_file, ['}' 10 10]);
             end
-            fwrite(res_file, [num2str(X_tob(end, ind_f))]);
-            fwrite(res_file, ['}']);
-            fwrite(res_file, ['};' 10 10]);
-            
+
             %% Delta encoding along time dimension
             X_delta = zeros(size(X_tob));
             prev = zeros(size(X_tob, 1), 1);
@@ -278,11 +293,24 @@ else
                 X_delta(:, ind_f) = X_tob(:, ind_f) - prev;
                 prev = X_tob(:, ind_f);
             end
-            
-            
-            fwrite(res_file, ['// Delta Compression (Texture frame' num2str(ind_tf) ')' 10]);
-            fwrite(res_file, ['double X_delta' num2str(ind_tf) '[' num2str(size(X_delta, 1)) '][' num2str(size(X_delta, 2)) '] = {']);
-            for ind_f = 1:size(X_delta, 2)-1
+
+            if n_frames>1
+                fwrite(res_file, ['// Delta Compression (Texture frame' num2str(ind_tf) ')' 10]);
+                fwrite(res_file, ['double X_delta' num2str(ind_tf) '[' num2str(size(X_delta, 1)) '][' num2str(size(X_delta, 2)) '] = {']);
+                for ind_f = 1:size(X_delta, 2)-1
+                    n_line = 0;
+                    fwrite(res_file, ['{']);
+                    for ind_x = 1:size(X_delta, 1)-1
+                        n_line = n_line+1;
+                        fwrite(res_file, [num2str(X_delta(ind_x, ind_f)) ', ']);
+                        if n_line == 100
+                            n_line = 0;
+                            fwrite(res_file, [10]);
+                        end
+                    end
+                    fwrite(res_file, [num2str(X_delta(end, ind_f))]);
+                    fwrite(res_file, ['}, ' 10]);
+                end
                 n_line = 0;
                 fwrite(res_file, ['{']);
                 for ind_x = 1:size(X_delta, 1)-1
@@ -294,23 +322,19 @@ else
                     end
                 end
                 fwrite(res_file, [num2str(X_delta(end, ind_f))]);
-                fwrite(res_file, ['}, ' 10]);
-            end
-            n_line = 0;
-            fwrite(res_file, ['{']);
-            for ind_x = 1:size(X_delta, 1)-1
-                n_line = n_line+1;
-                fwrite(res_file, [num2str(X_delta(ind_x, ind_f)) ', ']);
-                if n_line == 100
-                    n_line = 0;
-                    fwrite(res_file, [10]);
+                fwrite(res_file, ['}']);
+                fwrite(res_file, ['};' 10 10]);
+            else
+                fwrite(res_file, ['// Delta Compression (Texture frame' num2str(ind_tf) ')' 10]);
+                fwrite(res_file, ['double X_delta' num2str(ind_tf) '[' num2str(size(X_delta, 1)) '] = {']);
+                for ind_x = 1:size(X_delta, 1)-1
+                    fwrite(res_file, [num2str(X_delta(ind_x)) ', ']);
                 end
+                fwrite(res_file, [num2str(X_delta(end))]);
+                fwrite(res_file, ['}' 10 10]);
             end
-            fwrite(res_file, [num2str(X_delta(end, ind_f))]);
-            fwrite(res_file, ['}']);
-            fwrite(res_file, ['};' 10 10]);
-            
-            
+
+
             %% Huffman encoding
             X_delta_v = X_delta(:); % To vector
             X_huff{end+1} = huffmanenco(X_delta_v, dict);
@@ -331,7 +355,7 @@ else
             end
             fwrite(res_file, [num2str(X_huff{end}(end))]);
             fwrite(res_file, ['};' 10 10]);
-            
+
             f_cnt = 0;
         end
     end
