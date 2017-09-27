@@ -69,7 +69,7 @@ for ind_frame in range(1,n_frames+1):
 			X_tob[ind_band, ind_f] = 1e-15
 	# dB SPL
 	X_tob[:, ind_f] = 10*np.log10(X_tob[:, ind_f])
-
+	print(X_tob)
 	# Texture frame complete/End of signal check
 	if ind_f == l_tf-1 or ind_frame == n_frames:
 		ind_tf = ind_tf+1

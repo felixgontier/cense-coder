@@ -1,6 +1,8 @@
 import sys
 import numpy as np
 from librosa import core
+import matplotlib.pyplot as plt
+import soundfile as sf
 
 # Constants: process parameters
 sr = 32000
@@ -34,7 +36,7 @@ ind_f = 0
 q_norm = np.zeros(2)
 ind_tf = 0
 fft_norm = np.sum(np.square(w))/l_frame
-X_st = np.empty((l_frame/2+1,0))
+X_st = np.empty((int(l_frame/2+1),0))
 
 for line in c_file: # Texture frames
 	# Read file
@@ -73,20 +75,28 @@ for line in c_file: # Texture frames
 	
 c_file.close()
 
+
 # Phase recovery and signal synthesis with G&L - Needs 50% overlap minimum
 n_iter = 20
 n_frames = X_st.shape[1]
 x_temp = np.random.randn(l_frame+(n_frames-1)*l_hop)
+print(x_temp.shape)
 for gl_iter in range(0,n_iter):
-	x_stft = core.stft(y, n_fft=l_frame, hop_length=l_frame, win_length=None, window='boxcar', center=True, dtype=<class 'numpy.complex64'>, pad_mode='reflect')
+	x_stft = core.stft(x_temp, n_fft=l_frame, hop_length=l_hop+1, win_length=None, window='boxcar', center=True, dtype=None, pad_mode='reflect')
 	b = X_st*x_stft/(np.absolute(x_stft)+1e-15)
-	x_temp = core.istft(b, hop_length=l_frame, win_length=l_frame, window='boxcar', center=True, dtype=<class 'numpy.float32'>, length=None)
+	x_temp = core.istft(b, hop_length=l_hop+1, win_length=l_frame, window='boxcar', center=True, dtype=None, length=None)
+		
 
-x = x_temp/x_temp.absolute().max()
+x = x_temp/np.absolute(x_temp).max()
 
 # Save resulting audio
-np.savetxt("".join((d_filename,"_dec.txt")), X, fmt='%.18e', delimiter=',', newline='\n', header='', footer='', comments='# ')
+np.savetxt("".join((d_filename,"_dec.txt")), x, fmt='%.18e', delimiter=',', newline='\n', header='', footer='', comments='# ')
 
 
+sf.write('sinus_440_emb_dec.ogg', x, sr)
 
+
+t = np.linspace(0,x_temp.shape[0]/sr, num=x_temp.shape[0])
+plt.plot(t, x_temp)
+plt.show()
 
