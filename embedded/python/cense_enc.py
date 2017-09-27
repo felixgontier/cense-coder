@@ -69,7 +69,6 @@ for ind_frame in range(1,n_frames+1):
 			X_tob[ind_band, ind_f] = 1e-15
 	# dB SPL
 	X_tob[:, ind_f] = 10*np.log10(X_tob[:, ind_f])
-	print(X_tob)
 	# Texture frame complete/End of signal check
 	if ind_f == l_tf-1 or ind_frame == n_frames:
 		ind_tf = ind_tf+1
@@ -84,8 +83,10 @@ for ind_frame in range(1,n_frames+1):
 		X_delta[:,0] = X_tob[:,0]
 		for ind_f_tf in range(1,X_delta.shape[1]):
 			X_delta[:,ind_f_tf] = X_tob[:,ind_f_tf]-X_tob[:,ind_f_tf-1]
+		print(X_delta)
 		# Huffman
-		X_delta = X_delta.flatten()
+		X_delta = X_delta.transpose().flatten()
+		print(X_delta)
 		X_huff = []
 		X_huff_l = 0
 		for ind_sym_data in range(0,X_delta.shape[0]):

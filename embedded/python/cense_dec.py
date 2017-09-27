@@ -55,7 +55,8 @@ for line in c_file: # Texture frames
 				X_huff = X_huff[len(d_code[ind_sym_dict]):]
 				
 	X_delta = [int(i) for i in X_delta]
-	X_delta = np.reshape(X_delta,(iH.shape[1],-1))
+	X_delta = np.reshape(X_delta,(-1,iH.shape[1])).transpose()
+	print(X_delta)
 	# Delta
 	X_tob = np.zeros(X_delta.shape)
 	X_tob[:,0] = X_delta[:,0]
@@ -63,6 +64,9 @@ for line in c_file: # Texture frames
 		X_tob[:,ind_f_tf] = X_delta[:,ind_f_tf]+X_tob[:,ind_f_tf-1]
 	# Normalisation + Quantization
 	X_tob = q_norm[1]*X_tob/(np.power(2,q-1)-1)+q_norm[0]
+	
+	print(X_tob)
+
 	# Third-octave bands to spectrogram
 	X_tob = np.power(10,X_tob/10) # Linear amplitude
 	X = np.dot(iH,X_tob)
