@@ -48,12 +48,20 @@ for line in c_file: # Texture frames
 	X_huff = c_temp[3]
 	# Huffman
 	X_delta = []
+
 	while X_huff:
+		found = 0
 		for ind_sym_dict in range(0,len(d_sym)):
 			if X_huff.startswith(d_code[ind_sym_dict]):
 				X_delta = np.append(X_delta,d_sym[ind_sym_dict])
 				X_huff = X_huff[len(d_code[ind_sym_dict]):]
-				
+				found=1
+		if (found == 0):
+		#didn't found the symbol check if this is the end
+			if (len(X_huff) <=  7):
+				#ignore the last symbols in this case
+				X_huff = [] 
+					
 	X_delta = [int(i) for i in X_delta]
 	X_delta = np.reshape(X_delta,(-1,iH.shape[1])).transpose()
 	print(X_delta)
