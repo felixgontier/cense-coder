@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-from librosa import core
+# from librosa import core
 import matplotlib.pyplot as plt
 import soundfile as sf
 
@@ -60,8 +60,8 @@ for line in c_file: # Texture frames
 		#didn't found the symbol check if this is the end
 			if (len(X_huff) <=  7):
 				#ignore the last symbols in this case
-				X_huff = [] 
-					
+				X_huff = []
+
 	X_delta = [int(i) for i in X_delta]
 	X_delta = np.reshape(X_delta,(-1,iH.shape[1])).transpose()
 	print(X_delta)
@@ -72,7 +72,7 @@ for line in c_file: # Texture frames
 		X_tob[:,ind_f_tf] = X_delta[:,ind_f_tf]+X_tob[:,ind_f_tf-1]
 	# Normalisation + Quantization
 	X_tob = q_norm[1]*X_tob/(np.power(2,q-1)-1)+q_norm[0]
-	
+
 	print(X_tob)
 
 	# Third-octave bands to spectrogram
@@ -84,20 +84,29 @@ for line in c_file: # Texture frames
 		X_st = X
 	else:
 		X_st = np.concatenate((X_st, X), axis=1)
-	
+
 c_file.close()
 
 
-# Phase recovery and signal synthesis with G&L - Needs 50% overlap minimum
+# Phase recovery and signal synthesis with G&L - Needs 50% overlap minimum to perform well
 n_iter = 20
 n_frames = X_st.shape[1]
 x_temp = np.random.randn(l_frame+(n_frames-1)*l_hop)
-print(x_temp.shape)
 for gl_iter in range(0,n_iter):
-	x_stft = core.stft(x_temp, n_fft=l_frame, hop_length=l_hop+1, win_length=None, window='boxcar', center=True, dtype=None, pad_mode='reflect')
+	# x_stft = core.stft(x_temp, n_fft=l_frame, hop_length=l_hop+1, win_length=None, window='boxcar', center=True, dtype=None, pad_mode='reflect')
+	x_stft = np.zeros(X_st.shape)
+	for ind_frame in range(0,n_frames):
+		x_stft[:,ind_frame] = np.fft.rfft(x_temp[ind_frame*l_hop:ind_frame*l_hop+l_frame]*w)
 	b = X_st*x_stft/(np.absolute(x_stft)+1e-15)
-	x_temp = core.istft(b, hop_length=l_hop+1, win_length=l_frame, window='boxcar', center=True, dtype=None, length=None)
-		
+	# x_temp = core.istft(b, hop_length=l_hop+1, win_length=l_frame, window='boxcar', center=True, dtype=None, length=None)
+	b = np.concatenate((b, np.flipud(np.conj(b[1:b.shape[0]-1,:]))))
+	w_norm = np.zeros(x_temp.shape)
+	for ind_frame in range(0,n_frames):
+	    indt = ind_frame*l_hop
+	    x_istft = np.real(np.fft.ifft(b[:, ind_frame]))
+	    x_temp[indt:indt+l_frame] = x_temp[indt:indt+l_frame] + x_istft[0:l_frame]*w
+	    w_norm[indt:indt+l_frame] = w_norm[indt:indt+l_frame]+np.square(w)
+	x_temp = x_temp/w_norm;
 
 x = x_temp/np.absolute(x_temp).max()
 
@@ -111,4 +120,3 @@ sf.write('sinus_440_emb_dec.ogg', x, sr)
 t = np.linspace(0,x_temp.shape[0]/sr, num=x_temp.shape[0])
 plt.plot(t, x_temp)
 plt.show()
-
