@@ -128,7 +128,7 @@ if ~imp_ver
 
     % w = hanning(l_frame, 'periodic');
     w = rectwin(l_frame);
-    fft_norm = sum(w.^2)*(l_frame/2+1)/(l_frame^2);
+    fft_norm = sum(w.^2)/l_frame;
     
     %% STFT
     n_win = floor(1+(length(x)-l_frame)/l_hop); % Number of windows
@@ -153,7 +153,7 @@ if ~imp_ver
     
     X_tob(X_tob == 0) = eps; % Should never happen on real data
     X_tob = 10*log10(X_tob); % dB scale
-
+    
     %% Quantization
     q_norm(1) = min(min(X_tob));
     X_tob = X_tob-q_norm(1); % Everything has to be positive
@@ -195,9 +195,9 @@ else
         X = fft(x((ind_frame-1)*l_hop+1:(ind_frame-1)*l_hop+l_frame).*w); % FFT of current frame
 
         %% Magnitude spectrogram
+        X = X(1:end/2+1); % Only keep the first half
         X = abs(X).^2; % Squared magnitude
         X = X/fft_norm; % Normalize to conserve the energy of x
-        X = X(1:end/2+1); % Only keep the first half
 
         fwrite(res_file, ['// RFFT + Magnitude Spectrum (Frame' num2str(ind_frame) ')' 10]);
         fwrite(res_file, ['double X_' num2str(ind_frame) '[' num2str(length(X)) '] = {']);
@@ -224,6 +224,7 @@ else
         X_tob(X_tob == 0) = eps; % Avoid -Inf, Should never happen on real data
         X_tob(:, f_cnt) = 10*log10(X_tob(:, f_cnt)); % dB scale
 
+        plot(X_tob)
         fwrite(res_file, ['// Third Octave Analysis + log10 (Frame' num2str(ind_frame) ')' 10]);
         fwrite(res_file, ['double X_tob' num2str(ind_frame) '[' num2str(size(X_tob, 1)) '] = {']);
         n_line = 0;
