@@ -464,9 +464,11 @@ Both descriptor are thus found to have similar representational capabilities des
 
 \subsection{Inintelligibility}
 
-The perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \ml{la page est terminée ?} \url{https://felixgontier.github.io/cense-coder/web/examples.html}} then evaluates the impact of analysis frame rate on intelligibility using the average intelligibility score (AIS) given by the subjects and the intelligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Given the test conditions presented in Section\ref{sec:inintelligibility} and the number of subjects, the mean and standard deviation are computed on an average of 54 results per frame rate parameter: 12 subjects evaluating each analysis resolution 4.5 times on average.
+The perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \ml{la page est terminée ?} \url{https://felixgontier.github.io/cense-coder/web/examples.html}} then evaluates the impact of analysis frame rate on intelligibility using the average intelligibility score (AIS) given by the subjects and the intelligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Given the test conditions presented in Section~\ref{sec:inintelligibility} and the number of subjects, the mean and standard deviation are computed on an average of 54 results per frame rate parameter: 12 subjects evaluating each analysis resolution 4.5 times on average.
 
-The results of the perceptual test, visible in Figure~\ref{fig:subj_int}, confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility}. Phonemes separation is indeed mandatory in order to ensure good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit of about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible. Very few words are understood correctly. We assume that the correctly identified words are a result of coincidentally adequate frame timings, \textit{i.e.} analysis frames matching the location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.\\
+The results of the perceptual test, visible in Figure~\ref{fig:subj_int}, confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility}. Phonemes separation is indeed mandatory in order to have a good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit at about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible as very few words are understood correctly at this rate. We assume that the correctly identified words are a result of coincidentally adequate frame timings, \textit{i.e.} analysis frames matching the precise location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.\\
+
+\ml{encore une fois c'est pas bien clair si il y a de l'overlap ou pas. Si il n'y en a pas il faut enlever griffin and lim}
 
 \begin{figure}[htbp]
 	\centering
@@ -477,7 +479,7 @@ The results of the perceptual test, visible in Figure~\ref{fig:subj_int}, confir
 
 \section{Conclusion}
 
-An audio encoding scheme has been described and motivated for use in a sensor grid approach to tackle the problem of large scale acoustic monitoring. It has been designed to transfer data from acoustic sensors to processing and storage servers in an efficient and effective manner. It relies on a lossy audio coding scheme designed to the guaranty the privacy of the citizens while retaining the needed amount of acoustic precision to compute standard acoustic descriptors and to allow the recognition of events of interest at a state of the art level of recognition accuracy.
+An audio encoding scheme has been described and motivated for use in a sensor grid approach to tackle the problem of large scale acoustic monitoring. It has been designed to transfer data from acoustic sensors to processing and storage servers in an efficient and effective manner. It relies on a lossy audio coding scheme designed to preserve the privacy of the citizens while retaining the needed amount of acoustic precision to compute standard acoustic descriptors and to allow the recognition of events of interest at a state of the art level of recognition accuracy.
 
 It is based on a third octave spectral representation computed at an adjustable frame rate, encoded using an Huffman encoding scheme after logarithmic compression and differential encoding.
 
@@ -487,15 +489,15 @@ The proposed approach has the following benefits:
 	- does not impact the quality of the acoustics indicators.
 	- enables the sound recognition with the same quality than directly from the spectrogram.
 	\item efficiency: using the high precision parameters, the bitrate is about 1.4~kbps and 0.4~kbps for fast and slow modes respectively.
-	\item privacy: at all operating modes, the reverted audio signal is found to be inintelligible according to a perceputal test done using clean speech recorded at very low background level. The sensors being typically hanged at 4 meters high in a usually very noisy environment, we believe that the intelligibility risk is negligible.
+	\item privacy: at all operating modes, the reverted audio signal is found to be inintelligible according to a perceputal test done using clean speech recorded at very low background level. Additionaly, the sensors being typically hanged at 4 meters high in a usually very noisy environment, we believe that the intelligibility risk of the proposed approach is negligible.
 \end{itemize}
 
-The encoding scheme is designed to be easy to implement and to lead to an efficient data format for storage and sharing across the research community. To encourage its use for other research projects, an open source Matlab implementation of the coder is available.
+The encoding scheme is designed to be easy to implement and to lead to an efficient data format for storage and sharing across the research community. To encourage its use for other research projects, an open source Matlab and Python implementations of the coder are available.
 
 %As those constraints are to some extent orthogonal, the proposed approach is flexible enough to balance rapidly between several modes of operations by changing a few parameters in an intuitive manner.
 
 
-Future work will focus on the use of such a sensor grid approach as part of the Cense project where its effectiveness will be assessed in field conditions. The usefulness of more sophisticated encoding paradigms in order to further improve bitrate efficiency should also be studied. Also, a more thorough investigation shall be performed on the inversion methods used to recover audio data from encoded data in order to ensure that the inintelligibility constraint is indeed not violated for fast settings.
+Future work will focus on the use of such a sensor grid approach as part of the Cense project where its effectiveness will be assessed in field conditions. The usefulness of more sophisticated encoding paradigms in order to further improve bitrate efficiency should also be studied. %Also, a more thorough investigation shall be performed on the inversion methods used to recover audio data from encoded data in order to ensure that the inintelligibility constraint is indeed not violated for fast settings.
 
 \section{Acknowlegments}
 
