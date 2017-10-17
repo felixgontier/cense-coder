@@ -287,12 +287,6 @@ The main indicator of performance is the bitrate obtained at the output of the c
 
 A second set of parameters influences directly the time-frequency resolution of the analysis. By choosing a frame rate and number of bands, one can effectively control the size of the periodically transmitted data. We evaluate the bitrate for 10 to 40 Mel bands and a frame rate from 2 to 10 per second, with fixed $q = 8$. As can be expected, the bitrate for a given word size $q$ can be approximated as a linear function of the representation dimensions for one second of analysis. Small variations are induced by data distributions on a per-frame level and their impact on the Huffman algorithm.
 
-%\begin{figure}[htbp]
-%	\centering
-%		\includegraphics[width=0.5\textwidth]{figures/bitrate_mel_avg.eps}
-%	\caption{Impact of representation resolution on the encoded data bitrate.}
-%	\label{fig:bitrate_mel_avg}
-%\end{figure}
 
 This experiment aims at an initial assessment of potential tradeoffs between bitrate and preservation of valuable information which will be further discussed in Section \ref{sec:eventRec}.\\
 
@@ -463,7 +457,7 @@ Both descriptor are thus found to have similar representational capabilities des
 
 \subsection{Inintelligibility}
 
-The perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{https://felixgontier.github.io/cense-coder/web/examples.html}} then evaluates the impact of analysis frame rate on intelligibility using the average intelligibility score (AIS) given by the subjects and the intelligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Given the test conditions presented in Section~\ref{sec:inintelligibility} and the number of subjects, the mean and standard deviation are computed on an average of 54 results per frame rate parameter: 12 subjects evaluating each analysis resolution 4.5 times on average.
+The perceptual test \footnote{Decoded speech utterances for various conditions can be listened to at \url{https://felixgontier.github.io/cense-coder/}} then evaluates the impact of analysis frame rate on intelligibility using the average intelligibility score (AIS) given by the subjects and the intelligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Given the test conditions presented in Section~\ref{sec:inintelligibility} and the number of subjects, the mean and standard deviation are computed on an average of 54 results per frame rate parameter: 12 subjects evaluating each analysis resolution 4.5 times on average.
 
 The results of the perceptual test, visible in Figure~\ref{fig:subj_int}, confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility}. Phonemes separation is indeed mandatory in order to have a good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit at about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible as very few words are understood correctly at this rate. We assume that the correctly identified words are a result of coincidentally adequate frame timings, \textit{i.e.} analysis frames matching the precise location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.\\
 
