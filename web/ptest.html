@@ -12,13 +12,21 @@
 
 <body>
 
+<h2>Perceptual test</h2>
+<p>The perceptual test aims at assessing the impact of the analysis rate on intelligibility. Each subject is presented with short decoded utterances (average of 8 words). The test metrics are: </p>
+<ul style="list-style-type:disc">
+<li>Average Intelligibility Score (AIS): Subjective score given by the participant. The score is given as an integer between 1 and 5 then mapped to the 0-1 range for statistics.</li>
+<li>Intelligibility Ratio (IR): Ratio of correctly transcribed words.</li>
+</ul>
 <h3>Clean speech</h3>
+<p>An example of clean recorded speech used as the input of the coding scheme. The same set of sentences is studied for 6 different speakers: 3 male and 3 female. All recordings are made under the same studio conditions and have therefore the same quality.</p>
 <audio controls><source src="audio/clean.wav" /></audio>
 
 <h3>Reconstructed audio</h3>
-<p>Recovered recordings from 20 Hz - 20 kHz third-octave bands</p>
+<p>Below are examples of recovered recordings from 20 Hz - 20 kHz third-octave bands. Although the perceptual test was conducted using no analysis overlap, samples with 50% overlap are also provided for reference.</p>
 
-<table>
+
+<table class="center">
   <tr>
     <td></td>
     <td></td>
@@ -64,6 +72,21 @@
     <td><audio controls><source src="audio/F_1_125.wav" /></audio></td>
     <td><audio controls><source src="audio/F_1_60.wav" /></audio></td>
     <td><audio controls><source src="audio/F_1_20.wav" /></audio></td>
+  </tr>
+  <tr>
+	<th rowspan="2" colspan="2">Test results</th>
+	<td>AIS</td>
+	<td align="center">0 (&plusmn;0)</td>
+	<td align="center">0.064 (&plusmn;0.153)</td>
+	<td align="center">0.550 (&plusmn;0.368)</td>
+	<td align="center">0.757 (&plusmn;0.239)</td>
+  </tr>
+  <tr>
+	<td>IR</td>
+	<td align="center">0 (&plusmn;0)</td>
+	<td align="center">0.072 (&plusmn;0.201)</td>
+	<td align="center">0.658 (&plusmn;0.379)</td>
+	<td align="center">0.898 (&plusmn;0.194)</td>
   </tr>
 </table>
 
