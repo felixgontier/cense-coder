@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
 	AcousticIndicatorsData acousticIndicatorsData;
-    newAcousticIndicatorsData(&acousticIndicatorsData);
+    ai_NewAcousticIndicatorsData(&acousticIndicatorsData);
 
 	unsigned char buffer[128];
 
@@ -23,8 +23,26 @@ int main(int argc, char **argv) {
 	int read = 0;
 
 	while(!feof(ptr)) {
-		read = fread(buffer, sizeof(buffer), 1, ptr);
-		int maxLen = ai_get_maximal_sample_size(&acousticIndicatorsData);
+		read = fread(buffer, sizeof(buffer), 1, ptr);		
+		// File fragment is in read array
+		// Convert to uint8_t array
+		uint8_t shortBuffer[64];
+		for(int i=0; i < read / 2; i++) {
+			shortBuffer[i] = (uint8_t) buffer[i*2];
+		}
+		
+		// Process short sample
+		int sampleCursor = 0;
+		do {
+			int maxLen = ai_GetMaximalSampleSize(&acousticIndicatorsData);
+			printf("%d\n",maxLen);
+			int sampleLen = read < maxLen ? read : maxLen;
+			float leq;
+			if(ai_AddSample(&acousticIndicatorsData, sampleLen, &shortBuffer[sampleCursor], &leq, false)) {				
+				printf("Leq %d\n", leq);
+			}
+			sampleCursor+=sampleLen;
+		} while(sampleCursor < read);
 	}
 	
 }

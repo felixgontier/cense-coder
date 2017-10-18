@@ -18,12 +18,12 @@ typedef struct  {
 /**
  * Create new struct for acoustic indicators
  */
-void newAcousticIndicatorsData(AcousticIndicatorsData* data);
+void ai_NewAcousticIndicatorsData(AcousticIndicatorsData* data);
 
 /**
  * @param data instance of this struct, create an empty struct on first use
  */
-int ai_get_maximal_sample_size(const AcousticIndicatorsData* data);
+int ai_GetMaximalSampleSize(const AcousticIndicatorsData* data);
 
 /**
  * Add sample to the processing chain
@@ -33,5 +33,5 @@ int ai_get_maximal_sample_size(const AcousticIndicatorsData* data);
  * @param[out] laeq 1s laeq value if the return is true
  * @return True if a complete LAeq has been computed
  */
-bool ai_add_sample(AcousticIndicatorsData* data, int sample_len, const uint8_t sample_data[sample_len], float* laeq);
+bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const uint8_t* sample_data, float* laeq, bool a_filter);
 #endif
