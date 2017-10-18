@@ -6,10 +6,21 @@
  * Read raw audio signal file
  */
 int main(int argc, char **argv) {
-	char *filename;
-	filename = (char*) malloc(sizeof(char) * 1024);
-	if (filename == NULL) {
-		printf("Error in malloc\n");
-		exit(1);		
+	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
+	FILE *ptr;
+	unsigned char buffer[128];
+
+	// open file
+	ptr = fopen(filename, "rb");
+	if (ptr == NULL) {
+		printf("Error opening file\n");
+		exit(1);
 	}
+
+	int read = 0;
+
+	while(!feof(ptr)) {
+		read = fread(buffer, sizeof(buffer), 1, ptr);
+
+	}	
 }
