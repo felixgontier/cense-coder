@@ -8,12 +8,13 @@
 int main(int argc, char **argv) {
 	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
+	AcousticIndicatorsData acousticIndicatorsData();
 	unsigned char buffer[128];
 
 	// open file
 	ptr = fopen(filename, "rb");
 	if (ptr == NULL) {
-		printf("Error opening file\n");
+		printf("Error opening audio file\n");
 		exit(1);
 	}
 
@@ -22,5 +23,5 @@ int main(int argc, char **argv) {
 	while(!feof(ptr)) {
 		read = fread(buffer, sizeof(buffer), 1, ptr);
 
-	}	
+	}
 }
