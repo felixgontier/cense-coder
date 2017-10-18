@@ -8,7 +8,9 @@
 int main(int argc, char **argv) {
 	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
-	AcousticIndicatorsData acousticIndicatorsData();
+	AcousticIndicatorsData acousticIndicatorsData;
+    newAcousticIndicatorsData(&acousticIndicatorsData);
+
 	unsigned char buffer[128];
 
 	// open file
@@ -22,6 +24,7 @@ int main(int argc, char **argv) {
 
 	while(!feof(ptr)) {
 		read = fread(buffer, sizeof(buffer), 1, ptr);
-
+		int maxLen = ai_get_maximal_sample_size(&acousticIndicatorsData);
 	}
+	
 }

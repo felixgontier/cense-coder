@@ -4,14 +4,21 @@
 #ifndef ACOUSTIC_INDICATORS_H_
 #define ACOUSTIC_INDICATORS_H_
 
-#define AI_SAMPLING_RATE (33000)
-#define AI_WINDOW_SIZE (300)
+// Note that only the sample rate 32khz is supported for (A) weigting.
+#define AI_SAMPLING_RATE (32000)
+#define AI_WINDOW_SIZE (1000)
 
 typedef struct  {
+	int window_cursor;
 	uint8_t window_data[AI_WINDOW_SIZE];
-	int window_len;   //len in bytes of the buffer
-	//float windowsLeq[(int)(AI_SAMPLING_RATE / )]
+	int windows_count;
+	float windows[AI_SAMPLING_RATE / AI_WINDOW_SIZE];
 } AcousticIndicatorsData;
+
+/**
+ * Create new struct for acoustic indicators
+ */
+void newAcousticIndicatorsData(AcousticIndicatorsData* data);
 
 /**
  * @param data instance of this struct, create an empty struct on first use
