@@ -22,7 +22,7 @@ add_library(cense_coder ${SOURCE_FILES})
 
 # Data files
 set(TEST_DATA_DIR "${PROJECT_BINARY_DIR}/Testing")
-file(COPY embedded/stm/tests/speak_32000Hz_16bitsPCM_10s.raw
+file(COPY embedded/stm/tests/speak_32000Hz_16bitsPCM_10s.raw embedded/stm/tests/speak_44100Hz_16bitsPCM_10s.raw
     DESTINATION ${TEST_DATA_DIR})
 
 # Test executable and folder
