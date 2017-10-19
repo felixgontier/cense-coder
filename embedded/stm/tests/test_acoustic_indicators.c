@@ -33,7 +33,10 @@ static char * test_leq_32khz() {
 
   int total_read = 0;
 	int read = 0;
+
   float leqs[10];
+  float expected_leqs[10] = {-50,-50,-50,-50,-50,-50,-50,-50,-50,-50};
+  
   int leqId = 0;
 
 	while(!feof(ptr)) {
