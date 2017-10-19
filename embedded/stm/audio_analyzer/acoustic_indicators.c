@@ -15,17 +15,26 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 	}
 	memcpy(data->window_data + data->window_cursor, sample_data, sample_len);
 	data->window_cursor+=sample_len;
-	int lenWindow = sizeof(data->window_data) / sizeof(int16_t);
-	bool complete_window = data->window_cursor == lenWindow;
 	if(data->window_cursor >= AI_WINDOW_SIZE) {
 		data->window_cursor = 0;
 		// Compute RMS
 		double sampleSum = 0;
-		for(int i=0; i < sample_len; i++) {
-			sampleSum += sample_data[i] * sample_data[i];
+		for(int i=0; i < AI_WINDOW_SIZE; i++) {
+			sampleSum += data->window_data[i] * data->window_data[i];
 		}
-		sampleSum = sqrt(sampleSum);
-		// Push L(A)eq of window into the data struct
+		// Push window sum in windows struct data
+		data->windows[data->windows_count++] = sampleSum;
+		if(data->windows_count == AI_WINDOWS_SIZE) {
+				// compute energetic average
+				double sumWindows = 0;
+				for(int i=0; i<AI_WINDOWS_SIZE;i++) {
+					sumWindows+=data->windows[i];
+				}
+				// Convert into dB(A)
+				*laeq = 20 * log10(sqrt(sumWindows / (AI_WINDOWS_SIZE * AI_WINDOW_SIZE)) / ref_pressure);
+				data->windows_count = 0;
+				return true;
+		}
 	}
 	return false;
 }

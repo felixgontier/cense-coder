@@ -7,12 +7,13 @@
 // Note that only the sample rate 32khz is supported for (A) weigting.
 #define AI_SAMPLING_RATE (32000)
 #define AI_WINDOW_SIZE (1000)
+#define AI_WINDOWS_SIZE (AI_SAMPLING_RATE / AI_WINDOW_SIZE)
 
 typedef struct  {
 	int window_cursor;
 	int16_t window_data[AI_WINDOW_SIZE];
 	int windows_count;
-	float windows[AI_SAMPLING_RATE / AI_WINDOW_SIZE];
+	float windows[AI_WINDOWS_SIZE];
 } AcousticIndicatorsData;
 
 /**
