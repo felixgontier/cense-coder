@@ -5,6 +5,8 @@
 #include "minunit.h"
 
 int tests_run = 0;
+//char *message = (char*)malloc(256 * sizeof(char));
+char mu_message[256];
 
 /**
  * Read raw audio signal file
@@ -35,8 +37,8 @@ static char * test_leq_32khz() {
 	int read = 0;
 
   float leqs[10];
-  float expected_leqs[10] = {-50,-50,-50,-50,-50,-50,-50,-50,-50,-50};
-  
+  float expected_leqs[10] = {-28.24,-25.99,-28.70,-30.62,-33.09,-25.00,-31.12,-30.62,-29.22,-31.81};
+
   int leqId = 0;
 
 	while(!feof(ptr)) {
@@ -56,6 +58,14 @@ static char * test_leq_32khz() {
 			sampleCursor+=sampleLen;
 		} while(sampleCursor < read);
 	}
+  mu_assert("Wrong number of parsed samples", total_read == 320000);
+
+  // Check expected leq
+
+  for(int second = 0; second < 10; second++) {
+    sprintf(mu_message, "Wrong leq on %i second expected %f dB got %f dB", second, expected_leqs[second], leqs[second]);
+    mu_assert(mu_message, abs(expected_leqs[second] - leqs[second]) < 0.01);
+  }
   return 0;
 }
 
