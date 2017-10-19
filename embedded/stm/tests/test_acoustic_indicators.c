@@ -23,20 +23,20 @@ int main(int argc, char **argv) {
 	int read = 0;
 
 	while(!feof(ptr)) {
-		read = fread(shortBuffer, sizeof(int16_t), sizeof(shortBuffer) / sizeof(int16_t), ptr);		
+		read = fread(shortBuffer, sizeof(int16_t), sizeof(shortBuffer) / sizeof(int16_t), ptr);
 		// File fragment is in read array
-		
+
 		// Process short sample
 		int sampleCursor = 0;
 		do {
 			int maxLen = ai_GetMaximalSampleSize(&acousticIndicatorsData);
 			int sampleLen = read < maxLen ? read : maxLen;
 			float leq;
-			if(ai_AddSample(&acousticIndicatorsData, sampleLen, &shortBuffer[sampleCursor], &leq, false)) {				
-				
+			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq, false)) {				
+
 			}
 			sampleCursor+=sampleLen;
 		} while(sampleCursor < read);
 	}
-	
+
 }

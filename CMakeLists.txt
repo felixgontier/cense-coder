@@ -34,7 +34,7 @@ add_executable(TEST_cense_coder ${CENSE_CODER_TESTS})
 
 
 target_link_libraries (TEST_cense_coder
-    cense_coder)
+cense_coder m)
 
 
 set_property(TARGET TEST_cense_coder PROPERTY FOLDER "tests")
