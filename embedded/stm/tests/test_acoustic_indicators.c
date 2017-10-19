@@ -1,11 +1,16 @@
 #include "audio_analyzer/acoustic_indicators.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 /**
  * Read raw audio signal file
  */
 int main(int argc, char **argv) {
+
+  double RMS_REFERENCE_90DB = 2500;
+  double DB_FS_REFERENCE = - (20 * log10(RMS_REFERENCE_90DB)) + 90;
+
 	const char *filename = "speak_44100Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
 	AcousticIndicatorsData acousticIndicatorsData;
@@ -32,7 +37,7 @@ int main(int argc, char **argv) {
 			int maxLen = ai_GetMaximalSampleSize(&acousticIndicatorsData);
 			int sampleLen = read < maxLen ? read : maxLen;
 			float leq;
-			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq, false)) {				
+			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq,DB_FS_REFERENCE, false)) {
 
 			}
 			sampleCursor+=sampleLen;

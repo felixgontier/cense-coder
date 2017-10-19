@@ -33,5 +33,5 @@ int ai_GetMaximalSampleSize(const AcousticIndicatorsData* data);
  * @param[out] laeq 1s laeq value if the return is true
  * @return True if a complete LAeq has been computed
  */
-bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* sample_data, float* laeq, bool a_filter);
+bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* sample_data, float* laeq, double ref_pressure, bool a_filter);
 #endif

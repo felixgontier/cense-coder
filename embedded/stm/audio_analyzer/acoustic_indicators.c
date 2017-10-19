@@ -8,7 +8,7 @@ int ai_GetMaximalSampleSize(const AcousticIndicatorsData* data) {
 	return AI_WINDOW_SIZE - data->window_cursor;
 }
 
-bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* sample_data, float* laeq, bool a_filter) {
+bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* sample_data, float* laeq, double ref_pressure, bool a_filter) {
 	if(data->window_cursor + sample_len > AI_WINDOW_SIZE) {
 		fprintf( stderr, "Exceed window array size (%d on %d)\n", "Out of bounds", data->window_cursor + sample_len, AI_WINDOW_SIZE);
 		return false;
