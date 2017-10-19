@@ -47,7 +47,7 @@ static char * test_leq_32khz() {
 			int sampleLen = (read - sampleCursor) < maxLen ? (read - sampleCursor) : maxLen;
 			float leq;
 			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq,REF_SOUND_PRESSURE, false)) {
-        mu_assert("Too much iteration", leqId < 10);
+        mu_assert("Too much iteration, more than 10s in file or wrong sampling rate", leqId < 10);
         leqs[leqId++] = leq;
 			}
 			sampleCursor+=sampleLen;
