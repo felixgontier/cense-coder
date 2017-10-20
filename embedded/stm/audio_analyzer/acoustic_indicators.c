@@ -33,11 +33,13 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 	data->window_cursor+=sample_len;
 	if(data->window_cursor >= AI_WINDOW_SIZE) {
 		data->window_cursor = 0;
-		// Compute A weighting using band-pass filter
+		// Compute A weighting
 		if(a_filter) {
 				float_t weightedSignal[AI_WINDOW_SIZE];
+				memset(weightedSignal, 0, sizeof(float_t) * AI_WINDOW_SIZE);
 				// Filter delays
 				float_t z[ORDER-1][AI_WINDOW_SIZE];
+				memset(z, 0, sizeof(float_t) * (ORDER-1) * AI_WINDOW_SIZE);
 				for (int idT = 0; idT < AI_WINDOW_SIZE; idT++){
             // Avoid iteration idT=0 exception (z[0][idT-1]=0)
             weightedSignal[idT] = (numerator_32khz[0]*data->window_data[idT] + (idT == 0 ? 0 : z[0][idT-1]));
@@ -67,7 +69,7 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 					sumWindows+=data->windows[i];
 				}
 				// Convert into dB(A)
-				*laeq = 20 * log10(sqrt((double)sumWindows / (AI_WINDOWS_SIZE * AI_WINDOW_SIZE)) / ref_pressure);
+				*laeq = 10 * log10((double)sumWindows / (AI_WINDOWS_SIZE * AI_WINDOW_SIZE) / (ref_pressure * ref_pressure));
 				data->windows_count = 0;
 				return true;
 		}
