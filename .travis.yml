@@ -6,6 +6,5 @@ before_script:
   - cmake ..
 
 script:
-  - cd build
   - make all
   - env CTEST_OUTPUT_ON_FAILURE=1 make test
