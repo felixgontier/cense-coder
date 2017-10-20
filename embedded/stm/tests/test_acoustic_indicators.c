@@ -24,7 +24,7 @@ static char * test_leq_32khz() {
 	AcousticIndicatorsData acousticIndicatorsData;
     ai_NewAcousticIndicatorsData(&acousticIndicatorsData);
 
-	int16_t shortBuffer[64];
+	int16_t shortBuffer[1000];
 
 	// open file
 	ptr = fopen(filename, "rb");
@@ -37,7 +37,7 @@ static char * test_leq_32khz() {
 	int read = 0;
 
   float leqs[10];
-  float expected_leqs[10] = {-28.24,-25.99,-28.70,-30.62,-33.09,-25.00,-31.12,-30.62,-29.22,-31.81};
+  float expected_leqs[10] = {-26.21,-27.94,-29.12,-28.92,-40.39,-24.93,-31.55,-29.04,-31.08,-30.65};
 
   int leqId = 0;
 
@@ -63,10 +63,43 @@ static char * test_leq_32khz() {
   // Check expected leq
 
   for(int second = 0; second < 10; second++) {
-    sprintf(mu_message, "Wrong leq on %i second expected %f dB got %f dB", second, expected_leqs[second], leqs[second]);
+    sprintf(mu_message, "Wrong leq on %d second expected %f dB got %f dB", second, expected_leqs[second], leqs[second]);
     mu_assert(mu_message, abs(expected_leqs[second] - leqs[second]) < 0.01);
   }
   return 0;
+}
+
+
+/**
+ * Read raw audio signal file
+ */
+static char * test_laeq_32khz() {
+  // Compute the reference level.
+  //double RMS_REFERENCE_90DB = 2500;
+  //double DB_FS_REFERENCE = - (20 * log10(RMS_REFERENCE_90DB)) + 90;
+  //double REF_SOUND_PRESSURE = 1 / pow(10, DB_FS_REFERENCE / 20);
+
+  double REF_SOUND_PRESSURE = 32767.;
+
+	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
+	FILE *ptr;
+	AcousticIndicatorsData acousticIndicatorsData;
+    ai_NewAcousticIndicatorsData(&acousticIndicatorsData);
+
+	int16_t shortBuffer[1000];
+
+	// open file
+	ptr = fopen(filename, "rb");
+	if (ptr == NULL) {
+		printf("Error opening audio file\n");
+		exit(1);
+	}
+
+  int total_read = 0;
+	int read = 0;
+
+  float leqs[10];
+  float expected_laeqs[10] = {-34.0662, -37.4688, -34.9135, -36.0700, -43.8418, -32.2816, -37.8208, -36.9337, -40.7422, -40.9581};
 }
 
 static char * all_tests() {

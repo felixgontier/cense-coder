@@ -13,7 +13,7 @@ typedef struct  {
 	int window_cursor;
 	int16_t window_data[AI_WINDOW_SIZE];
 	int windows_count;
-	float windows[AI_WINDOWS_SIZE];
+	long windows[AI_WINDOWS_SIZE];
 } AcousticIndicatorsData;
 
 /**
