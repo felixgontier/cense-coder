@@ -1,4 +1,5 @@
 #include <inttypes.h>
+#include <math.h>
 #include <stdbool.h>
 
 #ifndef ACOUSTIC_INDICATORS_H_
@@ -11,7 +12,7 @@
 
 typedef struct  {
 	int window_cursor;
-	int16_t window_data[AI_WINDOW_SIZE];
+	float_t window_data[AI_WINDOW_SIZE];
 	int windows_count;
 	long windows[AI_WINDOWS_SIZE];
 } AcousticIndicatorsData;

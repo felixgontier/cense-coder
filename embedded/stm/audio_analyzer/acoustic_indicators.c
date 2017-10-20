@@ -29,17 +29,17 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 		fprintf( stderr, "Exceed window array size (%d on %d)\n", data->window_cursor + sample_len, AI_WINDOW_SIZE);
 		return false;
 	}
-	memcpy(data->window_data + data->window_cursor, sample_data, sample_len * sizeof(int16_t));
+	for(int i=data->window_cursor; i < sample_len + data->window_cursor; i++) {
+		data->window_data[i] = sample_data[i-data->window_cursor];
+	}
 	data->window_cursor+=sample_len;
 	if(data->window_cursor >= AI_WINDOW_SIZE) {
 		data->window_cursor = 0;
 		// Compute A weighting
 		if(a_filter) {
 				float_t weightedSignal[AI_WINDOW_SIZE];
-				memset(weightedSignal, 0, sizeof(float_t) * AI_WINDOW_SIZE);
 				// Filter delays
 				float_t z[ORDER-1][AI_WINDOW_SIZE];
-				memset(z, 0, sizeof(float_t) * (ORDER-1) * AI_WINDOW_SIZE);
 				for (int idT = 0; idT < AI_WINDOW_SIZE; idT++){
             // Avoid iteration idT=0 exception (z[0][idT-1]=0)
             weightedSignal[idT] = (numerator_32khz[0]*data->window_data[idT] + (idT == 0 ? 0 : z[0][idT-1]));

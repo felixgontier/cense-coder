@@ -126,13 +126,13 @@ static char * test_laeq_32khz() {
 
   for(int second = 0; second < 10; second++) {
     sprintf(mu_message, "Wrong lAeq on %d second expected %f dB got %f dB", second, expected_laeqs[second], leqs[second]);
-    mu_assert(mu_message, fabs(expected_laeqs[second] - leqs[second]) < 0.01);
+    mu_assert(mu_message, fabs(expected_laeqs[second] - leqs[second]) < 0.1);
   }
   return 0;
 }
 
 static char * all_tests() {
-   //mu_run_test(test_leq_32khz);
+   mu_run_test(test_leq_32khz);
    mu_run_test(test_laeq_32khz);
    return 0;
 }
