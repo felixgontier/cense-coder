@@ -24,7 +24,7 @@ static char * test_leq_32khz() {
 	AcousticIndicatorsData acousticIndicatorsData;
     ai_NewAcousticIndicatorsData(&acousticIndicatorsData);
 
-	int16_t shortBuffer[1000];
+	int16_t shortBuffer[64];
 
 	// open file
 	ptr = fopen(filename, "rb");

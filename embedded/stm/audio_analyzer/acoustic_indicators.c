@@ -17,6 +17,8 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 	data->window_cursor+=sample_len;
 	if(data->window_cursor >= AI_WINDOW_SIZE) {
 		data->window_cursor = 0;
+		// Compute A weighting using band-pass filter
+		
 		// Compute RMS
 		long sampleSum = 0;
 		for(int i=0; i < AI_WINDOW_SIZE; i++) {
