@@ -43,5 +43,4 @@ void ai_NewAcousticIndicatorsData(AcousticIndicatorsData* data)
 {
 	data->windows_count = 0;
 	data->window_cursor = 0;
-	memset(data->window_data, 0 , sizeof(int16_t) * AI_WINDOW_SIZE);
 }
