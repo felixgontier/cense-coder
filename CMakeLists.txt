@@ -32,10 +32,13 @@ set(CENSE_CODER_TESTS
 
 add_executable(TEST_cense_coder ${CENSE_CODER_TESTS})
 
-
-target_link_libraries (TEST_cense_coder
-cense_coder m)
-
+if(UNIX AND NOT APPLE) 
+    target_link_libraries (TEST_cense_coder
+    cense_coder m)
+else()
+    target_link_libraries (TEST_cense_coder
+    cense_coder)
+endif()
 
 set_property(TARGET TEST_cense_coder PROPERTY FOLDER "tests")
 
