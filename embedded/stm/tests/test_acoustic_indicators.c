@@ -17,7 +17,7 @@ static char * test_leq_32khz() {
   //double DB_FS_REFERENCE = - (20 * log10(RMS_REFERENCE_90DB)) + 90;
   //double REF_SOUND_PRESSURE = 1 / pow(10, DB_FS_REFERENCE / 20);
 
-  double REF_SOUND_PRESSURE = 32767.;
+	float_t REF_SOUND_PRESSURE = 32767.;
 
 	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
@@ -50,7 +50,7 @@ static char * test_leq_32khz() {
 		do {
 			int maxLen = ai_GetMaximalSampleSize(&acousticIndicatorsData);
 			int sampleLen = (read - sampleCursor) < maxLen ? (read - sampleCursor) : maxLen;
-			float leq;
+			float_t leq;
 			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq,REF_SOUND_PRESSURE, false)) {
         mu_assert("Too much iteration, more than 10s in file or wrong sampling rate", leqId < 10);
         leqs[leqId++] = leq;
@@ -79,7 +79,7 @@ static char * test_laeq_32khz() {
   //double DB_FS_REFERENCE = - (20 * log10(RMS_REFERENCE_90DB)) + 90;
   //double REF_SOUND_PRESSURE = 1 / pow(10, DB_FS_REFERENCE / 20);
 
-  double REF_SOUND_PRESSURE = 32767.;
+	float_t REF_SOUND_PRESSURE = 32767.;
 
 	const char *filename = "speak_32000Hz_16bitsPCM_10s.raw";
 	FILE *ptr;
@@ -112,7 +112,7 @@ static char * test_laeq_32khz() {
 		do {
 			int maxLen = ai_GetMaximalSampleSize(&acousticIndicatorsData);
 			int sampleLen = (read - sampleCursor) < maxLen ? (read - sampleCursor) : maxLen;
-			float leq;
+			float_t leq;
 			if(ai_AddSample(&acousticIndicatorsData, sampleLen, shortBuffer + sampleCursor, &leq,REF_SOUND_PRESSURE, true)) {
         mu_assert("Too much iteration, more than 10s in file or wrong sampling rate", leqId < 10);
         leqs[leqId++] = leq;
