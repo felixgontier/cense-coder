@@ -56,15 +56,15 @@ bool ai_AddSample(AcousticIndicatorsData* data, int sample_len, const int16_t* s
 				}
 		}
 		// Compute RMS
-		int32_t sampleSum = 0;
+		float_t sampleSum = 0;
 		for(int i=0; i < AI_WINDOW_SIZE; i++) {
-			sampleSum += (int32_t)data->window_data[i] * (int32_t)data->window_data[i];
+			sampleSum += (float_t)data->window_data[i] * (float_t)data->window_data[i];
 		}
 		// Push window sum in windows struct data
 		data->windows[data->windows_count++] = sampleSum;
 		if(data->windows_count == AI_WINDOWS_SIZE) {
 				// compute energetic average
-				int32_t sumWindows = 0;
+				float_t sumWindows = 0;
 				for(int i=0; i<AI_WINDOWS_SIZE;i++) {
 					sumWindows+=data->windows[i];
 				}
