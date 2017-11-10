@@ -103,7 +103,7 @@ switch act
         errorbar([4 8 16 50], flip(m_notes), flip(s_notes)),
         hold on,
         errorbar([4.2 8.2 16.2 50.2], flip(m_tr), flip(s_tr)),
-        axis([0 55 -0.1 1.1]), grid on, xlabel('Analysis frames per second'), ylabel('Intelligibility metric')
+        axis([0 55 -0.1 1.1]), grid on, xlabel('Analysis frames per second (Hz)'), ylabel('Intelligibility metric')
         legend('Average Intelligibility Score (AIS)', 'Intelligibility ratio (IR)', 'location', 'southeast')
         set(gca, 'xtick', [4 8 16 50]);
 

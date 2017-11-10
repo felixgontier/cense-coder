@@ -32,7 +32,7 @@ for ind_wav = 1:length(data.X_tob_ref)
         if n_ref > 0
             for ind_ref = 1:n_ref
                 n_avg = round(setting.reflen/setting.framelen);
-                if strcmp(setting.centype, 'cense'); X_tob_cen(:, ind_ref) = mean(data_cen.X_tob_cen{ind_wav}(:, (ind_ref-1)*n_avg+1:min(ind_ref*n_avg, end))/4000, 2); 
+                if strcmp(setting.centype, 'cense'); X_tob_cen(:, ind_ref) = mean(data_cen.X_tob_cen{ind_wav}(:, (ind_ref-1)*n_avg+1:min(ind_ref*n_avg, end)), 2); 
 %                 else X_tob_cen(:, ind_ref) = mean(data_cen.X_tob_cen{ind_wav}(:, (ind_ref-1)*n_avg+1:min(ind_ref*n_avg, end)), 2); end;
                 else X_tob_cen(:, ind_ref) = 10*log10(mean(10.^(data_cen.X_tob_cen{ind_wav}(:, (ind_ref-1)*(n_avg+1)+1:min((ind_ref-1)*(n_avg+1)+n_avg, end))/10)/4000, 2)); end;
                 if strcmp(setting.centype, 'ita')&& strcmp(setting.wintype, 'hanning')&& ~strcmp(setting.dataset, 'noise') && setting.hopsize~=0.33

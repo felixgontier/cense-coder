@@ -44,8 +44,8 @@ errorbar(tob_f(3:3:end), mean(data(1).err(3:3:end, :), 2), std(data(1).err(3:3:e
 errorbar(tob_f(3:3:end), mean(data(2).err(3:3:end, :), 2), std(data(2).err(3:3:end, :), 0, 2))
 grid on, xlabel('Frequency (Hz)'), ylabel('Analysis error (dB)');
 set(gca, 'xscale', 'log');
-axis([1e1 2e4 -5 8.5]);
-legend('FFT-based', 'Time-filtering');
+axis([1e1 2e4 -2 4]);
+legend('Proposed implementation', 'Reference');
 
 
 obs.ttest_band = ttest_band;

@@ -207,7 +207,8 @@ switch setting.dataset
                         if mod(size(x, 1)-l_frame, l_hop)
                             x = [x; zeros(l_hop-mod(size(x, 1)-l_frame, l_hop), 1)]; % Sup
                         end
-                        X_st = (abs(stft(x, l_frame, l_hop, setting.wintype, 1)).^2)/(sum(w.^2)*(l_frame/2+1)/l_frame);
+%                         X_st = (abs(stft(x, l_frame, l_hop, setting.wintype, 1)).^2)/(sum(w.^2)*(l_frame/2+1)/l_frame)/l_frame;
+                        X_st = (abs(stft(x, l_frame, l_hop, setting.wintype, 1)).^2)*l_frame/sum(w.^2);
                         X_tob_cen{ind_wav2} = H_st*X_st;
                     case 'ita'
                         if mod(size(x, 1)-l_frame, l_hop)

@@ -151,22 +151,51 @@ end
 % errorbar([3.98:7.98], data_tob.meanData(2, 1:end-1) , data_tob.stdData(2, 1:end-1))
 % errorbar([4.02:8.02], data_tob.meanData(3, 1:end-1) , data_tob.stdData(3, 1:end-1))
 % errorbar([4.06:8.06], data_tob.meanData(4, 1:end-1) , data_tob.stdData(4, 1:end-1))
+% 
 % axis([3.5 8.5 0.35 0.75]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
+
+meanData = zeros(4, 5);
+meanData(1, :) = [0.64 0.62 0.64 0.643 0.642];
+meanData(2, :) = [0.635 0.61 0.63 0.645 0.635];
+meanData(4, :) = [0.54 0.50 0.535 0.54 0.537];
+meanData(3, :) = [0.425 0.408 0.408 0.435 0.44];
+stdData = zeros(4, 5);
+stdData(1, :) = [0.04 0.03 0.05 0.038 0.048];
+stdData(2, :) = [0.03 0.033 0.025 0.027 0.035];
+stdData(4, :) = [0.035 0.043 0.038 0.04 0.038];
+stdData(3, :) = [0.043 0.044 0.04 0.04 0.044];
+
+meanDataNQ = [0.63 0.64 0.41 0.54];
+stdDataNQ = [0.05 0.03 0.04 0.03];
+
+errorbar([3.94:7.94], meanData(1, :), stdData(1, :), '-x', 'Color', [0 0.4470 0.7410]), hold on,
+errorbar([3.98:7.98], meanData(2, :), stdData(2, :), '-x', 'Color', [0.8500 0.3250 0.0980])
+errorbar([4.02:8.02], meanData(3, :), stdData(3, :), '-x', 'Color', [0.9290 0.6940 0.1250])
+errorbar([4.06:8.06], meanData(4, :), stdData(4, :), '-x', 'Color', [0.4940 0.1840 0.5560])
+errorbar([8.44 8.94], [NaN meanDataNQ(1)], [NaN stdDataNQ(1)], 'x', 'Linewidth', 1.5, 'Color', [0 0.4470 0.7410])
+errorbar([8.44 8.98], [NaN meanDataNQ(2)], [NaN stdDataNQ(2)], 'x', 'Linewidth', 1.5, 'Color', [0.8500 0.3250 0.0980])
+errorbar([8.48 9.02], [NaN meanDataNQ(3)], [NaN stdDataNQ(3)], 'x', 'Linewidth', 1.5, 'Color', [0.9290 0.6940 0.1250])
+errorbar([8.52 9.06], [NaN meanDataNQ(4)], [NaN stdDataNQ(4)], 'x', 'Linewidth', 1.5, 'Color', [0.4940 0.1840 0.5560])
+axis([3 9.5 0.35 0.75]), grid on, xlabel('Word size (bits)'); ylabel('Classification accuracy'); legend('SVM', 'RF', 'DT', 'KNN', 'location', 'northwest', 'orientation', 'horizontal');
+
+set(gca, 'xticklabels', {'3','4','5','6','7','8','No quant.'})
+
+
 
 %% Intel
 
-load('report/figures/tob_csii_len.mat');
-data_csii = data;
-load('report/figures/tob_fwSNRseg_len.mat');
-
-figure(1), clf,
-errorbar([4 8 16 50], flip(data_csii.meanData), flip(data_csii.stdData)),
-grid on, xlabel('Analysis frames per second'), ylabel('CSII')
-axis([0 55 -0.55 -0.2])
-set(gca, 'xtick', [4 8 16 50]);
-
-figure(2), clf,
-errorbar([4 8 16 50], flip(data.meanData), flip(data.stdData)),
-grid on, xlabel('Analysis frames per second'), ylabel('fwSNRseg (dB)')
-axis([0 55 -12.5 -7.5])
-set(gca, 'xtick', [4 8 16 50]);
+% load('report/figures/tob_csii_len.mat');
+% data_csii = data;
+% load('report/figures/tob_fwSNRseg_len.mat');
+% 
+% figure(1), clf,
+% errorbar([4 8 16 50], flip(data_csii.meanData), flip(data_csii.stdData)),
+% grid on, xlabel('Analysis frames per second'), ylabel('CSII')
+% axis([0 55 -0.55 -0.2])
+% set(gca, 'xtick', [4 8 16 50]);
+% 
+% figure(2), clf,
+% errorbar([4 8 16 50], flip(data.meanData), flip(data.stdData)),
+% grid on, xlabel('Analysis frames per second'), ylabel('fwSNRseg (dB)')
+% axis([0 55 -12.5 -7.5])
+% set(gca, 'xtick', [4 8 16 50]);

@@ -27,10 +27,10 @@ with open("tob_4096.txt") as w_file:
 		f_temp = line.split(',')
 		# Weight array (variable length)
 		f_temp = [float(i) for i in f_temp]
-		H.append(f_temp[2:])
+		H.append(f_temp[4:])
 		# Beginning and end indices
 		f_temp = [int(i) for i in f_temp]
-		f.append(f_temp[:2])
+		f.append(f_temp[:4])
 
 # Load Huffman dictionary
 d_sym = []
@@ -54,6 +54,9 @@ ind_tf = 0
 fft_norm = np.sum(np.square(w))/l_frame
 X_tob = np.zeros((len(f), l_tf))
 
+X_tob2 = np.zeros((len(f), l_tf))
+
+
 # Open a code file
 c_file = open("".join((d_filename,"_enc.txt")), 'w')
 
@@ -64,6 +67,16 @@ for ind_frame in range(1,n_frames+1):
 	X = np.square(np.absolute(X))/fft_norm
 	# Third-octave band analysis
 	for ind_band in range(0,len(f)):
+		# ----- Add where weights equal 1 version -----
+		X_tob2[ind_band, ind_f] = 0
+		if f[ind_band][1] != 0: # 0 if there is no 1 part
+			# f[][0]: first nonzero weight, increasing part - f[][1]: last non-1 weight, increasing part - f[][2]: first nonzero weight, increasing part - f[][3]: last non-1 weight, increasing part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][0]-1:f[ind_band][1]], H[ind_band][:f[ind_band][1]-f[ind_band][0]+1]) # Increasing part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + X[f[ind_band][1]:f[ind_band][2]-1] # 1 part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][2]-1:f[ind_band][3]], H[ind_band][f[ind_band][1]-f[ind_band][0]+1:]) # Decreasing part
+		else
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][0]-1:f[ind_band][3]], H[ind_band])
+		# ----- END -----
 		X_tob[ind_band, ind_f] = np.dot(X[f[ind_band][0]-1:f[ind_band][1]], H[ind_band])
 		if X_tob[ind_band, ind_f] == 0:
 			X_tob[ind_band, ind_f] = 1e-15
