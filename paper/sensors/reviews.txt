@@ -30,7 +30,7 @@ Please, also note that not all readers are likely to be familiar with ASC and AE
 
 The Validation protocol (Section 4) is not very convincing. In particular, the subjective validation of Section 4.3 does not look rigorous at all.
 
--> répondre en re listant les elements de validation
+-> répondre en re listant les elements de validation and for all of those required properties we designed a validation procedure. We acknowledge that the listening test is somewhat informal, as our goal is more to provide insights about why the transmitted data will not lead to intelligible speech content than to fully prove it which would be out of the scope of this paper.
 
 In general, a strange aspect for me is that, this paper being submitted to the journal Sensors, there is no actual description of the sensors’ network architecture and/or hardware components proposed for the current study.
 
