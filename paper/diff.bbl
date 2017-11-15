@@ -27,42 +27,79 @@ Tham, C.K.; Buyya, R.
 \newblock SensorGrid: Integrating sensor networks and grid computing.
 \newblock {\em CSI communications} {\bf 2005}, {\em 29},~24--29.
 
-\bibitem[Lavandier and Defr{\'e}ville(2006)]{lavandier2006contribution}
-Lavandier, C.; Defr{\'e}ville, B.
-\newblock The contribution of sound source characteristics in the assessment of
+\DIFdelbegin %DIFDELCMD < \bibitem[Lavandier and Defr{\'e}ville(2006)]{lavandier2006contribution}
+%DIFDELCMD < %%%
+\DIFdel{Lavandier, C.; Defr}%DIFDELCMD < {%%%
+\DIFdel{\'e}%DIFDELCMD < }%%%
+\DIFdel{ville, B.
+}%DIFDELCMD < \newblock %%%
+\DIFdel{The contribution of sound source characteristics in the assessment of
   urban soundscapes.
-\newblock {\em Acta Acustica united with Acustica} {\bf 2006}, {\em
-  92},~912--921.
+}%DIFDELCMD < \newblock {\em %%%
+\DIFdel{Acta Acustica united with Acustica}%DIFDELCMD < } {\bf %%%
+\DIFdel{2006}%DIFDELCMD < }%%%
+\DIFdel{, }%DIFDELCMD < {\em
+%DIFDELCMD <   %%%
+\DIFdel{92}%DIFDELCMD < }%%%
+\DIFdel{,~912--921.
+}%DIFDELCMD < 
 
-\bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
-  Ribeiro, and Lavandier]{aumond2017modeling}
-Aumond, P.; Can, A.; De~Coensel, B.; Botteldooren, D.; Ribeiro, C.; Lavandier,
+%DIFDELCMD < \bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
+%DIFDELCMD <   Ribeiro, and Lavandier]{aumond2017modeling}
+%DIFDELCMD < %%%
+\DIFdel{Aumond, P.; Can, A.; De~Coensel, B.; Botteldooren, D.; Ribeiro, C.; Lavandier,
   C.
-\newblock Modeling Soundscape Pleasantness Using perceptual Assessments and
+}%DIFDELCMD < \newblock %%%
+\DIFdel{Modeling Soundscape Pleasantness Using perceptual Assessments and
   Acoustic Measurements Along Paths in Urban Context.
-\newblock {\em Acta Acustica united with Acustica} {\bf 2017}, {\em
-  103},~430--443.
+}%DIFDELCMD < \newblock {\em %%%
+\DIFdel{Acta Acustica united with Acustica}%DIFDELCMD < } {\bf %%%
+\DIFdel{2017}%DIFDELCMD < }%%%
+\DIFdel{, }%DIFDELCMD < {\em
+%DIFDELCMD <   %%%
+\DIFdel{103}%DIFDELCMD < }%%%
+\DIFdel{,~430--443.
+}%DIFDELCMD < 
 
-\bibitem[Defr{\'e}ville \em{et~al.}(2006)Defr{\'e}ville, Pachet, Rosin, and
-  Roy]{defreville2006automatic}
-Defr{\'e}ville, B.; Pachet, F.; Rosin, C.; Roy, P.
-\newblock Automatic recognition of urban sound sources.
-\newblock  Audio Engineering Society Convention 120. Audio Engineering Society,
+%DIFDELCMD < \bibitem[Defr{\'e}ville \em{et~al.}(2006)Defr{\'e}ville, Pachet, Rosin, and
+%DIFDELCMD <   Roy]{defreville2006automatic}
+%DIFDELCMD < %%%
+\DIFdel{Defr}%DIFDELCMD < {%%%
+\DIFdel{\'e}%DIFDELCMD < }%%%
+\DIFdel{ville, B.; Pachet, F.; Rosin, C.; Roy, P.
+}%DIFDELCMD < \newblock %%%
+\DIFdel{Automatic recognition of urban sound sources.
+}%DIFDELCMD < \newblock  %%%
+\DIFdel{Audio Engineering Society Convention 120. Audio Engineering Society,
    2006.
+}%DIFDELCMD < 
 
-\bibitem[Mydlarz \em{et~al.}(2015)Mydlarz, Shamoon, Baglione, and
-  Pimpinella]{mydlarz2015design}
-Mydlarz, C.; Shamoon, C.; Baglione, M.; Pimpinella, M.
-\newblock The design and calibration of low cost urban acoustic sensing
+%DIFDELCMD < \bibitem[Mydlarz \em{et~al.}(2015)Mydlarz, Shamoon, Baglione, and
+%DIFDELCMD <   Pimpinella]{mydlarz2015design}
+%DIFDELCMD < %%%
+\DIFdel{Mydlarz, C.; Shamoon, C.; Baglione, M.; Pimpinella, M.
+}%DIFDELCMD < \newblock %%%
+\DIFdel{The design and calibration of low cost urban acoustic sensing
   devices.
-\newblock  EuroNoise 2015. Euronoise,  2015.
+}%DIFDELCMD < \newblock  %%%
+\DIFdel{EuroNoise 2015. Euronoise,  2015.
+}%DIFDELCMD < 
 
-\bibitem[Pan(1995)]{pan1995tutorial}
-Pan, D.
-\newblock A tutorial on MPEG/audio compression.
-\newblock {\em IEEE multimedia} {\bf 1995}, {\em 2},~60--74.
+%DIFDELCMD < \bibitem[Pan(1995)]{pan1995tutorial}
+%DIFDELCMD < %%%
+\DIFdel{Pan, D.
+}%DIFDELCMD < \newblock %%%
+\DIFdel{A tutorial on MPEG/audio compression.
+}%DIFDELCMD < \newblock {\em %%%
+\DIFdel{IEEE multimedia}%DIFDELCMD < } {\bf %%%
+\DIFdel{1995}%DIFDELCMD < }%%%
+\DIFdel{, }%DIFDELCMD < {\em %%%
+\DIFdel{2}%DIFDELCMD < }%%%
+\DIFdel{,~60--74.
+}%DIFDELCMD < 
 
-\bibitem[Rey~Gozalo \em{et~al.}(2015)Rey~Gozalo, Trujillo~Carmona,
+%DIFDELCMD < %%%
+\DIFdelend \bibitem[Rey~Gozalo \em{et~al.}(2015)Rey~Gozalo, Trujillo~Carmona,
   Barrigon~Morillas, and Gomez~Escobar]{gozalo2015}
 Rey~Gozalo, G.; Trujillo~Carmona, J.; Barrigon~Morillas, J.; Gomez~Escobar, V.
 \newblock Relationship between objective acoustic indices and subjective
@@ -104,15 +141,23 @@ Nilsson, M.; Botteldooren, D.; De~Coensel, B.
   outdoor urban areas.
 \newblock  19th International Congress on Acoustics,  2007.
 
-\bibitem[Ishiyama and Hashimoto(2000)]{ishiyama2000}
-Ishiyama, T.; Hashimoto, T.
-\newblock The impact of sound quality on annoyance caused by road traffc noise:
-  an influence of frequency spectra on annoyance.
-\newblock {\em JSAE Review} {\bf 2000}, {\em 21},~225--230.
+\DIFdelbegin %DIFDELCMD < \bibitem[Ishiyama and Hashimoto(2000)]{ishiyama2000}
+%DIFDELCMD < %%%
+\DIFdel{Ishiyama, T.; Hashimoto, T}\DIFdelend \DIFaddbegin \bibitem[Lavandier and Defr{\'e}ville(2006)]{lavandier2006contribution}
+\DIFadd{Lavandier, C.; Defr}{\DIFadd{\'e}}\DIFadd{ville, B}\DIFaddend .
+\newblock The \DIFdelbegin \DIFdel{impact of sound quality on annoyance caused by road traffc noise:
+  an influence of
+  frequency spectra on annoyance}\DIFdelend \DIFaddbegin \DIFadd{contribution of sound source characteristics in the assessment of
+  urban soundscapes}\DIFaddend .
+\newblock {\em \DIFdelbegin \DIFdel{JSAE Review}\DIFdelend \DIFaddbegin \DIFadd{Acta Acustica united with Acustica}\DIFaddend } {\bf \DIFdelbegin \DIFdel{2000}\DIFdelend \DIFaddbegin \DIFadd{2006}\DIFaddend }, {\em
+  \DIFdelbegin \DIFdel{21}\DIFdelend \DIFaddbegin \DIFadd{92}\DIFaddend },~\DIFdelbegin \DIFdel{225--230}\DIFdelend \DIFaddbegin \DIFadd{912--921}\DIFaddend .
 
-\bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
-  Ribeiro, and Lavandier]{aumond2017}
-Aumond, P.; Can, A.; De~Coensel, B.; Botteldooren, D.; Ribeiro, C.; Lavandier,
+\DIFdelbegin %DIFDELCMD < \bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
+%DIFDELCMD <   Ribeiro, and Lavandier]{aumond2017}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
+  Ribeiro, and Lavandier]{aumond2017modeling}
+\DIFaddend Aumond, P.; Can, A.; De~Coensel, B.; Botteldooren, D.; Ribeiro, C.; Lavandier,
   C.
 \newblock Modeling Soundscape Pleasantness Using perceptual Assessments and
   Acoustic Measurements Along Paths in Urban Context.
@@ -140,7 +185,46 @@ Gloaguen, J.R.; Can, A.; Lagrange, M.; Petiot, J.F.
 \newblock  DCASE 2016, Detection and Classification of Acoustic Scenes and
   Events,  2016, p.~4p.
 
-\bibitem[Anusuya and Katty(2009)]{anusuya2009}
+\DIFaddbegin \bibitem[Aumond \em{et~al.}(2017)Aumond, Can, De~Coensel, Botteldooren,
+  Ribeiro, and Lavandier]{aumond2017}
+\DIFadd{Aumond, P.; Can, A.; De~Coensel, B.; Botteldooren, D.; Ribeiro, C.; Lavandier,
+  C.
+}\newblock \DIFadd{Modeling Soundscape Pleasantness Using perceptual Assessments and
+  Acoustic Measurements Along Paths in Urban Context.
+}\newblock {\em \DIFadd{Acta Acustica united with Acustica}} {\bf \DIFadd{2017}}\DIFadd{, }{\em
+  \DIFadd{103}}\DIFadd{,~430--443.
+}
+
+\bibitem[Defr{\'e}ville \em{et~al.}(2006)Defr{\'e}ville, Pachet, Rosin, and
+  Roy]{defreville2006automatic}
+\DIFadd{Defr}{\DIFadd{\'e}}\DIFadd{ville, B.; Pachet, F.; Rosin, C.; Roy, P.
+}\newblock \DIFadd{Automatic recognition of urban sound sources.
+}\newblock  \DIFadd{Audio Engineering Society Convention 120. Audio Engineering Society,
+   2006.
+}
+
+\bibitem[Mydlarz \em{et~al.}(2015)Mydlarz, Shamoon, Baglione, and
+  Pimpinella]{mydlarz2015design}
+\DIFadd{Mydlarz, C.; Shamoon, C.; Baglione, M.; Pimpinella, M.
+}\newblock \DIFadd{The design and calibration of low cost urban acoustic sensing
+  devices.
+}\newblock  \DIFadd{EuroNoise 2015. Euronoise,  2015.
+}
+
+\bibitem[Pan(1995)]{pan1995tutorial}
+\DIFadd{Pan, D.
+}\newblock \DIFadd{A tutorial on MPEG/audio compression.
+}\newblock {\em \DIFadd{IEEE multimedia}} {\bf \DIFadd{1995}}\DIFadd{, }{\em \DIFadd{2}}\DIFadd{,~60--74.
+}
+
+\bibitem[Ishiyama and Hashimoto(2000)]{ishiyama2000}
+\DIFadd{Ishiyama, T.; Hashimoto, T.
+}\newblock \DIFadd{The impact of sound quality on annoyance caused by road traffc noise:
+  an influence of frequency spectra on annoyance.
+}\newblock {\em \DIFadd{JSAE Review}} {\bf \DIFadd{2000}}\DIFadd{, }{\em \DIFadd{21}}\DIFadd{,~225--230.
+}
+
+\DIFaddend \bibitem[Anusuya and Katty(2009)]{anusuya2009}
 Anusuya, M.; Katty, S.
 \newblock Speech recognition by machine, a review.
 \newblock {\em International Journal of Computer Science and Information
@@ -299,7 +383,14 @@ Salamon, J.; Jacoby, C.; Bello, J.
 \newblock A Dataset and Taxonomy for Urban Sound Research.
 \newblock  22nd ACM international conference on Multimedia,  2014.
 
-\bibitem[Ellis(2005)]{ellis2005}
+\DIFaddbegin \bibitem[Ntalampiras(2013)]{ntalampiras2013}
+\DIFadd{Ntalampiras, S.
+}\newblock \DIFadd{A Novel Holistic Modeling Acoustic Approach for Generalized Sound
+  Recognition.
+}\newblock {\em \DIFadd{IEEE Signal Processing Letters}} {\bf \DIFadd{2013}}\DIFadd{, }{\em \DIFadd{20}}\DIFadd{,~185--188.
+}
+
+\DIFaddend \bibitem[Ellis(2005)]{ellis2005}
 Ellis, D.
 \newblock {PLP} and {RASTA} (and {MFCC}, and inversion) in {M}atlab.
 \newblock \url{http://www.ee.columbia.edu/~dpwe/resources/matlab/rastamat/},
@@ -327,6 +418,21 @@ Rosen, S.
   aspects.
 \newblock {\em Philosophical Transactions of the Royal Society of London B:
   Biological Sciences} {\bf 1992}, {\em 336},~367--373.
+\DIFaddbegin 
+
+\bibitem[itu(2003)]{itup835}
+{\DIFadd{ITU-T P.835: Subjective test methodology for evaluating speech communication
+  systems that include noise suppression algorithm}}\DIFadd{,  2003.
+}
+
+\bibitem[Ntalampiras \em{et~al.}(2008)Ntalampiras, Ganchev, and
+  Potamitis]{ntalampiras2008}
+\DIFadd{Ntalampiras, S.; Ganchev, T.; Potamitis, I.
+}\newblock \DIFadd{A Novel Holistic Modeling Acoustic Approach for Generalized Sound
+  Recognition.
+}\newblock  \DIFadd{1st international conference on PErvasive Technologies Related to
+  Assistive Environments,  2008.
+}\DIFaddend 
 
 \bibitem[Griffin and Lim(1984)]{griffin1984}
 Griffin, D.; Lim, J.
