@@ -19,7 +19,9 @@ $\rightarrow$ This is now more clearly dscussed in the introduction as well as i
 
 \item \emph{Is it possible to achieve a two channel coding and transmission with this proposed scheme?}
 
-$\rightarrow$ While a single audio channel was selected for this study, a multiple channel encoding can be performed by applying the Delta compression along both the time and channels dimensions. As the transmitted data primarily consists of energetic measurements, additional channels are likely to be encoded very efficiently due to the redundance of information already contained in the first channel.
+$\rightarrow$ While a single audio channel was selected for this study, a multiple channel encoding can be performed by applying the Delta compression along both the time and channels dimensions. As the transmitted data primarily consists of energetic measurements, additional channels are likely to be encoded very efficiently due to the redundancy of information already contained in the first channel.
+
+FELIX : reference to where the article has been modified.
 
 \item \emph{Typos:\\
 - Small English typos.\\
@@ -36,7 +38,7 @@ $\rightarrow$ The typos have been corrected and the whole manuscript has been ca
 
 \item \emph{The Introduction is a bit shaky and needs to be reworked in my opinion. This section should: a) provide a literature review of the state of the art on acoustic sensors’ networks; b) identify a methodological gap in current practice; c) explain why it is important to fill it; and d) give a glimpse about how the proposed research aimed to do so. The current structure is confusing to me, with Section 2 coming a bit out of the blue (I feel it should be reported earlier in the Introduction).}
 
-$\rightarrow$ Following this comment as well as the comment of Reviewer III, we reworked the introduction to match this format. The considerations on acoustic monitoring and event detection in urban sound environments previously discussed in Section 2 have also been moved earlier in the introduction. A new section (Section 2.1) was added to discuss the choice of data representation.
+$\rightarrow$ Following your comment as well as the comment of Reviewer III, we have rewritten the introduction to better highlight the contributions of the paper. The considerations on acoustic monitoring and event detection in urban sound environments previously discussed in Section 2 have also been moved earlier in the introduction to better frame those contributions. A new section (Section 2.1) was added to discuss the choice of data representation.
 
 \item \emph{Please, also note that not all readers are likely to be familiar with ASC and AED protocols, so it would be nice if the authors could provide some more details about the general steps; i.e., feature extraction (parametrisation) stage, classification stage, etc.}
 
@@ -48,11 +50,11 @@ $\rightarrow$ Our coding scheme must observe several constraints, namely low bit
 
 \item \emph{In general, a strange aspect for me is that, this paper being submitted to the journal Sensors, there is no actual description of the sensors’ network architecture and/or hardware components proposed for the current study.}
 
-$\rightarrow$ The main contribution of this work, which is now more clearly shown in the introduction, is about the definition of a coding scheme that will be used (as stated in the conclusion) in a sensor network. But prior to this usage, several properties needed to be validated, motivating this work.
+$\rightarrow$ The main contribution of this work, which is now more clearly shown in the introduction, is about the definition of a coding scheme that will be used (as stated in the conclusion) in a sensor network that will be implemented in a near future. But prior to this usage, several properties needed to be validated, motivating this work.
 
 \item \emph{The overall structure of the paper should be re-thought in my opinion, as the reader struggles to orientate himself between the different sections of the manuscript. When I read the conclusions, it is hard to track back the discourse in the methodological and results sections.}
 
-$\rightarrow$ We added more references bewteen sections to facilitate the reader's orientation in the manuscript.
+$\rightarrow$ We added more references between sections to facilitate the reader's orientation in the manuscript.
 
 \end{enumerate}
 
@@ -72,23 +74,25 @@ $\rightarrow$ The contribution is now more clearly stated in the introduction.
 \item \emph{Why did you select these classification schemes? There many approaches in the literature exploiting that; for example "A novel holistic modeling approach for generalized sound recognition". In addition to that, the authors should justify why the did not employ deep learning (for both feature extraction and pattern recognition).}
 
 $\rightarrow$ As is now explained in Section 3.2, we do not aim at achieving the best classification performance but 1) to prove that third-octave bands match the most commonly used descriptors for the classification task, and 2) to discuss the effect of encoding parameters on the recognition accuracy to select the most appropriate. To this aim we chose to replicate the baseline results for the considered dataset on these four schemes.
-The study of more advanced classification schemes and of deep learning for AED will however be of particular interest in future related work.
+The study of more advanced classification schemes and of deep learning for AED is very interesting and will be of particular interest in future work.
 
 \item \emph{Another point regarding detection would be to relate this work with other operating in real unrestricted environments, such as "Acoustic detection of human activities in natural environments" and how the proposed method could boost the existing ones.}
 
-$\rightarrow$ This would be a very interesting avenue of research that could be considered for future work. 
+$\rightarrow$ This would be a very interesting avenue of research that could be considered for future work.
+
+FELIX give ref to where you discuss this the paper.
 
 \item \emph{Since the authors use the UrbanSound8k dataset, it is not clear how the sensor grid approach is applied. Is there a grid of sensors included?}
 
-$\rightarrow$ As stated in the introduction and conclusion, the proposed scheme will be applied to a sensor grid as part of the CENSE project. However, as this sensor grid is not yet implemented, the UrbanSound8k dataset provides both a decent amount of audio data with similar content (urban environmental sounds) and classification methods and results that can be used as a baseline for our work. 
+$\rightarrow$ As now more clearly stated in the introduction and conclusion, the proposed scheme will be applied to a sensor grid as part of the CENSE project. However, as this sensor grid is not yet implemented, the UrbanSound8k dataset provides both a decent amount of audio data with similar content (urban environmental sounds) and classification methods and results that can be used as a baseline for our work.
 
 \item \emph{The authors should compare their system with other existing in the related literature to understand its merits and limitations. This should be done in many levels, i.e. coding, recognition, detection, etc.}
 
-$\rightarrow$ The contribution of this work is on the coding only. To the best of our knowledge the proposed approach is the only scheme where the data transmitted is not the detected events nor the raw audio but an intermediate spectral based format, specifically designed for acoustic monitoring and AED.
+$\rightarrow$ The contribution of this work is on the coding only. As discussed in the introduction, to the best of our knowledge the proposed approach is the only scheme where the data transmitted is not the detected events nor the raw audio but an intermediate spectral based format, specifically designed for acoustic monitoring and AED, thus motivating this paper.
 
 \item \emph{Regarding intelligibility, it would be nice if the authors gave more information on the used metric. Moreover they should use standard metrics used for that which are similar to those used in the speech enhancement field. See paper "Objective comparison of speech enhancement algorithms under real world conditions" for more details.}
 
-$\rightarrow$ While we are aware that standardized metrics exist such as the ITU protocols, we believe that they are not adapted to the evaluation of intelligibility in this application. The encoding process distorts the signal in a very non-linear way, so that we have no control over the background and signal elements. A five-point score on the overall intelligibility is however used, and a second metric (the transcription ratio) is designed to account for the typical distortions induced by linearly scaled spectrogram and phase recoveries. Motivation and insight concerning the used metrics are now added in Section 3.3.
+$\rightarrow$ While we are aware that standardized metrics exist such as the ITU protocols, we found that they are not adapted to the evaluation of intelligibility in this application. The encoding process distorts the signal in a very non-linear way, so that we have no control over the background and signal elements. A five-point score on the overall intelligibility is still used however, and a second metric (the transcription ratio) is designed to account for the typical distortions induced by linearly scaled spectrogram and phase recoveries. Motivation and insights concerning the used metrics as well as this discussion are now added in Section 3.3.
 
 \end{enumerate}
 
