@@ -1,7 +1,7 @@
 %  LaTeX support: latex@mdpi.com
 %DIF LATEXDIFF DIFFERENCE FILE
-
-
+%DIF DEL articleV1.tex   Wed Nov 15 12:47:03 2017
+%DIF ADD articleV2.tex   Thu Nov 16 15:55:38 2017
 %  In case you need support, please attach all files that are necessary for compiling as well as the log file, and specify the details of your LaTeX setup (which operating system and LaTeX version / tools you are using).
 
 % You need to save the "mdpi.cls" and "mdpi.bst" files into the same folder as this template file.
@@ -163,20 +163,20 @@ The advent of low cost acoustic sensors together with the need to better monitor
 In such approach, the number of sensor nodes shall be extended as needed without having to change the hardware and software architecture, \textit{i.e.} the approach shall be scalable. Second, the nodes shall be energy efficient, ideally autonomous, in order to ease the deployment of the sensor grid to the desired topology. Third, the encoding scheme used to transmit the data from the sensor to the storage and processing servers shall be designed with care in order to guarantee the privacy of the citizens. At the same time, the data stored shall remain as rich as possible while maintaining a low bitrate for efficient transmission and storage.
 
 In the case of \DIFaddbegin \DIFadd{urban }\DIFaddend acoustic monitoring, the data of interest \DIFdelbegin \DIFdel{can be quantitative such as standard acoustic indicators (LAeq, ...) or qualitative }\DIFdelend \DIFaddbegin \DIFadd{typically consists of standardized high-quality measurements of energetic indicators }\DIFaddend such as the \DIFdelbegin \DIFdel{presence of sound sources of interest (bird calls, sirens, ...). The latter allows us }\DIFdelend \DIFaddbegin \DIFadd{equivalent sound level $L_{eq}$ in dB SPL or its A-weighted counterpart $L_{Aeq}$ in dBA. However, while these indicators have proven to correlate well with perceptual evaluations for negative impact sound environments \mbox{%DIFAUXCMD
-\cite{gozalo2015}}%DIFAUXCMD
+\cite{gozalo2015}}\hspace{0pt}%DIFAUXCMD
 , they are not sufficient to fully describe urban sound environments \mbox{%DIFAUXCMD
-\cite{rychtarikova2013}}%DIFAUXCMD
+\cite{rychtarikova2013}}\hspace{0pt}%DIFAUXCMD
 . Many other variables can be derived to better account for previously implicit properties \mbox{%DIFAUXCMD
-\cite{can2016} }%DIFAUXCMD
+\cite{can2016} }\hspace{0pt}%DIFAUXCMD
 including percentile values or time dynamics. Studies have been conducted to select relevant subsets of descriptors in sound environment characterization \mbox{%DIFAUXCMD
-\cite{can2015, brocolini2013, nilsson2007}}%DIFAUXCMD
+\cite{can2015, brocolini2013, nilsson2007}}\hspace{0pt}%DIFAUXCMD
 .
 }
 
 \DIFadd{In addition, considering sound sources allows }\DIFaddend to better assess the human perception of the urban sound environment in terms of pleasantness and other perceptual indicators \cite{lavandier2006contribution, aumond2017modeling}. \DIFdelbegin \DIFdel{This }\DIFdelend \DIFaddbegin \DIFadd{For instance, a bird song and traffic noise with the same energy are perceived very differently. Most acoustic indicators used in current sound maps describe the global sound environment and lack information on its composition. The recognition and the estimation of the level of contribution of sources of interest is thus of great importance to fully model the studied acoustic environments, see for example \mbox{%DIFAUXCMD
-\cite{alsina2016design, app7020146, gloaguen2016estimating}}%DIFAUXCMD
+\cite{alsina2016design, app7020146, gloaguen2016estimating}}\hspace{0pt}%DIFAUXCMD
 . Other indicators have been found to correlate with specific sound environment content \mbox{%DIFAUXCMD
-\cite{aumond2017} }%DIFAUXCMD
+\cite{aumond2017} }\hspace{0pt}%DIFAUXCMD
 but do not achieve the level of performances of a well-designed source detection scheme in characterizing acoustic environments. This source }\DIFaddend detection step can respectively be operated online (on the sensors) or offline (on the data servers) leading to different grid designs (Figure \ref{fig:codingScheme}).
 
 Performing the detection online (case B of Figure \ref{fig:codingScheme}) is efficient in terms of data storage as only the detected events are transmitted. This approach is thus currently considered in several \DIFdelbegin \DIFdel{approaches }\DIFdelend \DIFaddbegin \DIFadd{applications }\DIFaddend in the literature \cite{defreville2006automatic, mydlarz2017implementation, mydlarz2015design}. Though, it requires the availability of decent computing resources on the sensors in order to perform the detection step which as of today's efficiency of hardware does not allow them to be autonomous using power sources like \DIFdelbegin \DIFdel{decent size }\DIFdelend solar panels. Furthermore, the detection is done once and cannot be recomputed during offline posterior analyses.
@@ -184,7 +184,7 @@ Performing the detection online (case B of Figure \ref{fig:codingScheme}) is eff
 Performing the detection offline has several benefits. First, the sensor task is much simpler and can thus be implemented on low energy consumption processors. This means that the sensors can be autonomous in terms of energy, which greatly eases the deployment of the network. Second, it allows researchers to gather large amount of data that can be post-processed and studied further offline. Data can be re-analyzed following newer classification schemes or using new indicators. Though, transmitting the raw audio  through the network (case A of Figure \ref{fig:codingScheme}) has several disadvantages, in terms of required bandwidth, storage capabilities and privacy. Thus, for transmission from the sensors to the storage unit, the data shall be encoded in a more efficient way than lossy audio encoding standards \cite{pan1995tutorial}. Indeed, the audio signal is not mandatory for the computation of the acoustic indicators and the features needed for event recognition. Also, as the data is transmitted using the network and stored, one must ensure that the intelligibility of potential speech utterances is lost during the coding process, in order to guarantee the privacy of the citizens.
 
 \DIFdelbegin \DIFdel{We thus propose }\DIFdelend \DIFaddbegin \DIFadd{The analysis of sources within a sound environment is generally linked with spectral content \mbox{%DIFAUXCMD
-\cite{ishiyama2000} }%DIFAUXCMD
+\cite{ishiyama2000} }\hspace{0pt}%DIFAUXCMD
 and high temporal resolutions while acoustic indicators focus on more scarce but highly accurate measurements. To the best of our knowledge, no efficient coding scheme has been proposed for large-scale sensor network. We thus present }\DIFaddend in this paper an audio coding scheme specifically tailored for use in a sensor grid (case C of Figure \ref{fig:codingScheme}). \DIFdelbegin \DIFdel{It has the following features: it is of low bitrate but still allows the computation of most of the standard acoustics indicators with controllable precision. As far as acoustic event detection is concerned, we }\DIFdelend \DIFaddbegin \DIFadd{The proposed method computes and encodes third-octave bands $L_{eq}$ with controllable precision, enabling low bitrate transmissions while allowing both the derivation of other acoustic indicators and the implementation of offline audio event detection schemes. We }\DIFaddend report equivalent performance of several state-of-the-art classification \DIFdelbegin \DIFdel{schemes }\DIFdelend \DIFaddbegin \DIFadd{models }\DIFaddend from features computed using raw audio data and encoded data at production level rates. Finally, according to a perceptual evaluation, the proposed coding scheme very strongly degrades the intelligibility, thus ensuring citizen privacy.
 
 In order to promote reproducible research, the coder as well as the experiments needed to generate the figures is available to the research community\footnote{\url{https://github.com/felixgontier/cense-coder}}. The remaining of the paper is organized as follows: Section \DIFdelbegin \DIFdel{\ref{sec:background} reviews the types of data that need to be estimated using the transmitted data and Section }\DIFdelend \ref{sec:coder} describes the proposed encoding scheme. The experimental protocol designed to validate the proposed approach is described in Section \ref{sec:protocol} and results are discussed in Section \ref{sec:results}.
@@ -206,7 +206,6 @@ In order to promote reproducible research, the coder as well as the experiments 
 }\DIFdelend \DIFaddbegin \subsection{\DIFadd{Data representation}}
 \DIFaddend 
 
-
 \DIFdelbegin \subsection{\DIFdel{Acoustic monitoring}}
 %DIFAUXCMD
 \addtocounter{subsection}{-1}%DIFAUXCMD
@@ -214,21 +213,21 @@ In order to promote reproducible research, the coder as well as the experiments 
 
 %DIFDELCMD < %%%
 \DIFdel{The considered sensor network primarily aims at monitoring urban sound environments, that is, continuously assessing their content and impact on the population. In the literature, this is typically performed by measuring energetic acoustic indicators such as the equivalent sound pressure level $L_{eq}$ in dB SPL or its A-weighted equivalent $L_{Aeq}$ in dBA. However, while these indicators have proven to correlate well with perceptual evaluations for negative impact sound environments \mbox{%DIFAUXCMD
-\cite{gozalo2015}}%DIFAUXCMD
+\cite{gozalo2015}}\hspace{0pt}%DIFAUXCMD
 , they are not sufficient to fully describe urban sound environments \mbox{%DIFAUXCMD
-\cite{rychtarikova2013}}%DIFAUXCMD
+\cite{rychtarikova2013}}\hspace{0pt}%DIFAUXCMD
 . Many other variables can be derived to better account for previously implicit properties \mbox{%DIFAUXCMD
-\cite{can2016} }%DIFAUXCMD
+\cite{can2016} }\hspace{0pt}%DIFAUXCMD
 including percentile values or time dynamics. Studies have been conducted to select relevant subsets of descriptors in sound environment characterization \mbox{%DIFAUXCMD
-\cite{can2015, brocolini2013, nilsson2007}}%DIFAUXCMD
+\cite{can2015, brocolini2013, nilsson2007}}\hspace{0pt}%DIFAUXCMD
 . The mentionned $L_{eq}$ features are measured at periods of 0.125~ms or 1~s, respectively termed as "fast" and "slow" as a convention.
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdel{Most measured or derived indicators describe the global urban acoustic environment and lack information on its composition. Sound sources recognition enables a more comprehensive understanding of the properties of the acoustic environment. For instance, a bird song and traffic noise with the same energy are perceived very differently. The analysis of sources within a sound environment is generally linked with spectral content \mbox{%DIFAUXCMD
-\cite{ishiyama2000} }%DIFAUXCMD
+\cite{ishiyama2000} }\hspace{0pt}%DIFAUXCMD
 and high temporal measurement resolutions. Other indicators can correlate with specific sound environment content \mbox{%DIFAUXCMD
-\cite{aumond2017} }%DIFAUXCMD
+\cite{aumond2017} }\hspace{0pt}%DIFAUXCMD
 but do not achieve the level of performances of a good source detection scheme in characterizing acoustic environments.
 }%DIFDELCMD < 
 
@@ -240,7 +239,7 @@ but do not achieve the level of performances of a good source detection scheme i
 
 %DIFDELCMD < %%%
 \DIFdel{The recognition and the estimation of the level of contribution of sources of interest is thus of great importance to fully model the studied acoustic environments, see for example \mbox{%DIFAUXCMD
-\cite{alsina2016design, app7020146, gloaguen2016estimating}}%DIFAUXCMD
+\cite{alsina2016design, app7020146, gloaguen2016estimating}}\hspace{0pt}%DIFAUXCMD
 . As far as the encoding scheme is concerned, it is therefore important that the encoded data allows us to compute the above cited indicators but also preserve a sufficient amount of information to reliably detect the different sound sources of interest.
 }%DIFDELCMD < 
 
@@ -249,9 +248,19 @@ but do not achieve the level of performances of a good source detection scheme i
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
-\DIFdel{They may also be exploited together with features }\DIFdelend \DIFaddbegin \DIFadd{Features can also be }\DIFaddend computed in other domains to better model signal properties. For instance, \cite{cai2006} adds spectral features related to harmonicity and salient frequencies, and \cite{chu2009} uses a matching pursuit (MP) algorithm to deduce time-domain features. Another promising solution is feature engineering via unsupervised learning, which \cite{salamon2015-2} implements with a clustering technique. Alternative data representations such as the scattering transform \cite{bauge2013} show good results in environmental sound classification tasks \cite{salamon2015}. \DIFdelbegin %DIFDELCMD < \\
+\DIFdel{They may also be exploited together with features }\DIFdelend \DIFaddbegin \DIFadd{Features can also be }\DIFaddend computed in other domains to better model signal properties. For instance, \cite{cai2006} adds spectral features related to harmonicity and salient frequencies, and \cite{chu2009} uses a matching pursuit (MP) algorithm to deduce time-domain features. \DIFaddbegin \DIFadd{Alternative data representations such as the scattering transform \mbox{%DIFAUXCMD
+\cite{bauge2013} }\hspace{0pt}%DIFAUXCMD
+show good results in environmental sound classification tasks \mbox{%DIFAUXCMD
+\cite{salamon2015}}\hspace{0pt}%DIFAUXCMD
+. }\DIFaddend Another promising solution is feature engineering via unsupervised learning, which \cite{salamon2015-2} implements with a clustering technique. \DIFdelbegin \DIFdel{Alternative data representations such as the scattering transform \mbox{%DIFAUXCMD
+\cite{bauge2013} }\hspace{0pt}%DIFAUXCMD
+show good results in environmental sound classification tasks \mbox{%DIFAUXCMD
+\cite{salamon2015}}\hspace{0pt}%DIFAUXCMD
+. }%DIFDELCMD < \\
 %DIFDELCMD < %%%
-\DIFdelend A more detailed review of used methods is available in \cite{chachada2013}.
+\DIFdelend \DIFaddbegin \DIFadd{More complex systems using multiple-domain data representation as well as unsupervised models have been found to handle unrestricted environments suche as urban acoustic scenes efficiently \mbox{%DIFAUXCMD
+\citep{ntalampiras2012}}\hspace{0pt}%DIFAUXCMD
+. }\DIFaddend A more detailed review of used methods is available in \cite{chachada2013}.
 
 \DIFdelbegin \section{\DIFdel{Encoding scheme}} %DIFAUXCMD
 \addtocounter{section}{-1}%DIFAUXCMD
@@ -310,7 +319,7 @@ The decoding process is quite straightforward, as both Huffman and $\Delta$ comp
 \begin{figure*}[htbp]
 	\centering
 		\includegraphics[width=.9\textwidth]{figures/scheme.pdf}
-	\caption{Overview of the coder process.}
+	\caption{Overview of the \DIFdelbeginFL \DIFdelFL{coder }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{encoding }\DIFaddendFL process.}
 	\label{fig:scheme}
 \end{figure*}
 
@@ -329,37 +338,37 @@ The coder's output bitrate as well as measurement error is computed for both dat
 
 \DIFaddend To provide relevant statistics, these quantities are estimated with data from the 4500 audio recordings of the UrbanSound8k dataset \cite{salamon2014} described in the next section and 4500 \textit{iid.} \DIFaddbegin \DIFadd{Gaussian }\DIFaddend noise sequences.
 
-\subsection{Event recognition} \DIFaddbegin \label{sec:event_p}
+\subsection{\DIFdelbegin \DIFdel{Event }\DIFdelend \DIFaddbegin \DIFadd{Preserving event }\DIFaddend recognition \DIFaddbegin \DIFadd{performance at low bitrate}\DIFaddend } \DIFaddbegin \label{sec:event_p}
 \DIFaddend 
 
 In order to ensure that the proposed scheme allows the recognition of events using \DIFdelbegin \DIFdel{state of the art }\DIFdelend \DIFaddbegin \DIFadd{state-of-the-art }\DIFaddend methods, we consider the results achieved by several recognition systems on the UrbanSound8k dataset\cite{salamon2014}. It features about 9 hours of urban environmental sounds recordings separated in 8732 audio files ranging from 1 to 4 seconds each. The recordings are labeled in 10 classes (air conditioner, car horn, children playing, dog bark, drilling, engine idling, gun shot, jackhammer, siren, street music), and distributed in 10 independent folds. A method and baseline results are also provided for the classification task. \DIFdelbegin \DIFdel{It is used in all the following experiments with the exception of intelligibility computation for which a small dataset of high-quality voice recordings is preferred. Audio }\DIFdelend \DIFaddbegin \DIFadd{In this study, audio }\DIFaddend files are resampled at 44.1~kHz, normalized and only the left channel is considered for further analysis.
 
 \DIFdelbegin \DIFdel{Mel spectrograms are computed with the }\textit{\DIFdel{rastamat}} %DIFAUXCMD
 \DIFdel{library \mbox{%DIFAUXCMD
-\cite{ellis2005} }%DIFAUXCMD
+\cite{ellis2005} }\hspace{0pt}%DIFAUXCMD
 to assess the relative performance of third-octave bands. STFT analysis frames are obtained by applying a Hann window on 23.2~ms of signal with 50\% (11.6~ms) overlap to allow for efficient phase recovery in further tests.
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdel{We }\DIFdelend \DIFaddbegin \DIFadd{The aim of this experiment is two-fold: to }\DIFaddend evaluate the global loss of information induced by the \DIFdelbegin \DIFdel{coder by implementing the four classificationmodels }\DIFdelend \DIFaddbegin \DIFadd{coding process, and to evaluate the adequacy of third-octave bands indicators for classification. As studying the best performing classical models \mbox{%DIFAUXCMD
-\citep{ntalampiras2013}}%DIFAUXCMD
+\citep{ntalampiras2013}}\hspace{0pt}%DIFAUXCMD
 , deep learning approaches \mbox{%DIFAUXCMD
-\citep{salamon2017} }%DIFAUXCMD
+\citep{salamon2017} }\hspace{0pt}%DIFAUXCMD
 or unsupervised feature learning is beyond the scope of this paper, we choose to replicate the baseline models and results }\DIFaddend proposed in \cite{salamon2014}\DIFaddbegin \DIFadd{.
 }
 
 \DIFadd{The four classification models are as follow}\DIFaddend : a support vector machine with a radial basis function kernel, a random forest classifier with 500 trees, a decision tree and a k-nearest neighbors classifier with $k = 5$. Values for the SVM parameter $C$ and RBF kernel variance $\sigma^2$ are determined using a grid search. We optionally apply a discrete cosine transform to the critical band signal representation to obtain cepstra, known as Mel Frequency Cepstrum Coefficients or MFCC in the case of Mel spectrograms. The 25 first coefficients are kept, and summarized along time with several statistics such as the mean, variance, skewness, kurtosis, minimum, maximum, median, derivative mean and variance, second order derivative mean and variance operators. The feature vector is thus comprised of 275 values to reproduce available results and compare with the data produced by the proposed coding scheme. Models are trained for each setup using the 10-fold cross validation method provided by the authors of \cite{salamon2014}, that is, every combination of testing one fold on models trained with the other nine. \DIFaddbegin \DIFadd{A summary of the considered classification process is shown in Figure~\ref{fig:class_flwc}.
 }\DIFaddend 
 
-\DIFaddbegin \begin{figure*}[htbp]
+\DIFaddbegin \begin{figure*}[t]
 	\centering
 		\includegraphics[width=.9\textwidth]{figures/class.pdf}
-	\caption{\DIFaddFL{Classification process flowchart. Here third-octave bands are obtained by reversing the operations in Section~\ref{sec:dataenc}. Cepstral coefficients are then computed before training the model. Cross-validation is achieved by independantly training and testing the models with each of the 10 combination of a 90\%-10\% training-validation dataset separation. Accuracy results are considered only for validation (not encountered during training) data.}}
+	\caption{\DIFaddFL{Classification process flowchart. Here third-octave bands are obtained by reversing the operations in Section~\ref{sec:dataenc} and cepstral coefficients are computed before training the model. Cross-validation is achieved by independantly training and testing the models with each of the 10 combination of a 90\%-10\% training-validation dataset separation.}}
 	\label{fig:class_flwc}
 \end{figure*}
 
 \DIFadd{Mel spectrograms are also computed with the }\textit{\DIFadd{rastamat}} \DIFadd{library \mbox{%DIFAUXCMD
-\cite{ellis2005} }%DIFAUXCMD
+\cite{ellis2005} }\hspace{0pt}%DIFAUXCMD
 to assess the relative performance of third-octave bands. STFT analysis frames are obtained by applying a Hann window on 23.2~ms of signal with 50\% (11.6~ms) overlap to allow for efficient phase recovery.
 }
 
@@ -379,22 +388,22 @@ A second approach is to wisely choose the frame rate. Since a phoneme is about 1
 Thus, the impact of the frame rate parameter of the proposed encoding scheme on intelligibility is evaluated. To do so, a perceptual test is conducted. For the evaluation, a dataset of clean speech utterances recorded in studio conditions is used. The dataset is \DIFdelbegin \DIFdel{made }\DIFdelend \DIFaddbegin \DIFadd{composed }\DIFaddend of 9 french sentences enunciated by 3 male and 3 female speakers. The sentences have an mean duration of $2~s$ and are composed of 5 to 12 words, averaging at 8. The 54 extracts are encoded using the proposed approach with 4 analysis frame rate parameters of respectively 50~Hz, 16~Hz, 8~Hz and 4~Hz leading to 216 audio excerpts being tested in total. However, as the recording conditions are the same for all extracts the speaker identity is considered as a source of variability rather than as a necessary factor in the test statistics. As a result the objective is primarily to evaluate the 9 sentences with 4 encoding frame rates, \textit{i.e.} 36 parameters.
 
 \DIFaddbegin \DIFadd{Several subjective intelligibility metrics are standardized in the literature such as the system proposed in \mbox{%DIFAUXCMD
-\cite{itup835}}%DIFAUXCMD
+\cite{itup835}}\hspace{0pt}%DIFAUXCMD
 . However, metrics regarding the signal only (SIG) or background noise only (BAK) which are often used to evaluate speech enhancement schemes \mbox{%DIFAUXCMD
-\citep{ntalampiras2008}}%DIFAUXCMD
+\citep{ntalampiras2008}}\hspace{0pt}%DIFAUXCMD
 , are not suitable for this test due to the background and signal being mixed with an uncontrollable SNR by the encoding process. Given these conditions a subjective score on the whole signal is used similarly to the OVRL score. As decoding the transmitted audio induces a framing effect unevenly distorting the input utterance, a second metric is designed to assess the comprehension of words. }\DIFaddend For the perceptual test, \DIFdelbegin \DIFdel{each subject is presented with sentences and asked after listening to each sentence to both transcribe the utterances and rate the global }\DIFdelend \DIFaddbegin \DIFadd{18 different sentences evenly distributed over the 4 frame rate parameters are selected for each subject. For each sentence the participant first listens to the extract and is then asked to transcribe the utterance and to rate the perceived }\DIFaddend intelligibility from 1 (not intelligible) to 5 (intelligible). \DIFdelbegin \DIFdel{Due to the low number of sentences, each one is tested twice by the same subject but under different encoding setting and speaker identity. As a result each subject evaluates 18 extracts evenly distributed over the 4 frame rate parameters.
 }\DIFdelend \DIFaddbegin \DIFadd{The first metric is directly the score attributed by the listener, referred as the intelligibility score (IS). The second metric is computed as the ratio of correctly transcribed words and will be referred as the intelligibility ratio (IR) in this paper.
 }
 
 \DIFaddend 12 subjects of age ranging from 17 to 60 which reported normal hearing participated to the listening test. The test was conducted using a Matlab interface displayed with a desktop computer and audio was played through \textit{Beyerdynamics DT 770} headphones. The output level was set by the experimenter at the same level for all subjects. The mean duration of the test was about 8 minutes.
 
-This test requires an implementation of the inverse operation of the coding process to provide the listener with an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation is achieved by multiplying the spectral representation by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. The signal phase is recovered with the Griffin \& Lim algorithm \cite{griffin1984} if analysis overlap is used and white noise spectrogram scaling if not. The time-domain signal is then retrieved using the overlap-add method. When using overlap to compute third-octave bands, framing effects produced by rectangular windowing are reduced by convoluting the signal with a Hann windowing function prior to inverse-STFT computation.
+This test requires an implementation of the inverse operation of the coding process to provide the listener with an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation is achieved by multiplying the spectral representation by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. \DIFdelbegin \DIFdel{The signal }\DIFdelend \DIFaddbegin \DIFadd{In fact, each white square can be interpreted as the filter applied to obtain a single third-octave band. The filtering process will average the energy content of the signal over the corresponding band. As a result the energy located at a specific frequency is impossible to recover and the best inverse approximation is to split the third-octave band's observed energy into all the corresponding frequency bins with the same proportions as during analysis. This leads to the phenomenon seen on Figure~\ref{fig:freq} where part of the energy of a frequency bin in the original signal is found in all other bins of the same band at reconstruction, in almost equal proportions. The signal }\DIFaddend phase is recovered with the Griffin \& Lim algorithm \cite{griffin1984} if analysis overlap is used and white noise spectrogram scaling if not. The time-domain signal is then retrieved using the overlap-add method. When using overlap to compute third-octave bands, framing effects produced by rectangular windowing are reduced by convoluting the signal with a Hann windowing function prior to inverse-STFT computation.
 
 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figures/freq.png}
-	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
+	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. \DIFaddbeginFL \DIFaddFL{Here a brighter gray indicates that part of the energy contained at the corresponding frequency of the original signal is transferred to the reconstructed signal at the indicated frequency. }\DIFaddendFL This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
 	\label{fig:freq}
 \end{figure}
 
@@ -496,13 +505,15 @@ The same set of parameters as in bitrate evaluation is used to study the impact 
 \DIFdelend 
 
 First, we observe the impact of quantization on classification accuracy. The models are trained on the most complete implemented representation \DIFaddbegin \DIFadd{to replicate the results of \mbox{%DIFAUXCMD
-\citep{salamon2014}}%DIFAUXCMD
+\citep{salamon2014}}\hspace{0pt}%DIFAUXCMD
 }\DIFaddend , ie. 40 Mel bands, 23.2~ms, 50\% overlap \DIFaddbegin \DIFadd{analysis }\DIFaddend and no time averaging (85 frames per second). Figure~\ref{fig:class_mel_q} shows that \DIFdelbegin \DIFdel{this process yields equivalent accuracy for higher resolutions}\DIFdelend \DIFaddbegin \DIFadd{equivalent accuracies are obtained for all considered values of the quantization parameter $q$ down to 5 bits}\DIFaddend .\\
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figures/class_mel_q.eps}
-	\caption{Classification accuracy as a function of word size before encoding. The baseline plotted on the right is computed without quantizing the representation.}
+		\DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.5\textwidth]{figures/class_mel_q.eps}
+%DIFDELCMD < 	%%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.8\textwidth]{figures/class_mel_q.eps}
+	\DIFaddendFL \caption{Classification accuracy as a function of word size before encoding. The baseline plotted on the right is computed without quantizing the representation.}
 	\label{fig:class_mel_q}
 \end{figure}
 
@@ -585,8 +596,10 @@ We now compare the efficiency of third-octave bands at \DIFdelbegin \DIFdel{char
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figures/class_tob_q.eps}
-	\caption{Classification accuracy with third-octave bands and varying word size.}
+		\DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.5\textwidth]{figures/class_tob_q.eps}
+%DIFDELCMD < 	%%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.8\textwidth]{figures/class_tob_q.eps}
+	\DIFaddendFL \caption{Classification accuracy with third-octave bands and varying word size.}
 	\label{fig:class_tob_q}
 \end{figure}
 

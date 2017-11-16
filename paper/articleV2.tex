@@ -153,8 +153,7 @@ In order to promote reproducible research, the coder as well as the experiments 
 
 \subsection{Data representation}
 
-
-The identification of sources from audio streams has been the subject of extensive research in the past for speech data \cite{anusuya2009}, music data \cite{tzanetakis2002}, and lately environmental data in which the current work falls. Studied classification methods are diverse, ranging from time-dependant modeling with hidden Markov models \cite{ntalampiras2014} to "bag-of-frames" approaches \cite{aucouturier2007, foggia2015}. Common architectures include learning-based classifiers such as support vector machines \cite{kumar2016}, Gaussian mixture models \cite{radhakrishnan2005} or neural networks \cite{salamon2017, piczak2015}. Also, several type of features are considered to feed those classifiers. The most used are certainly spectral \cite{khunarsal2013} or cepstral \cite{couvreur2004} representations of the signal. Among them, Mel spectrograms and their cepstral-domain derivation, the Mel-frequency cepstrum coefficients (MFCC), are the most widely used as of today. These representations effectively model the human cochlear response to sounds by grouping frequency components around critical bands in a logarithmic scale. Features can also be computed in other domains to better model signal properties. For instance, \cite{cai2006} adds spectral features related to harmonicity and salient frequencies, and \cite{chu2009} uses a matching pursuit (MP) algorithm to deduce time-domain features. Another promising solution is feature engineering via unsupervised learning, which \cite{salamon2015-2} implements with a clustering technique. Alternative data representations such as the scattering transform \cite{bauge2013} show good results in environmental sound classification tasks \cite{salamon2015}. A more detailed review of used methods is available in \cite{chachada2013}.
+The identification of sources from audio streams has been the subject of extensive research in the past for speech data \cite{anusuya2009}, music data \cite{tzanetakis2002}, and lately environmental data in which the current work falls. Studied classification methods are diverse, ranging from time-dependant modeling with hidden Markov models \cite{ntalampiras2014} to "bag-of-frames" approaches \cite{aucouturier2007, foggia2015}. Common architectures include learning-based classifiers such as support vector machines \cite{kumar2016}, Gaussian mixture models \cite{radhakrishnan2005} or neural networks \cite{salamon2017, piczak2015}. Also, several type of features are considered to feed those classifiers. The most used are certainly spectral \cite{khunarsal2013} or cepstral \cite{couvreur2004} representations of the signal. Among them, Mel spectrograms and their cepstral-domain derivation, the Mel-frequency cepstrum coefficients (MFCC), are the most widely used as of today. These representations effectively model the human cochlear response to sounds by grouping frequency components around critical bands in a logarithmic scale. Features can also be computed in other domains to better model signal properties. For instance, \cite{cai2006} adds spectral features related to harmonicity and salient frequencies, and \cite{chu2009} uses a matching pursuit (MP) algorithm to deduce time-domain features. Alternative data representations such as the scattering transform \cite{bauge2013} show good results in environmental sound classification tasks \cite{salamon2015}. Another promising solution is feature engineering via unsupervised learning, which \cite{salamon2015-2} implements with a clustering technique. More complex systems using multiple-domain data representation as well as unsupervised models have been found to handle unrestricted environments suche as urban acoustic scenes efficiently \citep{ntalampiras2012}. A more detailed review of used methods is available in \cite{chachada2013}.
 
 In the acoustic monitoring field, the measurement of energetic indicators is mandatory to the development of noise maps. The third-octave bands $L_{eq}$ appears suitable for this work's purpose: in addition to being a relevant descriptor \cite{torija2013} for urban sound environment assessment, it allows for the computation of most cited indicators while representing reasonably small, fixed amounts of data to be transmitted. Interestingly, third-octave bands are closely related to MFCC as they both are logarithmic-scaled spectral representations of the audio signal and diverge only in their motivation, mathematical and perceptive respectively.
 
@@ -203,7 +202,7 @@ The decoding process is quite straightforward, as both Huffman and $\Delta$ comp
 \begin{figure*}[htbp]
 	\centering
 		\includegraphics[width=.9\textwidth]{figures/scheme.pdf}
-	\caption{Overview of the coder process.}
+	\caption{Overview of the encoding process.}
 	\label{fig:scheme}
 \end{figure*}
 
@@ -219,7 +218,7 @@ In order to assess the quality of the propoposed scheme's spectral measurement p
 
 To provide relevant statistics, these quantities are estimated with data from the 4500 audio recordings of the UrbanSound8k dataset \cite{salamon2014} described in the next section and 4500 \textit{iid.} Gaussian noise sequences.
 
-\subsection{Event recognition} \label{sec:event_p}
+\subsection{Preserving event recognition performance at low bitrate} \label{sec:event_p}
 
 In order to ensure that the proposed scheme allows the recognition of events using state-of-the-art methods, we consider the results achieved by several recognition systems on the UrbanSound8k dataset\cite{salamon2014}. It features about 9 hours of urban environmental sounds recordings separated in 8732 audio files ranging from 1 to 4 seconds each. The recordings are labeled in 10 classes (air conditioner, car horn, children playing, dog bark, drilling, engine idling, gun shot, jackhammer, siren, street music), and distributed in 10 independent folds. A method and baseline results are also provided for the classification task. In this study, audio files are resampled at 44.1~kHz, normalized and only the left channel is considered for further analysis.
 
@@ -227,10 +226,10 @@ The aim of this experiment is two-fold: to evaluate the global loss of informati
 
 The four classification models are as follow: a support vector machine with a radial basis function kernel, a random forest classifier with 500 trees, a decision tree and a k-nearest neighbors classifier with $k = 5$. Values for the SVM parameter $C$ and RBF kernel variance $\sigma^2$ are determined using a grid search. We optionally apply a discrete cosine transform to the critical band signal representation to obtain cepstra, known as Mel Frequency Cepstrum Coefficients or MFCC in the case of Mel spectrograms. The 25 first coefficients are kept, and summarized along time with several statistics such as the mean, variance, skewness, kurtosis, minimum, maximum, median, derivative mean and variance, second order derivative mean and variance operators. The feature vector is thus comprised of 275 values to reproduce available results and compare with the data produced by the proposed coding scheme. Models are trained for each setup using the 10-fold cross validation method provided by the authors of \cite{salamon2014}, that is, every combination of testing one fold on models trained with the other nine. A summary of the considered classification process is shown in Figure~\ref{fig:class_flwc}.
 
-\begin{figure*}[htbp]
+\begin{figure*}[t]
 	\centering
 		\includegraphics[width=.9\textwidth]{figures/class.pdf}
-	\caption{Classification process flowchart. Here third-octave bands are obtained by reversing the operations in Section~\ref{sec:dataenc}. Cepstral coefficients are then computed before training the model. Cross-validation is achieved by independantly training and testing the models with each of the 10 combination of a 90\%-10\% training-validation dataset separation. Accuracy results are considered only for validation (not encountered during training) data.}
+	\caption{Classification process flowchart. Here third-octave bands are obtained by reversing the operations in Section~\ref{sec:dataenc} and cepstral coefficients are computed before training the model. Cross-validation is achieved by independantly training and testing the models with each of the 10 combination of a 90\%-10\% training-validation dataset separation.}
 	\label{fig:class_flwc}
 \end{figure*}
 
@@ -252,13 +251,13 @@ Several subjective intelligibility metrics are standardized in the literature su
 
 12 subjects of age ranging from 17 to 60 which reported normal hearing participated to the listening test. The test was conducted using a Matlab interface displayed with a desktop computer and audio was played through \textit{Beyerdynamics DT 770} headphones. The output level was set by the experimenter at the same level for all subjects. The mean duration of the test was about 8 minutes.
 
-This test requires an implementation of the inverse operation of the coding process to provide the listener with an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation is achieved by multiplying the spectral representation by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. The signal phase is recovered with the Griffin \& Lim algorithm \cite{griffin1984} if analysis overlap is used and white noise spectrogram scaling if not. The time-domain signal is then retrieved using the overlap-add method. When using overlap to compute third-octave bands, framing effects produced by rectangular windowing are reduced by convoluting the signal with a Hann windowing function prior to inverse-STFT computation.
+This test requires an implementation of the inverse operation of the coding process to provide the listener with an estimate of the time-domain signal. To do so, a linearly-scaled spectrogram from the band-focused representations is estimated. This estimation is achieved by multiplying the spectral representation by the scaled transpose of the forward transformation matrix. A loss of resolution increasing with frequency is induced due to the shape of the transformation, as illustrated by Figure~\ref{fig:freq}. In fact, each white square can be interpreted as the filter applied to obtain a single third-octave band. The filtering process will average the energy content of the signal over the corresponding band. As a result the energy located at a specific frequency is impossible to recover and the best inverse approximation is to split the third-octave band's observed energy into all the corresponding frequency bins with the same proportions as during analysis. This leads to the phenomenon seen on Figure~\ref{fig:freq} where part of the energy of a frequency bin in the original signal is found in all other bins of the same band at reconstruction, in almost equal proportions. The signal phase is recovered with the Griffin \& Lim algorithm \cite{griffin1984} if analysis overlap is used and white noise spectrogram scaling if not. The time-domain signal is then retrieved using the overlap-add method. When using overlap to compute third-octave bands, framing effects produced by rectangular windowing are reduced by convoluting the signal with a Hann windowing function prior to inverse-STFT computation.
 
 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figures/freq.png}
-	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
+	\caption{Third-octave bands analysis and approximate inverse transformation effects on energy location. Here a brighter gray indicates that part of the energy contained at the corresponding frequency of the original signal is transferred to the reconstructed signal at the indicated frequency. This process yields an important and heterogeneous loss in resolution, particularly at higher frequency points.}
 	\label{fig:freq}
 \end{figure}
 
@@ -356,7 +355,7 @@ First, we observe the impact of quantization on classification accuracy. The mod
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figures/class_mel_q.eps}
+		\includegraphics[width=0.8\textwidth]{figures/class_mel_q.eps}
 	\caption{Classification accuracy as a function of word size before encoding. The baseline plotted on the right is computed without quantizing the representation.}
 	\label{fig:class_mel_q}
 \end{figure}
@@ -436,7 +435,7 @@ We now compare the efficiency of third-octave bands at differenciating sound sou
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figures/class_tob_q.eps}
+		\includegraphics[width=0.8\textwidth]{figures/class_tob_q.eps}
 	\caption{Classification accuracy with third-octave bands and varying word size.}
 	\label{fig:class_tob_q}
 \end{figure}

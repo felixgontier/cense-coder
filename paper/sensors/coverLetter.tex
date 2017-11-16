@@ -17,11 +17,11 @@ As a preamble, we would like to thank the editor and the reviewer for their comm
 
 $\rightarrow$ This is now more clearly dscussed in the introduction as well as in the conclusion where a dedicated paragraph has been added.
 
+CATHERINE: Est-il possible de dédier un petit paragraphe à la question dans la conclusion?
+
 \item \emph{Is it possible to achieve a two channel coding and transmission with this proposed scheme?}
 
-$\rightarrow$ While a single audio channel was selected for this study, a multiple channel encoding can be performed by applying the Delta compression along both the time and channels dimensions. As the transmitted data primarily consists of energetic measurements, additional channels are likely to be encoded very efficiently due to the redundancy of information already contained in the first channel.
-
-FELIX : reference to where the article has been modified.
+$\rightarrow$ While a single audio channel was selected for this study, a multiple channel encoding can be performed by applying the Delta compression along both the time and channels dimensions. As the transmitted data primarily consists of energetic measurements, additional channels are likely to be encoded very efficiently due to the redundancy of information already contained in the first channel. Future work using this idea in a sensor grid is now discussed in the conclusion.
 
 \item \emph{Typos:\\
 - Small English typos.\\
@@ -78,9 +78,7 @@ The study of more advanced classification schemes and of deep learning for AED i
 
 \item \emph{Another point regarding detection would be to relate this work with other operating in real unrestricted environments, such as "Acoustic detection of human activities in natural environments" and how the proposed method could boost the existing ones.}
 
-$\rightarrow$ This would be a very interesting avenue of research that could be considered for future work.
-
-FELIX give ref to where you discuss this the paper.
+$\rightarrow$ This would be a very interesting avenue of research that could be considered for future work. The discussion on data representations and models used in environmental audio event recognition (Section 2.1) has been extended to include related works.
 
 \item \emph{Since the authors use the UrbanSound8k dataset, it is not clear how the sensor grid approach is applied. Is there a grid of sensors included?}
 
@@ -95,15 +93,5 @@ $\rightarrow$ The contribution of this work is on the coding only. As discussed 
 $\rightarrow$ While we are aware that standardized metrics exist such as the ITU protocols, we found that they are not adapted to the evaluation of intelligibility in this application. The encoding process distorts the signal in a very non-linear way, so that we have no control over the background and signal elements. A five-point score on the overall intelligibility is still used however, and a second metric (the transcription ratio) is designed to account for the typical distortions induced by linearly scaled spectrogram and phase recoveries. Motivation and insights concerning the used metrics as well as this discussion are now added in Section 3.3.
 
 \end{enumerate}
-
-FELIX : fig 3 xlabel coupé, réduire la figure ou la refaire pour avoir la bonne taille de fonte
-
-section 3.2 Preserving event recognition performance at low bitrate.
-
-Fig 6 en haut de page caption trop longue
-
-Fig 7 convertir en noir et blanc et expliciter le niveau de gris dans la caption. On ne fait pas le lien avec la figure. Raccourci et explicite la figure avant.
-
-Fig 12 et 13 agrandir presque pleine page
 
 \end{document}

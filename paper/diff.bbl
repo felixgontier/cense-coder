@@ -308,13 +308,18 @@ Chu, S.; Narayanan, S.; Kuo, C.
 \newblock {\em IEEE Transactions on Audio, Speech, and Language Processing}
   {\bf 2009}, {\em 17},~1142--1158.
 
-\bibitem[Salamon and Bello(2015)]{salamon2015-2}
-Salamon, J.; Bello, J.
-\newblock Unsupervised feature learning for urman sound classification.
-\newblock  2015 IEEE International Conference on Acoustics, Speech and Signal
+\DIFdelbegin %DIFDELCMD < \bibitem[Salamon and Bello(2015)]{salamon2015-2}
+%DIFDELCMD < %%%
+\DIFdel{Salamon, J.; Bello, J.
+}%DIFDELCMD < \newblock %%%
+\DIFdel{Unsupervised feature learning for urman sound classification.
+}%DIFDELCMD < \newblock  %%%
+\DIFdel{2015 IEEE International Conference on Acoustics, Speech and Signal
   Processing,  2015.
+}%DIFDELCMD < 
 
-\bibitem[Baugé \em{et~al.}(2013)Baugé, Lagrange, Andén, and
+%DIFDELCMD < %%%
+\DIFdelend \bibitem[Baugé \em{et~al.}(2013)Baugé, Lagrange, Andén, and
   Mallat]{bauge2013}
 Baugé, C.; Lagrange, M.; Andén, J.; Mallat, S.
 \newblock Representing environmental sounds using the separable scattering
@@ -322,12 +327,28 @@ Baugé, C.; Lagrange, M.; Andén, J.; Mallat, S.
 \newblock  2013 IEEE International Conference on Acoustics, Speech and Signal
   Processing,  2013.
 
-\bibitem[Salamon and Bello(2015)]{salamon2015}
-Salamon, J.; Bello, J.
+\DIFdelbegin %DIFDELCMD < \bibitem[Salamon and Bello(2015)]{salamon2015}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \bibitem[Salamon and Bello(2015{\natexlab{a}})]{salamon2015}
+\DIFaddend Salamon, J.; Bello, J.
 \newblock Feature learning with deep scattering for urban sound analysis.
 \newblock  23rd European Signal Processing Conference,  2015.
 
-\bibitem[Chachada and Kuo(2013)]{chachada2013}
+\DIFaddbegin \bibitem[Salamon and Bello(2015{\natexlab{b}})]{salamon2015-2}
+\DIFadd{Salamon, J.; Bello, J.
+}\newblock \DIFadd{Unsupervised feature learning for urban sound classification.
+}\newblock  \DIFadd{2015 IEEE International Conference on Acoustics, Speech and Signal
+  Processing,  2015.
+}
+
+\bibitem[Ntalampiras \em{et~al.}(2012)Ntalampiras, Potamitis, and
+  Fakotakis]{ntalampiras2012}
+\DIFadd{Ntalampiras, S.; Potamitis, I.; Fakotakis, N.
+}\newblock \DIFadd{Acoustic Detection of Human Activities in Natural Environments.
+}\newblock {\em \DIFadd{J. Audio Eng. Soc}} {\bf \DIFadd{2012}}\DIFadd{, }{\em \DIFadd{60}}\DIFadd{,~686--695.
+}
+
+\DIFaddend \bibitem[Chachada and Kuo(2013)]{chachada2013}
 Chachada, S.; Kuo, C.
 \newblock Environmental sound recognition: A survey.
 \newblock  2013 Asia-Pacific Signal and Information Processing Association
