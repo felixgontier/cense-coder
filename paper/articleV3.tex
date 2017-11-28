@@ -83,7 +83,7 @@
 \address{%
 $^{1}$ \quad {LS2N}{, UMR 6004, CNRS, \'Ecole Centrale de Nantes, 44300 Nantes}, France; felix.gontier@ls2n.fr\\%please add the complete location and add its zip code. %R: done
 $^{2}$ \quad {IFSTTAR, AME, LAE}{, 44340 Bouguenais, France}; pierre.aumond@ifsttar.fr (P.A.); arnaud.can@ifsttar.fr (A.C.)\\%please add the complete location and add it's zip code. %R: done
-$^{3}$ \quad {ETIS, UMR 8051}%please add the complete location and add it's zip code. 
+$^{3}$ \quad {ETIS, UMR 8051}%please add the complete location and add it's zip code.
 , Universit\'e Paris Seine, Universit\'e de Cergy-Pontoise, ENSEA, CNRS, F-95000 {Cergy-Pontoise}; %please add the city. %R: done
  catherine.lavandier@u-cergy.fr}
 
@@ -206,7 +206,7 @@ Considering an estimated PDF for our {data,} as shown in Figure~\ref{fig:pdf} (t
 Huffman encoding is then computed with either a frame-specific symbol-code dictionary or a fixed dictionary generated using a learning dataset. A comparison of both methods is shown in Figure~\ref{fig:dict_comp}. For most short texture frame durations, the local Huffman algorithm is found to be much faster. In fact, the encoding computational complexity is a function of the number of dictionary elements. A frame-specific dictionary only contains the symbols found in a given data packet, while a fixed dictionary must contain every possible symbol as it does not depend on the present data. The output bitrate is found to be close for both methods, as sending an optimal local dictionary balances the suboptimality of globally generated symbol-code pairs.
 
 The decoding process is quite straightforward, as both Huffman and $\Delta$ compressions are lossless and directly invertible. The entire coder scheme is summarized in Figure~\ref{fig:scheme}.
-\vspace{-12pt} 
+\vspace{-12pt}
 
 \begin{figure}[H]
 	\centering
@@ -391,7 +391,7 @@ The effect of changing the time-frequency resolution of the representation is pr
 
 \begin{table}[H]
 \centering
-\tablesize{\footnotesize} 
+\tablesize{\footnotesize}
 \caption{Classification accuracy in percentage for different models: SVMs (\textbf{a}); Random \mbox{Forests (\textbf{b});} Decision Trees (\textbf{c}); and Nearest Neigbors (\textbf{d}) with respect to varying representation resolutions. Numbers in red indicate best performance and numbers in bold indicate that no statistically significant difference is found when comparing to the best performing setting ($p<0.05$).}
 \label{T1}
 
@@ -400,45 +400,45 @@ The effect of changing the time-frequency resolution of the representation is pr
 \multicolumn{9}{c}{(\textbf{a})}\\
 \midrule
 %\cline{3-9}
-\multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{c}{Frames per second}\\ 
-\cmidrule{2-9}
-
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ 
-\midrule
-\multicolumn{1}{c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{c}{10} & 55 $\pm$ 3 & 60 $\pm$ 3 & 61 $\pm$ 4 & 62 $\pm$ 3 & 62 $\pm$ 4 & \textbf{63 $\pm$ 6} & \textbf{65 $\pm$ 6} \\ 
- %\cline{2-9}
-\multicolumn{1}{c}{}
- & \multicolumn{1}{c}{20} & 58 $\pm$ 4 & 62 $\pm$ 4 & 63 $\pm$ 4 & 64 $\pm$ 4 & 63 $\pm$ 4 & \textbf{65 $\pm$ 5} & \textbf{67  $\pm$  6} \\ 
- %\cline{2-9}
-\multicolumn{1}{c}{}
- & \multicolumn{1}{c}{30} & 60 $\pm$ 3 & 64 $\pm$ 4 & 64 $\pm$ 4 & \textbf{65 $\pm$ 4} & \textbf{65 $\pm$ 3} & \textbf{67 $\pm$ 4} & \textbf{\textcolor{red}{68 $\pm$ 4}} \\ 
- %\cline{2-9}
-\multicolumn{1}{c}{}
- & \multicolumn{1}{c}{40} & 60 $\pm$ 3 & 63 $\pm$ 4 & \textbf{64 $\pm$ 4} & 64 $\pm$ 4 & \textbf{64 $\pm$ 4} & \textbf{66 $\pm$ 4} & \textbf{68 $\pm$ 5} \\
- 
-\midrule
- 
-\multicolumn{9}{c}{(\textbf{b})}\\
-\cmidrule{1-9}
-\multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{c}{Frames per second}\\ 
+\multicolumn{2}{c}{\multirow{2}{*}{SVM}} & \multicolumn{7}{c}{Frames per second}\\
 \cmidrule{2-9}
 
  & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\
-  
+\midrule
+\multicolumn{1}{c}{\multirow{4}{*}{Mel bands}}
+ & \multicolumn{1}{c}{10} & 55 $\pm$ 3 & 60 $\pm$ 3 & 61 $\pm$ 4 & 62 $\pm$ 3 & 62 $\pm$ 4 & \textbf{63 $\pm$ 6} & \textbf{65 $\pm$ 6} \\
+ %\cline{2-9}
+\multicolumn{1}{c}{}
+ & \multicolumn{1}{c}{20} & 58 $\pm$ 4 & 62 $\pm$ 4 & 63 $\pm$ 4 & 64 $\pm$ 4 & 63 $\pm$ 4 & \textbf{65 $\pm$ 5} & \textbf{67  $\pm$  6} \\
+ %\cline{2-9}
+\multicolumn{1}{c}{}
+ & \multicolumn{1}{c}{30} & 60 $\pm$ 3 & 64 $\pm$ 4 & 64 $\pm$ 4 & \textbf{65 $\pm$ 4} & \textbf{65 $\pm$ 3} & \textbf{67 $\pm$ 4} & \textbf{\textcolor{red}{68 $\pm$ 4}} \\
+ %\cline{2-9}
+\multicolumn{1}{c}{}
+ & \multicolumn{1}{c}{40} & 60 $\pm$ 3 & 63 $\pm$ 4 & \textbf{64 $\pm$ 4} & 64 $\pm$ 4 & \textbf{64 $\pm$ 4} & \textbf{66 $\pm$ 4} & \textbf{68 $\pm$ 5} \\
+
+\midrule
+
+\multicolumn{9}{c}{(\textbf{b})}\\
+\cmidrule{1-9}
+\multicolumn{2}{c}{\multirow{2}{*}{RF-500}} & \multicolumn{7}{c}{Frames per second}\\
+\cmidrule{2-9}
+
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\
+
 \midrule
 
 \multicolumn{1}{c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{c}{10} & 60 $\pm$ 3 & 62 $\pm$ 3 & 62 $\pm$ 3 & 63 $\pm$ 3 & 63 $\pm$ 3 & \textbf{65 $\pm$ 4} & \textbf{67 $\pm$ 5} \\ 
+ & \multicolumn{1}{c}{10} & 60 $\pm$ 3 & 62 $\pm$ 3 & 62 $\pm$ 3 & 63 $\pm$ 3 & 63 $\pm$ 3 & \textbf{65 $\pm$ 4} & \textbf{67 $\pm$ 5} \\
 % \cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{20} & 61 $\pm$ 4 & 63 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 4 & \textbf{66 $\pm$ 6} & \textbf{69 $\pm$ 6} \\ 
+ & \multicolumn{1}{c}{20} & 61 $\pm$ 4 & 63 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 4 & \textbf{66 $\pm$ 6} & \textbf{69 $\pm$ 6} \\
 % \cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{30} & 62 $\pm$ 3 & 63 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 4 & \textbf{67 $\pm$ 5} & \textbf{\textcolor{red}{69 $\pm$ 6}} \\ 
+ & \multicolumn{1}{c}{30} & 62 $\pm$ 3 & 63 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 3 & 64 $\pm$ 4 & \textbf{67 $\pm$ 5} & \textbf{\textcolor{red}{69 $\pm$ 6}} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{40} & 62 $\pm$ 4 & 63 $\pm$ 4 & 63 $\pm$ 4 & 64 $\pm$ 4 & 63 $\pm$ 4 & \textbf{67 $\pm$ 6} & \textbf{68 $\pm$ 6} \\ 
+ & \multicolumn{1}{c}{40} & 62 $\pm$ 4 & 63 $\pm$ 4 & 63 $\pm$ 4 & 64 $\pm$ 4 & 63 $\pm$ 4 & \textbf{67 $\pm$ 6} & \textbf{68 $\pm$ 6} \\
 
 \midrule
 
@@ -446,23 +446,23 @@ The effect of changing the time-frequency resolution of the representation is pr
 
 \midrule
 
-\multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{c}{Frames per second}\\ 
+\multicolumn{2}{c}{\multirow{2}{*}{DT}} & \multicolumn{7}{c}{Frames per second}\\
 \cmidrule{2-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\
 
 \midrule
 
 \multicolumn{1}{c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{c}{10} & 42 $\pm$ 3 & \textbf{46 $\pm$ 4} & 46 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 3 & \textbf{46 $\pm$ 5} & \textbf{\textcolor{red}{49 $\pm$ 3}} \\ 
+ & \multicolumn{1}{c}{10} & 42 $\pm$ 3 & \textbf{46 $\pm$ 4} & 46 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 3 & \textbf{46 $\pm$ 5} & \textbf{\textcolor{red}{49 $\pm$ 3}} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{20} & 43 $\pm$ 5 & 43 $\pm$ 3 & 43 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 3 & 45 $\pm$ 5 & \textbf{47 $\pm$ 5} \\ 
+ & \multicolumn{1}{c}{20} & 43 $\pm$ 5 & 43 $\pm$ 3 & 43 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 3 & 45 $\pm$ 5 & \textbf{47 $\pm$ 5} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{30} & 42 $\pm$ 4 & 43 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 5 & 43 $\pm$ 3 & 43 $\pm$ 4 & \textbf{45 $\pm$ 5} \\ 
+ & \multicolumn{1}{c}{30} & 42 $\pm$ 4 & 43 $\pm$ 2 & 44 $\pm$ 3 & 45 $\pm$ 5 & 43 $\pm$ 3 & 43 $\pm$ 4 & \textbf{45 $\pm$ 5} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{40} & 42 $\pm$ 6 & 43 $\pm$ 3 & 43 $\pm$ 3 & 42 $\pm$ 3 & 44 $\pm$ 3 & 46 $\pm$ 3 & \textbf{46 $\pm$ 4} \\ 
+ & \multicolumn{1}{c}{40} & 42 $\pm$ 6 & 43 $\pm$ 3 & 43 $\pm$ 3 & 42 $\pm$ 3 & 44 $\pm$ 3 & 46 $\pm$ 3 & \textbf{46 $\pm$ 4} \\
 
 \midrule
 
@@ -470,23 +470,23 @@ The effect of changing the time-frequency resolution of the representation is pr
 
 \cmidrule{1-9}
 
-\multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{c}{Frames per second}\\ 
+\multicolumn{2}{c}{\multirow{2}{*}{KNN-5}} & \multicolumn{7}{c}{Frames per second}\\
 \cmidrule{2-9}
- & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\ 
+ & & 2 & 4 (4.1) & 6 (6.1) & 8 (7.7) & 10 (9.5) & 20 (21) & 85 \\
 
 \midrule
 
 \multicolumn{1}{c}{\multirow{4}{*}{Mel bands}}
- & \multicolumn{1}{c}{10} &43 $\pm$ 2 & 51 $\pm$ 4 & 53 $\pm$ 4 & 53 $\pm$ 5 & 53 $\pm$ 4 & 54 $\pm$ 4 & \textbf{56 $\pm$ 3} \\ 
+ & \multicolumn{1}{c}{10} &43 $\pm$ 2 & 51 $\pm$ 4 & 53 $\pm$ 4 & 53 $\pm$ 5 & 53 $\pm$ 4 & 54 $\pm$ 4 & \textbf{56 $\pm$ 3} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{20} & 44 $\pm$ 3 & 52 $\pm$ 4 & 53 $\pm$ 3 & 54 $\pm$ 4 & \textbf{54 $\pm$ 4} & \textbf{55 $\pm$ 4} & \textbf{\textcolor{red}{58 $\pm$ 4}} \\ 
+ & \multicolumn{1}{c}{20} & 44 $\pm$ 3 & 52 $\pm$ 4 & 53 $\pm$ 3 & 54 $\pm$ 4 & \textbf{54 $\pm$ 4} & \textbf{55 $\pm$ 4} & \textbf{\textcolor{red}{58 $\pm$ 4}} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{30} & 45 $\pm$ 4 & 54 $\pm$ 5 & \textbf{55 $\pm$ 5} & \textbf{55 $\pm$ 4} & \textbf{55 $\pm$ 4} & \textbf{56 $\pm$ 4} & \textbf{56 $\pm$ 4} \\ 
+ & \multicolumn{1}{c}{30} & 45 $\pm$ 4 & 54 $\pm$ 5 & \textbf{55 $\pm$ 5} & \textbf{55 $\pm$ 4} & \textbf{55 $\pm$ 4} & \textbf{56 $\pm$ 4} & \textbf{56 $\pm$ 4} \\
  %\cline{2-9}
 \multicolumn{1}{c}{}
- & \multicolumn{1}{c}{40} & 46 $\pm$ 3 & 53 $\pm$ 5 & \textbf{55 $\pm$ 5} & \textbf{55 $\pm$ 4} & \textbf{55 $\pm$ 5} & \textbf{57 $\pm$ 4} & \textbf{57 $\pm$ 3} \\ 
+ & \multicolumn{1}{c}{40} & 46 $\pm$ 3 & 53 $\pm$ 5 & \textbf{55 $\pm$ 5} & \textbf{55 $\pm$ 4} & \textbf{55 $\pm$ 5} & \textbf{57 $\pm$ 4} & \textbf{57 $\pm$ 3} \\
  %\cline{1-9}
  \bottomrule
 \end{tabular}
@@ -516,7 +516,7 @@ Both descriptor are thus found to have similar representational capabilities des
 The perceptual test ({{decoded speech utterances for various conditions can be listened to at} \url{https://felixgontier.github.io/cense-coder/}}) then evaluates the impact of analysis frame rate on intelligibility using the average intelligibility score (AIS) given by the subjects and the intelligibility ratio (IR) computed as the number of correctly transcribed words versus the number of words in the spoken utterance. Given the test conditions presented in Section~\ref{sec:inintelligibility_p} and the number of subjects, the mean and standard deviation are computed on an average of 54 results per frame rate parameter: 12 subjects evaluating each analysis resolution 4.5 times on average.
 
 The results of the perceptual test, visible in Figure~\ref{fig:subj_int}, confirm the qualitative evaluation of speech properties discussed in Section \ref{sec:inintelligibility_p}. Phonemes separation is indeed mandatory in order to have a good intelligibility of speech. This implies an analysis frame rate significantly larger than the phonemes rate the considered language. A limit at about 10~Hz corresponding to a frame duration of 100~ms is observed, as the studied 8~Hz setting is found to be almost completely inintelligible as very few words are understood correctly at this rate. We assume that the correctly identified words are a result of coincidentally adequate frame timings, i.e., analysis frames matching the precise location of phoneme utterances for a short duration. Similarly, framing effects induced by the proposed processing scheme yielded errors for higher frame rates transcriptions and a globally lower perceptual intelligibility.
-\vspace{-6pt} 
+\vspace{-6pt}
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=0.6\textwidth]{figures/subj_int.eps}
@@ -547,7 +547,7 @@ This scheme will be implemented with a large-scale sensor grid as part of the CE
 
 To do so, future work will focus on the use of such data encoder in a sensor grid approach as part of the CENSE project where its effectiveness will be assessed in field conditions. As far as the proposed encoding scheme is concerned, the usefulness of more sophisticated encoding paradigms should also be studied in order to further improve bitrate efficiency, as well as the effect of multiple channel coding and its interest in sensor grids applications.
 
-\vspace{6pt} 
+\vspace{6pt}
 \acknowledgments{The authors would like to acknowledge partial funding from the ANR under project reference ANR-16-CE22-0012 and to thank Christophe d'Alessandro for fruitful discussion on speech intelligibility.}
 
 %\authorcontributions{{For research articles with several authors, }a short paragraph specifying their individual contributions must be provided. The following statements should be used “X.X. and Y.Y. conceived and designed the experiments; X.X. performed the experiments; X.X. and Y.Y. analyzed the data; W.W. contributed reagents/materials/analysis tools; Y.Y. wrote the paper.” Authorship must be limited to those who have contributed substantially to the work reported.}%Please add the main text in accordance with the template.
@@ -559,7 +559,7 @@ To do so, future work will focus on the use of such data encoder in a sensor gri
 %=====================================
 \externalbibliography{yes}
 %\bibliography{your_external_BibTeX_file}
-\reftitle{References}
+\section{References}
 \begin{thebibliography}{999}
 \providecommand{\natexlab}[1]{#1}
 
@@ -724,8 +724,8 @@ Foggia, P.; Petkov, N.; Saggese, A.; Strisciuglio, N.; Vento, M.
 
 \bibitem[Kumar and Raj(2016)]{kumar2016}
 Kumar, A.; Raj, B.
-\newblock Features and Kernels for Audio Event Recognition. 2016. 
-\newblock Available online: \mbox{\url{https://arxiv.org/abs/1607.05765}} ({accessed on}). 
+\newblock Features and Kernels for Audio Event Recognition. 2016.
+\newblock Available online: \mbox{\url{https://arxiv.org/abs/1607.05765}} ({accessed on}).
 %please add accessed date.
 \bibitem[Radhakrishnan et~al.(2005)Radhakrishnan, Divakaran, and
   Smaragdis]{radhakrishnan2005}
