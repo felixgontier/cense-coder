@@ -40,7 +40,7 @@ iH(isnan(iH)) = 0; % Some frequencies are outside analysis range, ie we divide b
 %% Huffman dictionnary
 load dict;
 
-imp_ver = 0;
+imp_ver = 1;
 % ----- END - Matlab ----- %
 
 if ~imp_ver
