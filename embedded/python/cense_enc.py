@@ -27,10 +27,10 @@ with open("tob_4096.txt") as w_file:
 		f_temp = line.split(',')
 		# Weight array (variable length)
 		f_temp = [float(i) for i in f_temp]
-		H.append(f_temp[2:])
+		H.append(f_temp[4:])
 		# Beginning and end indices
 		f_temp = [int(i) for i in f_temp]
-		f.append(f_temp[:2])
+		f.append(f_temp[:4])
 
 # Load Huffman dictionary
 d_sym = []
@@ -57,6 +57,9 @@ X_tob = np.zeros((len(f), l_tf))
 X_tob2 = np.zeros((len(f), l_tf))
 
 
+# Open a code file
+c_file = open("".join((d_filename,"_enc.txt")), 'w')
+
 # Process
 for ind_frame in range(1,n_frames+1):
 	# Squared magnitude of RFFT
@@ -64,7 +67,17 @@ for ind_frame in range(1,n_frames+1):
 	X = np.square(np.absolute(X))/fft_norm
 	# Third-octave band analysis
 	for ind_band in range(0,len(f)):
-		X_tob[ind_band, ind_f] = np.dot(X[f[ind_band][0]-1:f[ind_band][1]], H[ind_band][0:f[ind_band][1]-f[ind_band][0]+1])
+		# ----- Add where weights equal 1 version -----
+		X_tob2[ind_band, ind_f] = 0
+		if f[ind_band][1] != 0: # 0 if there is no 1 part
+			# f[][0]: first nonzero weight, increasing part - f[][1]: last non-1 weight, increasing part - f[][2]: first nonzero weight, increasing part - f[][3]: last non-1 weight, increasing part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][0]-1:f[ind_band][1]], H[ind_band][:f[ind_band][1]-f[ind_band][0]+1]) # Increasing part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + X[f[ind_band][1]:f[ind_band][2]-1] # 1 part
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][2]-1:f[ind_band][3]], H[ind_band][f[ind_band][1]-f[ind_band][0]+1:]) # Decreasing part
+		else
+			X_tob2[ind_band, ind_f] = X_tob2[ind_band, ind_f] + np.dot(X[f[ind_band][0]-1:f[ind_band][3]], H[ind_band])
+		# ----- END -----
+		X_tob[ind_band, ind_f] = np.dot(X[f[ind_band][0]-1:f[ind_band][1]], H[ind_band])
 		if X_tob[ind_band, ind_f] == 0:
 			X_tob[ind_band, ind_f] = 1e-15
 	# dB SPL
@@ -72,7 +85,6 @@ for ind_frame in range(1,n_frames+1):
 	# Texture frame complete/End of signal check
 	if ind_f == l_tf-1 or ind_frame == n_frames:
 		ind_tf = ind_tf+1
-		print(" - Texture Frame {} - ".format(ind_tf))
 		# Normalisation + Quantization
 		X_tob = X_tob[:, :ind_f+1]
 		q_norm[0] = X_tob.min().min()
@@ -84,8 +96,10 @@ for ind_frame in range(1,n_frames+1):
 		X_delta[:,0] = X_tob[:,0]
 		for ind_f_tf in range(1,X_delta.shape[1]):
 			X_delta[:,ind_f_tf] = X_tob[:,ind_f_tf]-X_tob[:,ind_f_tf-1]
+		print(X_delta)
 		# Huffman
 		X_delta = X_delta.transpose().flatten()
+		print(X_delta)
 		X_huff = []
 		X_huff_l = 0
 		for ind_sym_data in range(0,X_delta.shape[0]):
@@ -98,35 +112,21 @@ for ind_frame in range(1,n_frames+1):
 		print("Code: ",X_huff)
 		print("Code length: ",X_huff_l)
 		print("Normalisation values: ", q_norm)
-		
-		
-		# Convert binary string to hex string by bytes
-		X_huff = X_huff + "0"*(8-(X_huff_l%8))
-		X_huffh = ""
-		for ind_byte in range(int(np.ceil(float(len(X_huff))/8))):
-			X_huffh = X_huffh+'{:0{width}x}'.format(int(X_huff[ind_byte*8:(ind_byte+1)*8],2), width=2)
-		
-		'''
-		X_huffb = ""
-		for ind_byte in range(int(len(X_huffh)/2)):
-			X_huffb = X_huffb+bin(int(X_huffh[ind_byte*2:(ind_byte+1)*2], 16))[2:].zfill(8)
-		'''
-		
-		with open("".join((d_filename,"_enc.txt")), 'a') as c_file:
-			# Save as line in a file
-			c_file.write(str(q_norm[0]))
-			c_file.write(',')
-			c_file.write(str(q_norm[1]))
-			c_file.write(',')
-			c_file.write(str(X_huff_l))
-			c_file.write(',')
-			c_file.write(str(X_huffh))
-			c_file.write('\n')
-		
+	
+		# Save as line in a file
+		c_file.write(str(q_norm[0]))
+		c_file.write(',')
+		c_file.write(str(q_norm[1]))
+		c_file.write(',')
+		c_file.write(str(X_huff_l))
+		c_file.write(',')
+		c_file.write(str(X_huff))
+		c_file.write('\n')
 	
 		# Reset analysis frames count
 		ind_f = 0
 	else:
 		ind_f = ind_f+1
 
+c_file.close()
 

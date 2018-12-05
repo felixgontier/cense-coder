@@ -27,8 +27,8 @@ x = resample(x(:, 1), sr, sr_temp); % Resample to 32kHz
 
 sig_type = 'White noise';
 sig_type = 'Sweep';
-%sig_type = 'Sine_440';
-%sig_type = 'Sine_440_emb';
+sig_type = 'Sine_440';
+sig_type = 'Sine_440_emb';
 
 switch sig_type
     case 'White noise'

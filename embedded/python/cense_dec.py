@@ -1,9 +1,8 @@
 import sys
 import numpy as np
 # from librosa import core
-#import matplotlib.pyplot as plt
-#import soundfile as sf
-import librosa as lr
+import matplotlib.pyplot as plt
+import soundfile as sf
 
 # Constants: process parameters
 sr = 32000
@@ -46,11 +45,7 @@ for line in c_file: # Texture frames
 	q_norm[0] = float(c_temp[0])
 	q_norm[1] = float(c_temp[1])
 	X_huff_l = int(c_temp[2])
-	X_huffh = c_temp[3]
-	
-	X_huff = ""
-	for ind_byte in range(int(len(X_huffh)/2)):
-		X_huff = X_huff+bin(int(X_huffh[ind_byte*2:(ind_byte+1)*2], 16))[2:].zfill(8)
+	X_huff = c_temp[3]
 	# Huffman
 	X_delta = []
 
@@ -69,6 +64,7 @@ for line in c_file: # Texture frames
 
 	X_delta = [int(i) for i in X_delta]
 	X_delta = np.reshape(X_delta,(-1,iH.shape[1])).transpose()
+	print(X_delta)
 	# Delta
 	X_tob = np.zeros(X_delta.shape)
 	X_tob[:,0] = X_delta[:,0]
@@ -76,6 +72,8 @@ for line in c_file: # Texture frames
 		X_tob[:,ind_f_tf] = X_delta[:,ind_f_tf]+X_tob[:,ind_f_tf-1]
 	# Normalisation + Quantization
 	X_tob = q_norm[1]*X_tob/(np.power(2,q-1)-1)+q_norm[0]
+
+	print(X_tob)
 
 	# Third-octave bands to spectrogram
 	X_tob = np.power(10,X_tob/10) # Linear amplitude
@@ -115,5 +113,10 @@ x = x_temp/np.absolute(x_temp).max()
 # Save resulting audio
 np.savetxt("".join((d_filename,"_dec.txt")), x, fmt='%.18e', delimiter=',', newline='\n', header='', footer='', comments='# ')
 
-lr.output.write_wav('sinus_440_emb_dec.wav', x, sr)
 
+sf.write('sinus_440_emb_dec.ogg', x, sr)
+
+
+t = np.linspace(0,x_temp.shape[0]/sr, num=x_temp.shape[0])
+plt.plot(t, x_temp)
+plt.show()
